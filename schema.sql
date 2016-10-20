@@ -31,7 +31,7 @@ CREATE TABLE customers
 	state VARCHAR(50) NOT NULL,
 	country VARCHAR(50) NOT NULL,
 	zip VARCHAR(10) NOT NULL,
-	payment_email VARCHAR(255) NOT NULL,
+	payment_email VARCHAR(255),
 );
 
 CREATE TABLE orders
