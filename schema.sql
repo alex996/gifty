@@ -1,0 +1,74 @@
+CREATE TABLE products
+(
+	id INT(5) PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	description TEXT NOT NULL,
+	category VARCHAR(50) NOT NULL,
+	price DECIMAL(10, 2) NOT NULL,
+	promotion DECIMAL(4, 2) NOT NULL DEFAULT 0, -- % in ex: 12.50
+	quantity INT(5) NOT NULL, -- in stock
+	featured BOOLEAN -- featured on home page or no
+);
+
+CREATE TABLE users
+(
+	id INT(7) PRIMARY KEY AUTO_INCREMENT,
+	email VARCHAR(255) UNIQUE NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	salt VARCHAR(50) NOT NULL,
+	role VARCHAR(5) NOT NULL CHECK IN ('ADMIN','USER')
+);
+
+CREATE TABLE customers
+(
+	id INT(7) PRIMARY KEY AUTO_INCREMENT,
+	user_id INT(7) NOT NULL REFERENCES users(id),
+	first VARCHAR(255) NOT NULL,
+	last VARCHAR(255) NOT NULL,
+	age INT(2) NOT NULL CHECK (age > 18),
+	street VARCHAR(255) NOT NULL,
+	city VARCHAR(50) NOT NULL,
+	state VARCHAR(50) NOT NULL,
+	country VARCHAR(50) NOT NULL,
+	zip VARCHAR(10) NOT NULL,
+	payment_email VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE orders
+(
+	id INT(10) PRIMARY KEY AUTO_INCREMENT,
+	customer_id INT(7) NOT NULL REFERENCES customers(id),
+	street VARCHAR(255) NOT NULL,
+	city VARCHAR(50) NOT NULL,
+	state VARCHAR(50) NOT NULL,
+	country VARCHAR(50) NOT NULL,
+	zip VARCHAR(10) NOT NULL,
+	date DATETIME NOT NULL,
+	status VARCHAR(20) NOT NULL CHECK IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR'),
+	total DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE order_details
+(
+	id INT(10) PRIMARY KEY AUTO_INCREMENT,
+	order_id INT(7) NOT NULL REFERENCES orders(id),
+	product_id INT(5) NOT NULL REFERENCES products(id),
+	price DECIMAL(10, 2) NOT NULL,
+	quantity INT(5) NOT NULL
+);
+
+CREATE TABLE carts
+(
+	id INT(10) PRIMARY KEY AUTO_INCREMENT,
+	user_id INT(7) REFERENCES users(id),
+	sess_id VARCHAR(50),
+	date DATETIME NOT NULL
+);
+
+CREATE TABLE cart_details
+(
+	id INT(10) PRIMARY KEY AUTO_INCREMENT,
+	cart_id INT(7) NOT NULL REFERENCES carts(id),
+	product_id INT(5) NOT NULL REFERENCES products(id),
+	quantity INT(5) NOT NULL
+);
