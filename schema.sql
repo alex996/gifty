@@ -7,7 +7,16 @@ CREATE TABLE products
 	price DECIMAL(10, 2) NOT NULL,
 	promotion DECIMAL(4, 2) NOT NULL DEFAULT 0, -- % in ex: 12.50
 	quantity INT(5) NOT NULL, -- in stock
-	featured BOOLEAN -- featured on home page or no
+	featured BOOLEAN
+);
+
+CREATE TABLE reviews
+(
+	id INT(7) PRIMARY KEY AUTO_INCREMENT,
+	customer_id INT(7) NOT NULL REFERENCES customers(id),
+	comment TEXT,
+	rating INT(1),
+	date DATETIME
 );
 
 CREATE TABLE users
@@ -16,7 +25,7 @@ CREATE TABLE users
 	email VARCHAR(255) UNIQUE NOT NULL,
 	password VARCHAR(255) NOT NULL,
 	salt VARCHAR(50) NOT NULL,
-	role VARCHAR(5) NOT NULL CHECK IN ('ADMIN','USER')
+	account_type CHAR(1) CHECK IN ('A','U')
 );
 
 CREATE TABLE customers
@@ -31,7 +40,7 @@ CREATE TABLE customers
 	state VARCHAR(50) NOT NULL,
 	country VARCHAR(50) NOT NULL,
 	zip VARCHAR(10) NOT NULL,
-	payment_email VARCHAR(255),
+	payment_email VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE orders
