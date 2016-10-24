@@ -4,7 +4,7 @@ CREATE TABLE products
 	name VARCHAR(255) NOT NULL,
 	description TEXT NOT NULL,
 	category VARCHAR(50) NOT NULL,
-	price DECIMAL(10, 2) NOT NULL,
+	price DECIMAL(10, 2) UNSIGNED NOT NULL,
 	promotion DECIMAL(4, 2) UNSIGNED NOT NULL DEFAULT 0, -- % in ex: 12.50; >= 0 and <= 99.99
 	quantity INT(5) UNSIGNED NOT NULL, -- in stock
 	featured BOOLEAN
@@ -53,7 +53,7 @@ CREATE TABLE orders
 	zip VARCHAR(10) NOT NULL,
 	date DATETIME NOT NULL,
 	status VARCHAR(20) NOT NULL CHECK IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR'),
-	total DECIMAL(10, 2) NOT NULL
+	total DECIMAL(10, 2) UNSIGNED NOT NULL
 );
 
 CREATE TABLE order_details
