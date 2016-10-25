@@ -24,7 +24,7 @@ CREATE TABLE images
 	id INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	product_id NOT NULL REFERENCES products(id),
 	path VARCHAR(255) NOT NULL,
-	text TEXT NOT NULL
+	alt_text TEXT NOT NULL
 );
 
 CREATE TABLE users
@@ -51,7 +51,7 @@ CREATE TABLE payment_methods
 	id INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	customer_id INT(7) NOT NULL REFERENCES customers(id),
 	type VARCHAR(20) NOT NULL CHECK IN ('VISA', 'MASTERCARD', 'INTERAC'),
-	number INT(4) NOT NULL,
+	last_digits INT(4) NOT NULL,
 	address VARCHAR(255) NOT NULL,
 	city VARCHAR(50) NOT NULL,
 	state VARCHAR(50) NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE orders
 	date TIMESTAMP NOT NULL,
 	status VARCHAR(20) NOT NULL CHECK IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR'),
 	total DECIMAL(8, 2) UNSIGNED NOT NULL,
-	pay_method_id INT(7) NOT NULL REFERENCES payment_methods(id),
+	method_id INT(7) NOT NULL REFERENCES payment_methods(id),
 );
 
 CREATE TABLE order_details
