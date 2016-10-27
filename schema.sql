@@ -5,24 +5,34 @@ CREATE TABLE products
 	description TEXT NOT NULL,
 	category VARCHAR(50) NOT NULL,
 	price DECIMAL(8, 2) UNSIGNED NOT NULL,
-	promotion DECIMAL(4, 2) UNSIGNED NOT NULL DEFAULT 0, -- % in ex: 12.50; >= 0 and <= 99.99
+	promotion_id INT(7) NOT NULL REFERENCES promotions(id),
 	quantity INT(5) UNSIGNED NOT NULL, -- in stock
-	featured BOOLEAN
+	status VARCHAR(20) NOT NULL CHECK IN ('NORMAL', 'UNAVAILABLE', 'OBSOLETE'),
+	featured BOOLEAN,
+);
+
+CREATE TABLE promotions
+(
+	id INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	starts_at TIMESTAMP NOT NULL,
+	ends_at TIMESTAMP NOT NULL,
+	discount DECIMAL(4, 2) UNSIGNED NOT NULL DEFAULT 0, -- % in ex: 12.50; >= 0 and <= 99.99
 );
 
 CREATE TABLE reviews
 (
 	id INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	customer_id INT(7) NOT NULL REFERENCES customers(id),
+	product_id INT(7) NOT NULL REFERENCES products(id),
 	comment TEXT NOT NULL,
 	rating INT(1) NOT NULL CHECK rating BETWEEN 1 AND 5,
-	created_at DATETIME NOT NULL
+	created_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE images
 (
 	id INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	product_id NOT NULL REFERENCES products(id),
+	product_id id INT(5) NOT NULL REFERENCES products(id),
 	path VARCHAR(255) NOT NULL,
 	alt_text VARCHAR(255) NOT NULL
 );
@@ -42,7 +52,7 @@ CREATE TABLE customers
 	user_id INT(7) NOT NULL REFERENCES users(id),
 	first VARCHAR(100) NOT NULL,
 	last VARCHAR(100) NOT NULL,
-	dob DATETIME NOT NULL,
+	dob DATE NOT NULL,
 	phone VARCHAR(15) NOT NULL
 );
 
@@ -71,7 +81,7 @@ CREATE TABLE orders
 	created_at TIMESTAMP NOT NULL,
 	status VARCHAR(20) NOT NULL CHECK IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR'),
 	total DECIMAL(8, 2) UNSIGNED NOT NULL,
-	method_id INT(7) NOT NULL REFERENCES payment_methods(id),
+	method_id INT(7) NOT NULL REFERENCES payment_methods(id)
 );
 
 CREATE TABLE order_details
@@ -86,7 +96,7 @@ CREATE TABLE order_details
 CREATE TABLE carts
 (
 	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	user_id INT(7) REFERENCES users(id),
+	customer_id INT(7) REFERENCES users(id),
 	sess_id VARCHAR(50),
 	created_at DATETIME NOT NULL
 );
