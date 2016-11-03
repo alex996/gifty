@@ -5,7 +5,7 @@ class Model {
 	protected $id;
 
 	public function __get($name) {
-		return $this->$get;
+		return $this->$name;
 	}
 
 	public function __set($name, $value) {
