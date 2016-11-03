@@ -4,7 +4,13 @@ class Model {
 
 	protected $id;
 
-	public function __set($name, $value) {}
+	public function __get($name) {
+		return $this->$get;
+	}
+
+	public function __set($name, $value) {
+		$this->$name = $value;
+	}
 
 	public function __construct() { }
 
