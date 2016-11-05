@@ -3,12 +3,18 @@ CREATE TABLE products
 	id INT(5) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
 	description TEXT NOT NULL,
-	category VARCHAR(50) NOT NULL,
+	category_id INT(5) NOT NULL REFERENCES categories(id),
 	price DECIMAL(8, 2) UNSIGNED NOT NULL,
 	promotion_id INT(7) REFERENCES promotions(id),
 	quantity INT(5) UNSIGNED NOT NULL, -- in stock
 	status VARCHAR(20) NOT NULL CHECK status IN ('NORMAL', 'UNAVAILABLE', 'OBSOLETE'),
 	featured BOOLEAN,
+);
+
+CREATE TABLE categories
+(
+	id INT(5) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE promotions
@@ -44,7 +50,13 @@ CREATE TABLE users
 	name VARCHAR(100) NOT NULL,
 	email VARCHAR(100) UNIQUE NOT NULL,
 	password VARCHAR(100) NOT NULL,
-	role VARCHAR(10) NOT NULL CHECK (role IN ('ADMIN', 'CUSTOMER'))
+	role_id NOT NULL REFERENCES roles(id),
+);
+
+CREATE TABLE roles 
+(
+	id INT(5) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE customers
@@ -63,11 +75,7 @@ CREATE TABLE payment_methods
 	customer_id INT(7) NOT NULL REFERENCES customers(id),
 	type VARCHAR(20) NOT NULL CHECK type IN ('VISA', 'MASTERCARD', 'INTERAC'),
 	last_digits INT(4) NOT NULL,
-	address VARCHAR(255) NOT NULL,
-	city VARCHAR(50) NOT NULL,
-	state VARCHAR(50) NOT NULL,
-	country VARCHAR(50) NOT NULL,
-	zip VARCHAR(10) NOT NULL,
+	address_id INT(10) NOT NULL REFERENCES addresses(id)
 );
 
 CREATE TABLE orders
@@ -93,12 +101,11 @@ CREATE TABLE order_details
 CREATE TABLE addresses
 (
 	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	customer_id INT(7) NOT NULL REFERENCES customers(id),
 	address VARCHAR(255) NOT NULL,
 	city VARCHAR(50) NOT NULL,
 	state VARCHAR(50) NOT NULL,
 	country VARCHAR(50) NOT NULL,
-	zip VARCHAR(10) NOT NULL,
+	zip VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE carts
