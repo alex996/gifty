@@ -7,8 +7,8 @@ CREATE TABLE products
 	price DECIMAL(8, 2) UNSIGNED NOT NULL,
 	promotion_id INT(7) REFERENCES promotions(id),
 	quantity INT(5) UNSIGNED NOT NULL, -- in stock
-	status VARCHAR(20) NOT NULL CHECK status IN ('NORMAL', 'UNAVAILABLE', 'OBSOLETE'),
-	featured BOOLEAN,
+	status VARCHAR(20) NOT NULL CHECK (status IN ('NORMAL', 'UNAVAILABLE', 'OBSOLETE')),
+	featured BOOLEAN
 );
 
 CREATE TABLE categories
@@ -50,7 +50,7 @@ CREATE TABLE users
 	name VARCHAR(100) NOT NULL,
 	email VARCHAR(100) UNIQUE NOT NULL,
 	password VARCHAR(100) NOT NULL,
-	role_id NOT NULL REFERENCES roles(id),
+	role_id NOT NULL REFERENCES roles(id)
 );
 
 CREATE TABLE roles 
@@ -86,7 +86,7 @@ CREATE TABLE orders
 	method_id INT(10) NOT NULL REFERENCES payment_methods(id),
 	status VARCHAR(20) NOT NULL CHECK status IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR'),
 	total DECIMAL(8, 2) UNSIGNED NOT NULL,
-	created_at TIMESTAMP NOT NULL,
+	created_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE order_details
