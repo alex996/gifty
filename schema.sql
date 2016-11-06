@@ -3,36 +3,38 @@ CREATE TABLE products
 	id INT(5) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
 	description TEXT NOT NULL,
-	category_id INT(5) NOT NULL REFERENCES categories(id),
+	category_id INT(3) NOT NULL REFERENCES categories(id),
 	price DECIMAL(8, 2) UNSIGNED NOT NULL,
-	promotion_id INT(7) REFERENCES promotions(id),
-	quantity INT(5) UNSIGNED NOT NULL, -- in stock
-	status VARCHAR(20) NOT NULL CHECK (status IN ('NORMAL', 'UNAVAILABLE', 'OBSOLETE')),
-	featured BOOLEAN
+	promotion_id INT(5) REFERENCES promotions(id),
+	quantity INT(5) UNSIGNED NOT NULL,
+	status VARCHAR(20) NOT NULL,
+	featured BOOLEAN NOT NULL,
+    CHECK (status IN ('IN_STOCK', 'OUT_OF_STOCK', 'END_OF_LIFE'))
 );
 
 CREATE TABLE categories
 (
-	id INT(5) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id INT(3) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE promotions
 (
-	id INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id INT(5) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	starts_at TIMESTAMP NOT NULL,
 	ends_at TIMESTAMP NOT NULL,
-	discount DECIMAL(4, 2) UNSIGNED NOT NULL DEFAULT 0 -- % in ex: 12.50; >= 0 and <= 99.99
+	discount DECIMAL(4, 2) UNSIGNED NOT NULL DEFAULT 0
 );
 
 CREATE TABLE reviews
 (
-	id INT(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	customer_id INT(7) NOT NULL REFERENCES customers(id),
 	product_id INT(5) NOT NULL REFERENCES products(id),
 	comment TEXT NOT NULL,
-	rating INT(1) NOT NULL CHECK rating BETWEEN 1 AND 5,
-	created_at DATETIME NOT NULL
+	rating INT(1) NOT NULL,
+	created_at DATETIME NOT NULL,
+    CHECK (rating BETWEEN 1 AND 5)
 );
 
 CREATE TABLE images
@@ -41,7 +43,7 @@ CREATE TABLE images
 	product_id INT(5) NOT NULL REFERENCES products(id),
 	path VARCHAR(255) NOT NULL,
 	alt_text VARCHAR(255) NOT NULL,
-	featured BOOLEAN
+	featured BOOLEAN NOT NULL
 );
 
 CREATE TABLE users
@@ -50,13 +52,8 @@ CREATE TABLE users
 	name VARCHAR(100) NOT NULL,
 	email VARCHAR(100) UNIQUE NOT NULL,
 	password VARCHAR(100) NOT NULL,
-	role_id NOT NULL REFERENCES roles(id)
-);
-
-CREATE TABLE roles 
-(
-	id INT(5) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(10) NOT NULL
+	role VARCHAR(20) NOT NULL,
+    CHECK (role IN ('ADMIN', 'CUSTOMER'))
 );
 
 CREATE TABLE customers
@@ -73,9 +70,10 @@ CREATE TABLE payment_methods
 (
 	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	customer_id INT(7) NOT NULL REFERENCES customers(id),
-	type VARCHAR(20) NOT NULL CHECK type IN ('VISA', 'MASTERCARD', 'INTERAC'),
-	last_digits INT(4) NOT NULL,
-	address_id INT(10) NOT NULL REFERENCES addresses(id)
+	type VARCHAR(20) NOT NULL,
+	last_digits INT(4) UNSIGNED NOT NULL,
+	address_id INT(10) NOT NULL REFERENCES addresses(id),
+    CHECK (type IN ('VISA', 'MASTERCARD', 'INTERAC'))
 );
 
 CREATE TABLE orders
@@ -84,15 +82,16 @@ CREATE TABLE orders
 	customer_id INT(7) NOT NULL REFERENCES customers(id),
 	address_id INT(10) NOT NULL REFERENCES addresses(id),
 	method_id INT(10) NOT NULL REFERENCES payment_methods(id),
-	status VARCHAR(20) NOT NULL CHECK status IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR'),
+	status VARCHAR(20) NOT NULL,
 	total DECIMAL(8, 2) UNSIGNED NOT NULL,
-	created_at TIMESTAMP NOT NULL
+	created_at TIMESTAMP NOT NULL,
+    CHECK (status IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR'))
 );
 
 CREATE TABLE order_details
 (
-	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	order_id INT(7) NOT NULL REFERENCES orders(id),
+	id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	order_id INT(10) NOT NULL REFERENCES orders(id),
 	product_id INT(5) NOT NULL REFERENCES products(id),
 	price DECIMAL(8, 2) UNSIGNED NOT NULL,
 	quantity INT(5) UNSIGNED NOT NULL
@@ -101,7 +100,7 @@ CREATE TABLE order_details
 CREATE TABLE addresses
 (
 	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	address VARCHAR(255) NOT NULL,
+	street VARCHAR(255) NOT NULL,
 	city VARCHAR(50) NOT NULL,
 	state VARCHAR(50) NOT NULL,
 	country VARCHAR(50) NOT NULL,
@@ -118,8 +117,8 @@ CREATE TABLE carts
 
 CREATE TABLE cart_details
 (
-	id INT(10) PRIMARY KEY UNSIGNED AUTO_INCREMENT,
-	cart_id INT(7) NOT NULL REFERENCES carts(id),
+	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	cart_id INT(10) NOT NULL REFERENCES carts(id),
 	product_id INT(5) NOT NULL REFERENCES products(id),
 	quantity INT(5) UNSIGNED NOT NULL
 );
