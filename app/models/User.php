@@ -2,23 +2,27 @@
 
 class User extends Model {
 
-	protected $name;
+	public $id;
 
-	protected $email;
+	public $name;
 
-	protected $password;
+	public $email;
 
-	protected $role;
+	public $password;
+
+	public $role;
 
 	public function __construct() {
 		parent::__construct();
+
+		//self::$class = 
 	}
 
-	public static function create($args) {
+	/*public static function create($args) {
 		//$user->toArray()
 		$args['password'] = password_hash($args['password'], PASSWORD_DEFAULT);
 		DB::run('INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)', $args);
-	}
+	}*/
 
 	public static function find($id) {
 		return DB::run('SELECT * FROM users WHERE id = :id', ['id' => $id])->fetchObject('User');

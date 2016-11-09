@@ -22,7 +22,7 @@ define('DB_NAME', 'gifty');
 define('DB_USER', 'gifty');
 
 // DB password:
-define('DB_PASS', 'yv3REfbTeu3FjHv7');
+define('DB_PASS', '3vDbfJ4stGaqJFxE');
 
 // DB port:
 define('DB_PORT', '');
