@@ -2,13 +2,9 @@
 
 class Model {
 
-	//public $id;
-
 	protected static $class;
 
 	protected static $table;
-
-	protected static $excluded = ['class', 'table'];
 
 	public function __get($name) {
 		return $this->$name;
@@ -21,48 +17,63 @@ class Model {
 	public function __construct() { }
 
 	public static function __static() {
-		if (!static::$class && !static::$table) {
-			static::$class = get_called_class(); // ex: User
-			static::$table = strtolower(static::$class).'s'; // ex: users
-		}
+		static::$class = get_called_class(); // ex: User
+		static::$table = strtolower(static::$class).'s'; // ex: users
 	}
 
-	public static function find($id) {
-		self::__static();
-		return DB::table(static::$table)->where('id', $id)->get();
+	public static function __callStatic($method, $args)
+    {
+        return call_user_func_array([DB::table(static::$table), $method], $args);
+    }
+
+    public static function first() {
+    	return static::where('id', 1)->limit(1)->select();
+    }
+
+    public static function find($id) {
+        return static::where('id', $id)->select();
+    }
+
+    public static function get($column, $operator = null, $value = null) {
+    	return static::where($column, $operator, $value)->select();
+    }
+
+    public static function all() {
+        return static::select();
+    }
+
+    public static function create($args) {
+    	return static::insert($args);
+    }
+
+    public function save() {
+    	if (isset($this->id)) {
+    		echo "id is set to " . $this->id;
+    		$obj = static::where('id', $this->id)->select();
+    		
+    		if (!empty($obj))
+    			return static::where('id', $this->id)->update($this->toArrayStrict());
+    		echo "this can't be happening... wtf";
+    	}
+
+   		static::insert($this->toArray());
 	}
 
-	public static function all() {
-		self::__static();
-		return DB::table(static::$table)->all();
+	public function delete() {
+		static::where('id', $this->id)->delete();
 	}
 
-	public static function create($args) {
-		self::__static();
-		DB::table(static::$table)->insert($args);
-		// TODO: return the object????
-	}
-
-	public function save() {
-		self::__static();
-		print_r($this->toArray());die();
-		DB::table(static::$table)->insert($this->toArray());
-		// TODO: return the object????
-	}
-
-
-
-
-	public function toArray()
+	public function toArray($strict=0)
 	{
-	    return array_diff(get_object_vars($this), self::$excluded);
-
-	    /*if (!is_object($obj) && !is_array($obj))
-        	return $obj;
-
-    	return array_map('toArray', (array) $obj);*/
+		$args = get_object_vars($this);
+		if ($strict) {
+			$args = array_diff($args, ['']);
+			unset($args['id']);
+		}
+		return $args;
 	}
 
+	public function toArrayStrict() {
+		return $this->toArray(1);
+	}
 }
-
-//Model::__static();

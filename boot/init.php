@@ -22,6 +22,9 @@ else {
 	ini_set('error_log', ROOT_PATH.'error.log');
 }
 
+// Start the session:
+session_start();
+
 // Load the DB class:
 require_once(SRC_PATH . "DB.php");
 

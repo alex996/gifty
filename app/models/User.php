@@ -24,13 +24,13 @@ class User extends Model {
 		DB::run('INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)', $args);
 	}*/
 
-	public static function find($id) {
+	/*public static function find($id) {
 		return DB::run('SELECT * FROM users WHERE id = :id', ['id' => $id])->fetchObject('User');
 	}
 
 	public static function all() {
 		return DB::run('SELECT * FROM users')->fetchAll(PDO::FETCH_CLASS, 'User');
-	}
+	}*/
 
 
 	/*public function save($obj) {
@@ -38,3 +38,5 @@ class User extends Model {
 	}*/
 
 }
+
+User::__static();

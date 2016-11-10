@@ -2,6 +2,6 @@ DirectoryIndex public/index.php
 
 RewriteEngine on
 
-RewriteCond %{REQUEST_URI} !\.(png|jpg|css|gif|js)$ [NC]
+RewriteCond %{REQUEST_URI} !\.(png|jpg|jpeg|css|gif|js)$ [NC]
 
 RewriteRule . public/index.php [L]
