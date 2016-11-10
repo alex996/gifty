@@ -71,6 +71,7 @@ CREATE TABLE payment_methods
 	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	customer_id INT(7) NOT NULL REFERENCES customers(id),
 	type VARCHAR(20) NOT NULL,
+	cardholder VARCHAR(100) NOT NULL,
 	last_digits INT(4) UNSIGNED NOT NULL,
 	address_id INT(10) NOT NULL REFERENCES addresses(id),
     CHECK (type IN ('VISA', 'MASTERCARD', 'INTERAC'))
@@ -122,3 +123,7 @@ CREATE TABLE cart_details
 	product_id INT(5) NOT NULL REFERENCES products(id),
 	quantity INT(5) UNSIGNED NOT NULL
 );
+
+
+-- DB prepping
+INSERT INTO users (name, email, password, role) VALUES('Alex', 'alex@gmail.com', '123456', 'ADMIN');

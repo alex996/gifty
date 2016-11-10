@@ -3,7 +3,7 @@
 class Auth {
 
 	public static function attempt($email, $password) {
-		$user = User::get('email', $email);
+		$user = User::search('email', $email);
 		$error = '';
 
 		if ($user) {
@@ -36,6 +36,10 @@ class Auth {
 
 	public static function id() {
 		return isset($_SESSION["auth_id"]) ? $_SESSION["auth_id"] : null;
+	}
+
+	public static function error() {
+		return isset($_SESSION["auth_error"]) ? $_SESSION["auth_error"] : null;
 	}
 
 	public static function hash($password) {

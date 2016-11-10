@@ -1,20 +1,42 @@
 <?php
 
-class ProductsController {
+class ProductsController extends Controller {
 	
-	public static function index() {
-		echo "products";
+	public function index() {
+		
 	}
 
-	public static function show($id) {
+	public function create() {
+		
+	}
+
+
+	// Create a new user:
+	public function store() {
+		print_r($_POST);
+	}
+
+	public function show($id) {
+		
+	}
+
+	public function edit() {
+		
+	}
+
+	public function update() {
+		print_r($_POST);
+	}
+
+	public function destroy() {
+		print_r($_POST);
+	}
+
+	public function index() {
+		
+	}
+
+	public function show($id) {
 		echo "product $id";
-	}
-
-	public static function store() {
-		echo "products posted";
-	}
-
-	public static function update($id) {
-		echo "product $id in update";
 	}
 }

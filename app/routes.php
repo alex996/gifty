@@ -4,6 +4,13 @@ Router::get('[/]', function() {
 	View::render('welcome.php', ['name' => 'alex']);
 });
 
+// Auth routes
+Router::get('login', 'AuthController@showLogin');
+Router::post('login', 'AuthController@login');
+Router::get('register', 'AuthController@showRegister');
+Router::post('register', 'AuthController@register');
+Router::post('logout', 'AuthController@logout');
+
 Router::get('users', 'UsersController@index');
 
 Router::get('blog/(\w+)/(\d+)', function($category, $id){

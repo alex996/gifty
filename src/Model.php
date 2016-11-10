@@ -34,7 +34,7 @@ class Model {
         return static::where('id', $id)->select();
     }
 
-    public static function get($column, $operator = null, $value = null) {
+    public static function search($column, $operator = null, $value = null) {
     	return static::where($column, $operator, $value)->select();
     }
 

@@ -40,6 +40,9 @@ class Router {
 	}
 	
 	public static function execute() {
+		if (substr($_SERVER["REQUEST_URI"], -1) === '/')
+			header ('Location: '.preg_replace('{/$}', '', $_SERVER['REQUEST_URI']));
+
 		$url = self::url();
 		$method = self::method();
 
@@ -84,11 +87,18 @@ class Router {
 				if (file_exists(CTRL_PATH . "$controller.php")) {
 					require_once CTRL_PATH . "$controller.php";
 
-					if (class_exists($controller) && method_exists($controller, $method)) {
-						return call_user_func_array(array($controller, $method), $params);
-					}
+					if (class_exists($controller) && method_exists($controller, $method))
+						return call_user_func_array(array(new $controller(), $method), $params);
+					else if (!class_exists($controller))
+						throw new Exception("Controller class $controller not found in $controller.php");
+					else
+						throw new Exception("Controller method $method not found in $controller.php");
 				}
+				else
+					throw new Exception("Controller file $controller.php not found");
 			}
+			else
+				throw new Exception("Bad call to controller method in routes.php at $callback");
 		}
 	}
 

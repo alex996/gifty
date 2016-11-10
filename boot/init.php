@@ -31,6 +31,9 @@ require_once(SRC_PATH . "DB.php");
 // Load the Model class:
 require_once(SRC_PATH . "Model.php");
 
+// Load the Controller class:
+require_once(SRC_PATH . "Controller.php");
+
 // Load the Router class:
 require_once(SRC_PATH . "Router.php");
 

@@ -61,16 +61,16 @@ class DB {
         return $this;
     }
 
-    public function and($column, $operator = null, $value = null) {
+    public function andWhere($column, $operator = null, $value = null) {
         return $this->where($column, $operator, $value, 'AND');
     }
 
-    public function or($column, $operator = null, $value = null) {
+    public function orWhere($column, $operator = null, $value = null) {
         return $this->where($column, $operator, $value, 'OR');
     }
 
     // Builds an ORDER BY clause
-    public function orderby($column, $direction='') {
+    public function orderBy($column, $direction='') {
         if (is_array($column))
             $column = implode(', ', $column);
         $this->query .= "ORDER BY $column $direction ";

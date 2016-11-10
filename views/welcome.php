@@ -12,8 +12,6 @@
 
 <?php $this->endblock() ?>
 
-<?= $this->block('info') ?>
-
 <?php $this->block('scripts') ?>
 	<script>
 		console.log('hey');
