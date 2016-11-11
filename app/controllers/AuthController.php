@@ -1,9 +1,5 @@
 <?php
 
-require_once(LIB_PATH . 'Auth.php');
-
-require_once(LIB_PATH . 'Validator.php');
-
 class AuthController extends Controller {
 
 	public function showLogin() {

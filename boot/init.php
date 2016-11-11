@@ -25,7 +25,13 @@ else {
 // Start the session:
 session_start();
 
-// Load the DB class:
+// Load the Router class:
+require_once(SRC_PATH . "Router.php");
+
+// Load the Connection class:
+require_once(SRC_PATH . "Connection.php");
+
+// Load the Database class:
 require_once(SRC_PATH . "DB.php");
 
 // Load the Model class:
@@ -34,11 +40,14 @@ require_once(SRC_PATH . "Model.php");
 // Load the Controller class:
 require_once(SRC_PATH . "Controller.php");
 
-// Load the Router class:
-require_once(SRC_PATH . "Router.php");
-
 // Load the View class:
 require_once(SRC_PATH . "View.php");
+
+// Load the Authentication class:
+require_once(SRC_PATH . "Auth.php");
+
+// Load the Validator class:
+require_once(SRC_PATH . "Validator.php");
 
 // Load user-defined routes:
 require_once(APP_PATH . "routes.php");

@@ -2,78 +2,120 @@
 
 class Model {
 
+	/**
+	 * Class name of the extended model.
+	 */
 	protected static $class;
 
+	/**
+	 * Table name of the extended model.
+	 * Can be overwritten in a child class.
+	 */
 	protected static $table;
 
-	public function __get($name) {
-		return $this->$name;
-	}
+	/**
+	 * Array of model properties that are
+	 * allowed for an isert or an update.
+	 * Can be overwritten in a child class.
+	 */
+	protected static $fillable;
 
-	public function __set($name, $value) {
-		$this->$name = $value;
-	}
-
+	/**
+	 * Empty constructor.
+	 */
 	public function __construct() { }
 
-	public static function __static() {
-		static::$class = get_called_class(); // ex: User
-		static::$table = strtolower(static::$class).'s'; // ex: users
-	}
-
+	/**
+	 * Forwards invocations of non-existing
+	 * static methods to the DB class, allowing
+	 * each model to fully utilize DB API.
+	 */
 	public static function __callStatic($method, $args)
     {
         return call_user_func_array([DB::table(static::$table), $method], $args);
     }
 
-    public static function first() {
-    	return static::where('id', 1)->limit(1)->select();
+    /**
+     * Static class initializer. Sets class name,
+     * table name, and fillables.
+     */ 
+    public static function initialize() {
+    	// Initialize the class name of the model
+		static::$class = get_called_class();
+		// If the model does not define a table name,
+		// default to a lowercase class name with an 's'
+		if (empty(static::$table))
+			static::$table = strtolower(static::$class).'s';
+		// If the model does not define fillable fields,
+		// default to non-excluded properties without id
+		if (empty(static::$fillable)) {
+			// Get all static and non-static properties
+			$class_vars = get_class_vars(static::$class);
+			// Make all non-excluded properties fillable
+			foreach($class_vars as $property => $value)
+				if (!in_array($property, ['class', 'table', 'fillable', 'id']))
+					static::$fillable[] = $property;
+		}
+	}
+
+	/**
+	 * Performs a safe insert on a model class.
+	 */
+	public static function create($args) {
+		$data = [];
+		// Check that arugments contain all fillables,
+		// otherwise a record cannot be inserted
+		foreach (static::$fillable as $index => $field) {
+			if (!isset($args[$field]))
+				return null;
+			// Build a safe array with fillables, ignoring
+			// any non-fillable arguments
+			$data[$field] = $args[$field];
+		}
+        return static::insert($data);
     }
 
-    public static function find($id) {
-        return static::where('id', $id)->select();
-    }
-
-    public static function search($column, $operator = null, $value = null) {
-    	return static::where($column, $operator, $value)->select();
-    }
-
-    public static function all() {
-        return static::select();
-    }
-
-    public static function create($args) {
-    	return static::insert($args);
-    }
-
+    /**
+     * Performs a safe update of a model instance.
+     */
     public function save() {
     	if (isset($this->id)) {
-    		echo "id is set to " . $this->id;
-    		$obj = static::where('id', $this->id)->select();
+    		// Try to find the object by its id
+    		$obj = static::find($this->id);
     		
-    		if (!empty($obj))
-    			return static::where('id', $this->id)->update($this->toArrayStrict());
-    		echo "this can't be happening... wtf";
+    		// If the object exists, filter its data
+    		if (!empty($obj)) {
+    			// Remove empty values from object data
+    			$data = array_diff($this->toArray(), ['']);
+    			// Remove non-fillable values from array
+    			foreach($data as $prop => $value)
+    				if (!in_array($prop, static::$fillable))
+    					unset($data[$prop]);
+    			// Check that data contains at least one fillable,
+    			// otherwise there is nothing to update
+    			if (empty($data))
+    				return;
+    			// Update
+    			return static::where('id', $this->id)->update($data);
+    		}
     	}
-
-   		static::insert($this->toArray());
+    	// Object was not found, so we will try inserting
+   		return self::create($this->toArray());
 	}
 
+	/**
+	 * Performs a safe delete of a model instance.
+	 */
 	public function delete() {
-		static::where('id', $this->id)->delete();
+		if (isset($this->id))
+			static::where('id', $this->id)->delete();
 	}
 
-	public function toArray($strict=0)
-	{
-		$args = get_object_vars($this);
-		if ($strict) {
-			$args = array_diff($args, ['']);
-			unset($args['id']);
-		}
-		return $args;
-	}
-
-	public function toArrayStrict() {
-		return $this->toArray(1);
+	/**
+	 * Converts a model instance into an assoc array,
+	 * containing any dynamically created properties.
+	 */
+	public function toArray() {
+		return get_object_vars($this);
 	}
 }

@@ -8,11 +8,10 @@
 
 <?php $this->block('content') ?>
 <div class="row">
-	<div class="text-center">
-		<h2>Login</h2>
-	</div>
-
 	<div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+		<div class="page-header text-center">
+			<h2>Login</h2>
+		</div>
 		<form method="POST" action="/login">
 			<div class="form-group">
 				<label for="email">Email:</label>

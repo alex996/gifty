@@ -1,42 +1,26 @@
 <?php
 
 class DB {
-	
-	protected static $instance = null;
 
-    protected $class;
+    private $class;
 
-    protected $query;
+    private $query;
 
-    protected $params = [];
+    private $params = [];
 
-    protected function __construct() {}
-
-    protected function __clone() {}
-
-    public static function instance()
-    {
-        if (self::$instance === null)
-        {
-            $opt  = array(
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // FETCH_CLASS
-                PDO::ATTR_EMULATE_PREPARES   => FALSE,
-            );
-            $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHAR;
-            self::$instance = new PDO($dsn, DB_USER, DB_PASS, $opt);
-        }
-        return self::$instance;
-    }
+    private function __construct() {}
 
     public static function __callStatic($method, $args)
     {
-        return call_user_func_array([self::instance(), $method], $args);
+        return call_user_func_array([Connection::instance(), $method], $args);
     }
 
-    protected static function run($sql, $args = [])
+    /*===================== Core database operations =====================*/
+    /*====================================================================*/
+
+    private static function run($sql, $args = [])
     {
-        $stmt = self::instance()->prepare($sql);
+        $stmt = Connection::instance()->prepare($sql);
         $stmt->execute($args);
         return $stmt;
     }
@@ -137,5 +121,24 @@ class DB {
     public function delete() {
         $this->query = "DELETE FROM {$this->query}";
         self::run($this->query, $this->params);
+    }
+
+    /*==================== Shortcut methods / aliases ====================*/
+    /*====================================================================*/
+
+    public function first() {
+        return $this->where('id', 1)->limit(1)->select();
+    }
+
+    public function find($id) {
+        return $this->where('id', $id)->select();
+    }
+
+    public function get() {
+        return $this->select();
+    }
+
+    public function all() {
+        return $this->select();
     }
 }

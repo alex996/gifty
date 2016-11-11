@@ -18,9 +18,6 @@ define('BOOT_PATH', APP_PATH . 'boot/');
 // Configuration path:
 define('CONFIG_PATH', ROOT_PATH . 'config/');
 
-// Libraries path:
-define('LIB_PATH', ROOT_PATH . 'lib/');
-
 // Public path:
 define('PUBLIC_PATH', ROOT_PATH . 'public/');
 

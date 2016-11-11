@@ -1,9 +1,14 @@
 <?php
-
+//https://github.com/illuminate/validation/blob/master/Validator.php
 class Validator {
 
 	private static function required($data) {
-		return !empty($data);
+		if (is_null($value))
+            return false;
+        else if (is_string($value) && trim($value) === '')
+            return false;
+		else
+			return true;
 	}
 
 	private static function digits($data) {
