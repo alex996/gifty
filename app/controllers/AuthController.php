@@ -3,7 +3,7 @@
 class AuthController extends Controller {
 
 	public function showLogin() {
-		View::render('auth/login.php');
+		View::render('auth/login.php', ['auth_error' => 'Incorrect password. Please try again.']);
 	}
 
 	public function login() {

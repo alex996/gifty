@@ -40,14 +40,14 @@
             <li><a href="#">Page 3</a></li> 
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <?php if (Auth::logged()): ?>
+            <?php if (Auth::check()): ?>
               <form method="POST" action="/logout" name="logout">
                 <li><a href="document.logout.submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</a></li>
               </form>
             <?php else: ?>
               <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Log in</a></li>
+              <li><a href="/register"><i class="fa fa-user" aria-hidden="true"></i> Register</a></li>
             <?php endif; ?>
-            <li><a href="/register"><i class="fa fa-user" aria-hidden="true"></i> Register</a></li>
           </ul>
         </div>
       </div>
@@ -57,7 +57,7 @@
     
       <?= $this->feed('content') ?>
 
-    </div> <!-- ./container -->
+    </div> <!-- /.container -->
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

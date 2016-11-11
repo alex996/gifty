@@ -18,6 +18,9 @@ class UsersController extends Controller {
 			'role'=> User::CUSTOMER
 		]));*/
 
+		$u = new User();
+		
+
 		/*echo "<br>";
 echo Auth::hash('1234567345674356');
 		$u = Auth::id();

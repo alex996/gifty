@@ -17,6 +17,14 @@ class User extends Model {
 	const CUSTOMER = 'CUSTOMER';
 
 	public function __construct() { }
+
+	public function isAdmin() {
+		return $this->role === self::ADMIN;
+	}
+
+	public function isAdmin() {
+		return $this->role === self::CUSTOMER;
+	}
 }
 
 User::initialize();

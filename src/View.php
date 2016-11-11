@@ -13,21 +13,6 @@ class View {
     private $current;
 
     /**
-     * Creates a View.
-     */
-    /*function __construct($path = null) {
-        $path = VIEWS_PATH;
-        //self::path = VIEWS_PATH;
-    }*/
-
-    /**
-     * Returns a View instance.
-     */
-    /*public static function v() {
-        return new View();
-    }*/
-
-    /**
      * Declares a block. If no contents are
      * provides, turns output buffering on.
      * @param string $block Block name, e.g. 'contents'.
@@ -94,6 +79,7 @@ class View {
      * @param array $data Data to be injected.
      */ 
     public static function render($view, $data = []) {
-        echo (new View())->display($view, $data);
+        echo call_user_func([new View(), 'display'], $view, $data);
+        //(new View())->display($view, $data);
     }
 }

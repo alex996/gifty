@@ -2,6 +2,9 @@
 
 class Auth {
 
+	/**
+	 * Attempt to authenticate with email and password.
+	 */
 	public static function attempt($email, $password) {
 		$user = User::search('email', $email);
 		$error = '';
@@ -22,26 +25,44 @@ class Auth {
 		return false;
 	}
 
-	public static function logged() {
+	/**
+	 * Check if authenticated.
+	 */
+	public static function check() {
 		return isset($_SESSION["auth_id"]);
 	}
 
+	/**
+	 * Logout.
+	 */ 
 	public static function logout() {
 		unset($_SESSION['auth_id']);
 	}
 
+	/**
+	 * Get authenticated user.
+	 */
 	public static function user() {
-		return isset($_SESSION["auth_id"]) ? User::find($_SESSION["auth_id"]) : null;
+		return self::check() ? User::find($_SESSION["auth_id"]) : null;
 	}
 
+	/**
+	 * Get authenticated user's id.
+	 */
 	public static function id() {
-		return isset($_SESSION["auth_id"]) ? $_SESSION["auth_id"] : null;
+		return self::check() ? $_SESSION["auth_id"] : null;
 	}
 
+	/**
+	 * Get authentication error.
+	 */
 	public static function error() {
 		return isset($_SESSION["auth_error"]) ? $_SESSION["auth_error"] : null;
 	}
 
+	/**
+	 * Create a password hash.
+	 */
 	public static function hash($password) {
 		return password_hash($password, PASSWORD_DEFAULT);
 	}

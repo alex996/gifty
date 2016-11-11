@@ -12,6 +12,11 @@
 		<div class="page-header text-center">
 			<h2>Login</h2>
 		</div>
+		<?php if(isset($auth_error)): ?>
+		<div class="alert alert-danger">
+		  <strong>Whoops!</strong> <?= $auth_error ?>
+		</div>
+		<?php endif; ?>
 		<form method="POST" action="/login">
 			<div class="form-group">
 				<label for="email">Email:</label>
