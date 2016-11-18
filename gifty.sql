@@ -149,7 +149,7 @@ CREATE TABLE `orders` (
   `id` int(10) UNSIGNED NOT NULL,
   `customer_id` int(7) UNSIGNED NOT NULL,
   `address_id` int(10) UNSIGNED NOT NULL,
-  `method_id` int(10) UNSIGNED NOT NULL,
+  `payment_method_id` int(10) UNSIGNED NOT NULL,
   `status` varchar(20) NOT NULL,
   `total` decimal(8,2) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -351,7 +351,7 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `customer_id` (`customer_id`),
   ADD KEY `address_id` (`address_id`),
-  ADD KEY `method_id` (`method_id`);
+  ADD KEY `payment_method_id` (`payment_method_id`);
 
 --
 -- Indexes for table `order_details`
@@ -502,7 +502,7 @@ ALTER TABLE `images`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`method_id`) REFERENCES `payment_methods` (`id`);
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`);
 
 --
 -- Constraints for table `order_details`

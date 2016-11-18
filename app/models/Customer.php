@@ -19,6 +19,14 @@ class Customer extends Model {
 	public $dob;
 
 	public $phone;
+
+	public function user() {
+		return $this->belongsTo('User');
+	}
+
+	public function orders() {
+		return $this->hasMany('Order');
+	}
 }
 
 Customer::initialize();
