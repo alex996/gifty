@@ -2,17 +2,17 @@
 
 <?php $this->block('styles') ?>
 <style>
-	.container-fluid {margin: auto 30px;}
 	.list-group a {padding: 17px 15px;}
 </style>
 <?php $this->endblock() ?>
 
 <?php $this->block('content') ?>
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
 		<div class="page-header text-center">
 			<h2>Welcome Back to Your Account, <?= $user->name ?>!</h2>
 		</div>
+		<?php /*
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading text-center"><h4>Profile Information</h4></div>
@@ -51,9 +51,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6">
+		*/ ?>
+		<div class="col-md-9">
 			<div class="panel panel-default">
-				<div class="panel-heading text-center"><h4>Recent Order</h4></div>
+				<div class="panel-heading text-center"><h4>Recent Orders</h4></div>
 				<div class="panel-body">
 					<?php /*
 					<table class="table table-hover">
@@ -83,14 +84,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-heading text-center"><h4>Navigation</h4></div>
 				<div class="list-group">
 					<a href="account" class="list-group-item active"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> User Account</a>
 					<a href="account/history" class="list-group-item"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Order History</a>
 					<a href="account/payments" class="list-group-item"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Payment Methods</a>
-					<a href="account/edit" class="list-group-item"><i class="fa fa-pencil-square fa-fw" aria-hidden="true"></i> Edit Profile</a>
+					<a href="account/profile" class="list-group-item"><i class="fa fa-pencil-square fa-fw" aria-hidden="true"></i> Edit Profile</a>
 					<a href="account/security" class="list-group-item"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Update Security</a>
 					<a href="javascript:document.logout.submit();" class="list-group-item"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Log Out</a>
 					<form method="POST" action="/logout" name="logout"></form>

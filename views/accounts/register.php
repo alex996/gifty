@@ -52,10 +52,12 @@
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
 	$(function() {
+		var minyear = new Date().getFullYear() - 18;
 	    $("#dob").datepicker({
 	    	changeMonth: true,
       		changeYear: true,
-      		dateFormat: 'yy-mm-dd'
+      		dateFormat: 'yy-mm-dd',
+      		yearRange: '-70:',
 	    });
 	});
 </script>

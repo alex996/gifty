@@ -35,7 +35,7 @@ class AccountController extends Controller {
 			}
 		}
 		else if ($user->isAdmin()) {
-			// admin dashboard....
+			echo "admin dashboard....";
 		}
 
 
