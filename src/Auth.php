@@ -1,18 +1,22 @@
 <?php
 
+require_once(MODEL_PATH . 'User.php');
+
 class Auth {
+
+	public static $user = null;
 
 	/**
 	 * Attempt to authenticate with email and password.
 	 */
 	public static function attempt($email, $password) {
-		$user = User::search('email', $email);
-		$error = '';
+		$user = User::where('email', $email)->first();
+		$error = null;
 
 		if ($user) {
 			if (password_verify($password, $user->password)) {
 				$_SESSION["auth_id"] = $user->id;
-				return true;
+				self::$user = $user;
 			}
 			else
 				$error = "Incorrect password. Try again.";
@@ -20,9 +24,7 @@ class Auth {
 		else
 			$error = "Incorrect email. Try again.";
 
-		$_SESSION['auth_error'] = $error;
-
-		return false;
+		return $error;
 	}
 
 	/**
@@ -37,27 +39,26 @@ class Auth {
 	 */ 
 	public static function logout() {
 		unset($_SESSION['auth_id']);
+		self::$user = null;
 	}
 
 	/**
 	 * Get authenticated user.
 	 */
 	public static function user() {
-		return self::check() ? User::find($_SESSION["auth_id"]) : null;
+		if (self::check() && !self::$user)
+			self::$user = User::find($_SESSION["auth_id"]);
+
+		return self::$user;
+		//return self::check() ? User::find($_SESSION["auth_id"]) : null;
 	}
 
 	/**
 	 * Get authenticated user's id.
 	 */
 	public static function id() {
-		return self::check() ? $_SESSION["auth_id"] : null;
-	}
-
-	/**
-	 * Get authentication error.
-	 */
-	public static function error() {
-		return isset($_SESSION["auth_error"]) ? $_SESSION["auth_error"] : null;
+		return self::user() ? self::$user->id : null;
+		//return self::check() ? $_SESSION["auth_id"] : null;
 	}
 
 	/**

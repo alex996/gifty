@@ -8,6 +8,8 @@ class DB {
 
     private $params = [];
 
+    private $rel;
+
     private function __construct() {}
 
     public static function __callStatic($method, $args)
@@ -27,7 +29,13 @@ class DB {
 
     public static function table($table) {
         $db = new DB();
-        $db->class = ucfirst(substr(trim($table),0,-1));
+        if ($table == 'addresses')
+            $db->class = "Address";
+        else {
+            $table_arr = explode("_", trim($table));
+            $db->class = substr( ucfirst($table_arr[0]) . ucfirst( isset($table_arr[1]) ? $table_arr[1] : "" ), 0, -1);
+        }
+        //$db->class = ucfirst(substr(trim($table),0,-1));
         $db->query = "$table ";
         return $db;
     }
@@ -61,9 +69,19 @@ class DB {
         return $this;
     }
 
+    public function random($count) {
+        $this->query .= "ORDER BY RAND() ";
+        return $this->limit($count);
+    }
+
     public function limit($number) {
-        if (ctype_digit($number))
+        if (ctype_digit(strval($number)))
             $this->query .= "LIMIT $number ";
+        return $this;
+    }
+
+    public function with($rel, $fk = null) {
+        $this->rel = (is_array($rel)) ? $rel : [$rel];
         return $this;
     }
 
@@ -76,10 +94,19 @@ class DB {
 
         if (!$res)
             return null;
-        else if (count($res) === 1)
-            return $res[0];
-        else
-            return $res;
+        else {
+            if (!empty($this->rel)) {
+                // Load the objects in relationship
+                foreach($res as $object)
+                    foreach($this->rel as $relationship)
+                        $object->load($relationship);
+            }
+
+            if (count($res) === 1)
+                return $res[0];
+            else
+                return $res;
+        }
     }
 
     // INSERTs a record with given arguments
@@ -127,7 +154,10 @@ class DB {
     /*====================================================================*/
 
     public function first() {
-        return $this->where('id', 1)->limit(1)->select();
+        if (!$this->query)
+            return $this->where('id', 1)->limit(1)->select();
+        else
+            return $this->limit(1)->select();
     }
 
     public function find($id) {

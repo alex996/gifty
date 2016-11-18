@@ -15,49 +15,89 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Custom CSS -->
+    <!-- Application CSS -->
     <link rel="stylesheet" href="css/app.css">
     <!-- Custom CSS -->
     <?= $this->feed('styles') ?>
   </head>
   <body>
-
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
-          </button>
-          <a class="navbar-brand" href="#">WebSiteName</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><i class="fa fa-gift" aria-hidden="true"></i> Gifty - Online Gift Store</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="cart"><i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i> Cart</a>
+                    </li>
+                    <li>
+                        <a href="products">Products</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="portfolio-1-col.html">Electronics</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">Fashion &amp; Beauty</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-3-col.html">Toys &amp; Games</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-4-col.html">Drinks &amp; Candies</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="contact">Contact</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> <?= Auth::check() ? Auth::user()->name : '' ?> <i class="fa fa-caret-down fa-fw"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <?php if (Auth::check()): ?>
+                              <li><a href="account"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> User Account</a></li>
+                                
+                              <li class="divider"></li>
+                              <li><a href="account/history"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Order History</a></li>
+                              <li><a href="account/payments"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Payment Methods</a></li>
+                              
+                              <li class="divider"></li>
+                              <li><a href="account/edit"><i class="fa fa-pencil-square fa-fw" aria-hidden="true"></i> Edit Profile</a></li>
+                              <li><a href="account/security"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Update Security</a></li>
+                            
+                              <li class="divider"></li>
+                              <form method="POST" action="/logout" name="logout"></form>
+                              <li><a href="javascript:document.logout.submit();"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Log out</a></li>
+                            <?php else: ?>
+                              <li><a href="login"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign in</a></li>
+                              <li><a href="register"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Register</a></li>
+                            <?php endif; ?>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li> 
-            <li><a href="#">Page 3</a></li> 
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <?php if (Auth::check()): ?>
-              <form method="POST" action="/logout" name="logout">
-                <li><a href="document.logout.submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</a></li>
-              </form>
-            <?php else: ?>
-              <li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Log in</a></li>
-              <li><a href="/register"><i class="fa fa-user" aria-hidden="true"></i> Register</a></li>
-            <?php endif; ?>
-          </ul>
-        </div>
-      </div>
+        <!-- /.container -->
     </nav>
-
-    <div class="container">
     
-      <?= $this->feed('content') ?>
-
-    </div> <!-- /.container -->
+    <!-- Main content -->
+    <?= $this->feed('content') ?>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

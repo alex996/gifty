@@ -59,6 +59,12 @@ class Router {
 		self::fail();
 	}
 
+	public static function redirect($path) {
+		$path = trim($path, "/");
+		$host = $_SERVER[HTTP_HOST];
+		header("Location: http://$host/$path");
+	}
+
 	private static function url() {
 		return filter_var( '/' . trim( strtok($_SERVER["REQUEST_URI"], '?'), '/' ), FILTER_SANITIZE_URL);
 	}

@@ -2,6 +2,12 @@
 
 class User extends Model {
 
+	protected static $class;
+
+	protected static $table;
+
+	protected static $fillable;
+
 	public $id;
 
 	public $name;
@@ -22,7 +28,7 @@ class User extends Model {
 		return $this->role === self::ADMIN;
 	}
 
-	public function isAdmin() {
+	public function isCustomer() {
 		return $this->role === self::CUSTOMER;
 	}
 }

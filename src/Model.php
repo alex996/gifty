@@ -25,6 +25,16 @@ class Model {
 	 */
 	public function __construct() { }
 
+
+    public function __get($name) {
+    	return isset($this->$name) ? $this->$name : null;
+    }
+
+	/*public function __set($name, $value) {
+        if (isset($this->$name))
+        	$this->$name = $value;
+    }*/
+
 	/**
 	 * Forwards invocations of non-existing
 	 * static methods to the DB class, allowing
@@ -65,13 +75,11 @@ class Model {
 		$data = [];
 		// Check that arugments contain all fillables,
 		// otherwise a record cannot be inserted
-		foreach (static::$fillable as $index => $field) {
-			if (!isset($args[$field]))
-				return null;
+		foreach (static::$fillable as $index => $field)
 			// Build a safe array with fillables, ignoring
 			// any non-fillable arguments
-			$data[$field] = $args[$field];
-		}
+			$data[$field] = (array_key_exists($field, $args)) ? $args[$field] : null;
+		
         return static::insert($data);
     }
 
@@ -86,7 +94,7 @@ class Model {
     		// If the object exists, filter its data
     		if (!empty($obj)) {
     			// Remove empty values from object data
-    			$data = array_diff($this->toArray(), ['']);
+    			$data = $this->toArray();
     			// Remove non-fillable values from array
     			foreach($data as $prop => $value)
     				if (!in_array($prop, static::$fillable))
@@ -110,6 +118,31 @@ class Model {
 		if (isset($this->id))
 			static::where('id', $this->id)->delete();
 	}
+
+	/**
+	 * Loads the related object(s).
+	 */
+    public function load($rel, $fk = null) {
+    	$relationships = is_array($rel) ? $rel : [$rel];
+    	foreach($relationships as $rel) {
+    		if ($rel) {
+    			$rel_arr = explode("_", $rel);
+    			$rel_class = ucfirst($rel_arr[0]) . ucfirst( isset($rel_arr[1]) ? $rel_arr[1] : "" );
+	        	// = ucfirst($rel);
+
+	        	// FK on this object --> hasOne or hasMany
+	            $fk_column = $fk ? $fk : strtolower($rel).'_id';
+
+	            if (isset($this->$fk_column)) {
+	            	$this->$rel = $rel_class::find($this->$fk_column);
+	            } else {
+	            	// FK on rel object --> belongsToOne or belongsToMany
+	            	$fk_column = $fk ? $fk : strtolower(static::$class).'_id';
+	            	$this->$rel = $rel_class::where($fk_column, $this->id)->get();
+	            }
+	        }
+    	}
+    }
 
 	/**
 	 * Converts a model instance into an assoc array,

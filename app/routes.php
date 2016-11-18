@@ -1,8 +1,6 @@
 <?php
 
-Router::get('[/]', function() {
-	View::render('welcome.php', ['name' => 'alex']);
-});
+Router::get('[/]', 'HomeController@index');
 
 // Auth routes
 Router::get('login', 'AuthController@showLogin');
@@ -11,17 +9,26 @@ Router::get('register', 'AuthController@showRegister');
 Router::post('register', 'AuthController@register');
 Router::post('logout', 'AuthController@logout');
 
-Router::get('users', 'UsersController@index');
+// User routes
+
+// Customer routes
+Router::post('customers', 'CustomerController@store');
+
+// Account routes
+Router::get('account', 'AccountController@index');
+Router::post('account', 'AccountController@store');
+
+Router::get('users', 'UserController@index');
 
 Router::get('blog/(\w+)/(\d+)', function($category, $id){
 	print $category . ':' . $id;
 });
 
-Router::get('products', 'ProductsController@index');
+Router::get('products', 'ProductController@index');
 
-Router::get('products/(\d+)', 'ProductsController@show');
+Router::get('products/(\d+)', 'ProductController@show');
 
-Router::post('products', 'ProductsController@store');
+Router::post('products', 'ProductController@store');
 
 Router::fallback(function() {
 	echo "404";
