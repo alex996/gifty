@@ -8,7 +8,7 @@ class DB {
 
     private $params = [];
 
-    private $rel;
+    private $relationship;
 
     private function __construct() {}
 
@@ -29,13 +29,17 @@ class DB {
 
     public static function table($table) {
         $db = new DB();
+        // Get the class name from the Model Resolver
+        $db->class = ModelResolver::getClass($table);
+        
+        /* this works, but is messy ;)
         if ($table == 'addresses')
             $db->class = "Address";
         else {
             $table_arr = explode("_", trim($table));
             $db->class = substr( ucfirst($table_arr[0]) . ucfirst( isset($table_arr[1]) ? $table_arr[1] : "" ), 0, -1);
-        }
-        //$db->class = ucfirst(substr(trim($table),0,-1));
+        }*/
+        //old stuf... $db->class = ucfirst(substr(trim($table),0,-1));
         $db->query = "$table ";
         return $db;
     }
@@ -81,7 +85,7 @@ class DB {
     }
 
     public function with($rel, $fk = null) {
-        $this->rel = (is_array($rel)) ? $rel : [$rel];
+        $this->relationship = (is_array($rel)) ? $rel : [$rel];
         return $this;
     }
 
@@ -95,11 +99,13 @@ class DB {
         if (!$res)
             return null;
         else {
-            if (!empty($this->rel)) {
+            if (!empty($this->relationship)) {
                 // Load the objects in relationship
                 foreach($res as $object)
-                    foreach($this->rel as $relationship)
-                        $object->load($relationship);
+                    foreach($this->relationship as $relationship)
+                        $object->$relationship = $object->$relationship();
+
+                    //load($relationship);
             }
 
             if (count($res) === 1)

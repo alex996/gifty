@@ -19,6 +19,10 @@ class PaymentMethod extends Model {
 	public $last_digits;
 
 	public $address_id;
+
+	public function address() {
+		return $this->hasOne('Address');
+	}
 }
 
 PaymentMethod::initialize();

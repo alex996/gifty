@@ -66,6 +66,8 @@ class Model {
 				if (!in_array($property, ['class', 'table', 'fillable', 'id']))
 					static::$fillable[] = $property;
 		}
+		// Register class and table names in ModelResolver
+		ModelResolver::register(static::$class, static::$table);
 	}
 
 	/**
@@ -122,7 +124,7 @@ class Model {
 	/**
 	 * Loads the related object(s).
 	 */
-    public function load($rel, $fk = null) {
+    /*public function load($rel, $fk = null) {
     	$relationships = is_array($rel) ? $rel : [$rel];
     	foreach($relationships as $rel) {
     		if ($rel) {
@@ -142,6 +144,50 @@ class Model {
 	            }
 	        }
     	}
+    }*/
+
+   
+    /****************** RELATIONSHIPS ******************/
+
+    public function load($relationship) {
+    	$this->$relationship = $this->$relationship();
+    	return $this;
+    }
+
+    /*$this is PaymentMethod
+    	$this->hasOne('Address');*/
+    public function hasOne($class, $foreign_key = null) {
+		/*// Foreign key in the $class model
+		$foreign_key = ($foreign_key) ? $foreign_key : strtolower(static::$class).'_id';
+		return $class::where($foreign_key, $this->id)->get();*/
+
+		// Foreign key in $this model
+    	$foreign_key = ($foreign_key) ? $foreign_key : strtolower($class).'_id';
+    	return $class::find($this->$foreign_key);
+    }
+
+    /*$this is Product
+    	$this->hasMany('Review');*/
+    public function hasMany($class, $foreign_key = null) {
+		// Foreign key in the $class model
+		$foreign_key = ($foreign_key) ? $foreign_key : strtolower(static::$class).'_id';
+		return [ $class::where($foreign_key, $this->id)->get() ];
+    }
+
+    /*$this is OrderDetail
+    	$this->belongsTo('Order');*/
+    public function belongsTo($class, $foreign_key = null) {
+    	// Foreign key in $this model
+    	$foreign_key = ($foreign_key) ? $foreign_key : strtolower($class).'_id';
+    	return $class::find($this->$foreign_key);
+    }
+
+    /*$this is Address
+    	$this->belongsTo('PaymentMethod');*/
+    public function belongsToMany($class, $foreign_key = null) {
+    	// Foreign key in the $class model
+    	$foreign_key = ($foreign_key) ? $foreign_key : strtolower(static::$class).'_id';
+    	return [ $class::where($foreign_key, $this->id)->get() ];
     }
 
 	/**

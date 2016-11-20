@@ -28,6 +28,18 @@ class Product extends Model {
 
 	public $featured;
 
+	public function reviews() {
+		return $this->hasMany('Review');
+	}
+
+	public function category() {
+		return $this->belongsTo('Category');
+	}
+
+	public function promotion() {
+		return $this->hasOne('Promotion');
+	}
+
 	/*public function __construct() {
 
 		$reviews = $this->load('review');
