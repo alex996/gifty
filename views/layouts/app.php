@@ -16,7 +16,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Application CSS -->
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="/css/app.css">
     <!-- Custom CSS -->
     <?= $this->feed('styles') ?>
   </head>
@@ -69,15 +69,15 @@
                         </a>
                         <ul class="dropdown-menu dropdown-user">
                             <?php if (Auth::check()): ?>
-                              <li><a href="account"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> User Account</a></li>
+                              <li><a href="/account"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> User Account</a></li>
                                 
                               <li class="divider"></li>
-                              <li><a href="account/history"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Order History</a></li>
-                              <li><a href="account/payments"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Payment Methods</a></li>
+                              <li><a href="/account/orders"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Order History</a></li>
+                              <li><a href="/account/payment-methods"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Payment Methods</a></li>
                               
                               <li class="divider"></li>
-                              <li><a href="account/edit"><i class="fa fa-pencil-square fa-fw" aria-hidden="true"></i> Edit Profile</a></li>
-                              <li><a href="account/security"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Update Security</a></li>
+                              <li><a href="/account/profile"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Profile Information</a></li>
+                              <li><a href="/account/security"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Security Settings</a></li>
                             
                               <li class="divider"></li>
                               <form method="POST" action="/logout" name="logout"></form>

@@ -42,6 +42,7 @@ class Model {
 	 */
 	public static function __callStatic($method, $args)
     {
+    	//return DB::table(static::$table)->$method(...$args); // splat operator requires php 5.6+
         return call_user_func_array([DB::table(static::$table), $method], $args);
     }
 
@@ -171,7 +172,18 @@ class Model {
     public function hasMany($class, $foreign_key = null) {
 		// Foreign key in the $class model
 		$foreign_key = ($foreign_key) ? $foreign_key : strtolower(static::$class).'_id';
+<<<<<<< HEAD
+		$rel = $class::where($foreign_key, $this->id)->get();
+		
+		if (is_array($rel))
+			return $rel;
+		else if (is_null($rel))
+			return [];
+		else
+			return [$rel];
+=======
 		return [ $class::where($foreign_key, $this->id)->get() ];
+>>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
     }
 
     /*$this is OrderDetail
@@ -187,7 +199,18 @@ class Model {
     public function belongsToMany($class, $foreign_key = null) {
     	// Foreign key in the $class model
     	$foreign_key = ($foreign_key) ? $foreign_key : strtolower(static::$class).'_id';
+<<<<<<< HEAD
+    	$rel = $class::where($foreign_key, $this->id)->get();
+    	
+    	if (is_array($rel))
+			return $rel;
+		else if (is_null($rel))
+			return [];
+		else
+			return [$rel];
+=======
     	return [ $class::where($foreign_key, $this->id)->get() ];
+>>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
     }
 
 	/**

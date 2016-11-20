@@ -17,7 +17,7 @@
 			</div>
 			<div class="col-md-8 col-md-offset-2">
 				<div class="col-md-12">
-					<?php include_once(VIEWS_PATH . 'partials/errors.php') ?>
+					<?php include_once(VIEWS_PATH . 'components/errors.php') ?>
 				</div>
 				<form method="POST" action="/account">
 				    <div class="form-group col-xs-12 col-sm-6">

@@ -4,7 +4,7 @@ require_once(MODEL_PATH . 'User.php');
 
 require_once(MODEL_PATH . 'Customer.php');
 
-require_once(MODEL_PATH . 'PaymentMethod.php');
+require_once(MODEL_PATH . 'Order.php');
 
 require_once(MODEL_PATH . 'Address.php');
 
@@ -15,6 +15,8 @@ class AccountController extends Controller {
 		if (!Auth::check())
 			Router::redirect('login');
 
+<<<<<<< HEAD
+=======
 		//print_r(ModelResolver::$class_table);die();
 		//
 
@@ -36,6 +38,7 @@ print_r($u);*/
 		die();
 
 
+>>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
 		$user = Auth::user();
 
 		if ($user->isCustomer()) {
@@ -50,8 +53,10 @@ print_r($u);*/
 				$payment_methods = is_array($pm) ? $pm : [$pm];
 				foreach ($payment_methods as $method)
 					$method->load('address');*/
+
+				$order = Order::with('address')->where('customer_id', $user->customer->id)->orderBy('created_at', 'DESC')->first();
 			
-				View::render('accounts/home.php', ['user' => $user]);
+				View::render('accounts/home.php', ['user' => $user, 'order' => $order]);
 			}
 		}
 		else if ($user->isAdmin()) {
@@ -70,31 +75,4 @@ print_r($u);*/
 		}*/
 
 	}
-
-	public function store() {
-		if (!Auth::check())
-			Router::redirect('login');
-
-		$errors = Validator::validate($_POST, [
-			'first' => 'required|max:50',
-			'last' => 'required|max:50',
-			'dob' => 'required|date',
-			'phone' => 'required|phone',
-		]);
-
-		if (!empty($errors))
-			View::render('accounts/register.php', ['errors' => $errors]);
-		else {
-			Customer::create([
-				'user_id' => Auth::id(),
-				'first' => $_POST['first'],
-				'last' => $_POST['last'],
-				'dob' => $_POST['dob'],
-				'phone' => $_POST['phone'],
-			]);
-
-			Router::redirect('account');
-		}
-	}
-
 }

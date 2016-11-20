@@ -4,7 +4,7 @@ class Category extends Model {
 	
 	protected static $class;
 
-	protected static $table;
+	protected static $table = 'categories';
 
 	protected static $fillable;
 

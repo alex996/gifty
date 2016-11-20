@@ -67,4 +67,9 @@ class Auth {
 	public static function hash($password) {
 		return password_hash($password, PASSWORD_DEFAULT);
 	}
+
+	public static function matches($password) {
+		if (!Auth::user()) return false;
+		return password_verify($password, Auth::user()->password);
+	}
 }

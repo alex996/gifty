@@ -65,7 +65,7 @@ class Router {
 		header("Location: http://$host/$path");
 	}
 
-	private static function url() {
+	public static function url() {
 		return filter_var( '/' . trim( strtok($_SERVER["REQUEST_URI"], '?'), '/' ), FILTER_SANITIZE_URL);
 	}
 

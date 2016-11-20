@@ -20,6 +20,9 @@ class Review extends Model {
 
 	public $created_at;
 
+	public function products() {
+		return $this->belongsTo('Product');
+	}
 }
 
 Review::initialize();

@@ -8,3 +8,8 @@ body {
 }
 
 .btn-cta {padding: 10px 0}
+
+.table-no-border { border-top: none !important; }
+
+.account-sidebar .list-group a {padding: 17px 15px;}
+

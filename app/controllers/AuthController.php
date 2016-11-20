@@ -31,7 +31,7 @@ class AuthController extends Controller {
 					Router::redirect('/');
 			}
 
-			View::render('auth/login.php', ['auth_error' => $auth_error]);
+			View::render('auth/login.php', ['error' => $auth_error]);
 		}
 	}
 
@@ -53,7 +53,7 @@ class AuthController extends Controller {
 			]);
 
 			if (!empty($errors))
-				View::render('auth/register.php', ['auth_error' => reset($errors)]);
+				View::render('auth/register.php', ['error' => reset($errors)]);
 			else {
 				// Create a new user
 				User::create([

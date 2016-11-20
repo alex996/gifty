@@ -19,12 +19,10 @@
         background-size: cover;
     }
 
-    .product-name {height: 40px;}
-    .product-price {font-size:20px;}
+    .product-name {height: 40px; font-size: 18px;}
+    .product-price {font-size:24px;}
     .product-desc {height: 40px;}
-    .product-rating {color:#ffdf32;}
-    .product-rating span {vertical-align: middle}
-
+    
     @media(max-width:767px) {
         .img-portfolio {
             margin-bottom: 15px;
@@ -32,6 +30,10 @@
         header.carousel .carousel {
             height: 70%;
         }
+    }
+    @media(min-width:992px) {
+        .product-view {padding-right: 5px}
+        .product-add {padding-left: 5px}
     }
 
     .icon {font-size: 100px}
@@ -122,26 +124,42 @@
 			</div>
             <?php foreach($products as $product): ?>
                 <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="thumbnail">
+                    <?php /*<div class="thumbnail">
                         <img src="http://placehold.it/320x300" alt="">
                         <div class="caption">
-                            <h4 class="pull-right text-success product-price"><b>$<?= $product->price ?></b></h4>
-                            <h4 class="product-name"><a href="#"><?= $product->name ?></a></h4>
-                            <p class="product-desc"><?= $product->description ?></p>
-                            <div class="ratings">
-                                <?php /*<p class="pull-right"><?= count($product->review) ?> reviews</p> */ ?>
-                                <div class="pull-right">
-                                    <button class="btn btn-primary"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add to Cart</button>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4 class="pull-right text-success product-price"><b>$<?= $product->price ?></b></h4>
+                                    <h4 class="product-name"><a href="#"><?= $product->name ?></a></h4>
+                                    <p class="product-desc"><?= $product->description ?></p>
                                 </div>
-                                <p class="product-rating">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-default btn-block"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Details</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary btn-block"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add to Cart</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div> */ ?>
+                    <div class="thumbnail">
+                        <img src="http://placehold.it/500x400" alt="...">
+                        <div class="caption">
+                            <p class="pull-right text-success lead product-price"><b>$<?= $product->price ?></b></p>
+                            <h4 class="product-name"><?= $product->name ?></h4>
+                            <p class="product-desc"><?= $product->description ?></p>
+                            <div class="row">
+                                <div class="col-md-6 product-view">
+                                    <a class="btn btn-default btn-block"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Details</a>
+                                </div>
+                                <div class="col-md-6 product-add">
+                                    <button class="btn btn-primary btn-block"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             <?php endforeach; ?>

@@ -28,6 +28,15 @@ class Product extends Model {
 
 	public $featured;
 
+<<<<<<< HEAD
+	const IN_STOCK = 'IN_STOCK';
+
+	const OUT_OF_STOCK = 'OUT_OF_STOCK';
+
+	const END_OF_LIFE = 'END_OF_LIFE';
+
+=======
+>>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
 	public function reviews() {
 		return $this->hasMany('Review');
 	}
@@ -48,12 +57,6 @@ class Product extends Model {
 
 
 	}*/
-
-	const IN_STOCK = 'IN_STOCK';
-
-	const OUT_OF_STOCK = 'OUT_OF_STOCK';
-
-	const END_OF_LIFE = 'END_OF_LIFE';
 }
 
 Product::initialize();

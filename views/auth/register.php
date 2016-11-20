@@ -13,7 +13,7 @@
 			<div class="page-header text-center">
 				<h2>Register</h2>
 			</div>
-			<?php include_once(VIEWS_PATH . 'auth/error.php') ?>
+			<?php include_once(VIEWS_PATH . 'components/error.php') ?>
 			<form method="POST" action="/register">
 				<div class="form-group">
 					<label for="name">Name:</label>

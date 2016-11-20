@@ -50,7 +50,7 @@ class Validator {
     }
 
     private static function message($method, $key, $arg='') {
-    	$field = ucfirst($key);
+    	$field = ucfirst(str_replace('_', ' ', $key));
     	switch ($method) {
     		case "required":
     			return "$field is required."; break;
@@ -132,5 +132,13 @@ class Validator {
 
     private static function unique($value, $list) {
         return ! self::exists($value, $list);
+    }
+
+    private static function same($value, $other) {
+        return $value == $other;
+    }
+
+    public static function user_password($value) {
+        return Auth::matches($value);
     }
 }

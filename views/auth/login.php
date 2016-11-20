@@ -13,7 +13,7 @@
 			<div class="page-header text-center">
 				<h2>Login</h2>
 			</div>
-			<?php include_once(VIEWS_PATH . 'auth/error.php') ?>
+			<?php include_once(VIEWS_PATH . 'components/error.php') ?>
 			<form method="POST" action="/login">
 				<div class="form-group">
 					<label for="email">Email:</label>
@@ -21,7 +21,7 @@
 				</div>
 				<div class="form-group">
 					<label for="password">Password:</label>
-					<input class="form-control" type="password" name="password" id="password" placeholder="*************" required>
+					<input class="form-control" type="password" name="password" id="password" placeholder="*************" required minlength="6">
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-cta btn-block">Log In</button>

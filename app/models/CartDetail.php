@@ -15,8 +15,6 @@ class CartDetail extends Model {
 	public $product_id;
 
 	public $quantity;
-
-	public function __construct() { }
 }
 
 CartDetail::initialize();
