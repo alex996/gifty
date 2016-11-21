@@ -4,6 +4,12 @@ require_once(MODEL_PATH . 'User.php');
 
 require_once(MODEL_PATH . 'Customer.php');
 
+require_once(MODEL_PATH . 'Cart.php');
+
+require_once(MODEL_PATH . 'CartDetail.php');
+
+require_once(MODEL_PATH . 'Product.php');
+
 class CustomerController extends Controller {
 
 	/* RESTful routes:
@@ -28,7 +34,7 @@ class CustomerController extends Controller {
 		]);
 
 		if (!empty($errors))
-			View::render('accounts/register.php', ['errors' => $errors]);
+			View::render('accounts/register.php', ['errors' => $errors, 'in_cart' => Cart::count()]);
 		else {
 			Customer::create([
 				'user_id' => Auth::id(),
@@ -47,7 +53,8 @@ class CustomerController extends Controller {
 			Router::redirect('login');
 
 		View::render('accounts/profile.php', [
-			'user' => User::with('customer')->find(Auth::id())
+			'user' => User::with('customer')->find(Auth::id()),
+			'in_cart' => Cart::count()
 		]);
 	}
 
@@ -62,11 +69,11 @@ class CustomerController extends Controller {
 		$user = User::with('customer')->find(Auth::id());
 
 		if (!empty($errors))
-			View::render('accounts/profile.php', ['user' => $user, 'error' => reset($errors)]);
+			View::render('accounts/profile.php', ['user' => $user, 'error' => reset($errors), 'in_cart' => Cart::count()]);
 		else {
 			$user->customer->phone = $_POST['phone'];
 			$user->customer->save();
-			View::render('accounts/profile.php', ['user' => $user, 'success' => 'Phone number updated.']);
+			View::render('accounts/profile.php', ['user' => $user, 'success' => 'Phone number updated.', 'in_cart' => Cart::count()]);
 		}
 	}
 

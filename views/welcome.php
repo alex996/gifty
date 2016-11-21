@@ -155,7 +155,11 @@
                                     <a class="btn btn-default btn-block"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Details</a>
                                 </div>
                                 <div class="col-md-6 product-add">
-                                    <button class="btn btn-primary btn-block"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</button>
+                                    <form method="POST" action="/cart" class="form-add-cart">
+                                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
+                                        <input type="hidden" name="quantity" value="1">
+                                    </form>
+                                    <a class="btn btn-primary btn-block btn-add-cart"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</a>
                                 </div>
                             </div>
                         </div>
@@ -232,8 +236,30 @@
 		    $('.carousel').carousel({
 		     	interval: 3000
 		    });
+
+            $('.btn-add-cart').click(function() {
+                var btn = $(this);
+                var form = $(this).siblings('.form-add-cart');
+                var action = form.attr('action');
+                $.post(action, form.serialize() )
+                    .done(function(res) {
+                        res = JSON.parse(res);
+                        if (res.status == 1) {
+                            var in_cart = $('#in-cart').text();
+                            $('#in-cart').text(parseInt(in_cart) + 1);
+
+                            btn.html('Checkout <i class="fa fa-arrow-right" aria-hidden="true"></i>');
+                            btn.attr("href", "/cart");
+                            btn.off('click');
+                        }
+                        else
+                            console.log(res.errors);
+                    }).fail(function() {
+                        console.log("AJAX request to " + action + "failed.");
+                    });
+            });
 		});
 	</script>
 <?php $this->endblock() ?>
 
-<?php echo $this->display('layouts/app.php', []); ?>
+<?php echo $this->display('layouts/app.php', get_defined_vars()); ?>

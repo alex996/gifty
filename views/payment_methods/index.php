@@ -53,4 +53,4 @@
 </script>
 <?php $this->endblock() ?>
 
-<?php echo $this->display('layouts/app.php', []); ?>
+<?php echo $this->display('layouts/app.php', get_defined_vars()); ?>

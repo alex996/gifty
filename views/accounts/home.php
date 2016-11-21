@@ -28,7 +28,7 @@
 								case Order::ERROR: $class = "danger";break;
 							}
 						?>
-						<tr>
+						<tr class="top-no-border">
 							<td><span class="label label-<?= $class ?>"><?= $order->status ?></span></td>
 							<td><?= $order->created_at ?></td>
 							<?php $addr = $order->address ?>
@@ -54,4 +54,4 @@
 </script>
 <?php $this->endblock() ?>
 
-<?php echo $this->display('layouts/app.php', []); ?>
+<?php echo $this->display('layouts/app.php', get_defined_vars()); ?>

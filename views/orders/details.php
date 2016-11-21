@@ -17,7 +17,7 @@
 		</div>
 		<div class="col-md-9">
 			<div class="panel panel-default">
-				<div class="panel-heading text-center"><h4>View Order History</h4></div>
+				<div class="panel-heading text-center"><h4>View Order Details</h4></div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table table-hover">
@@ -75,4 +75,4 @@
 </script>
 <?php $this->endblock() ?>
 
-<?php echo $this->display('layouts/app.php', []); ?>
+<?php echo $this->display('layouts/app.php', get_defined_vars()); ?>

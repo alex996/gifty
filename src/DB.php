@@ -37,7 +37,7 @@ class DB {
     echo $caller_class."<br>";*/
 
         // Get the class name from the Model Resolver
-        $db->class = ModelResolver::getClass($table);
+        $db->class = ModelResolver::getClass(trim($table, " "));
         
         /* this works, but is messy ;)
         if ($table == 'addresses')

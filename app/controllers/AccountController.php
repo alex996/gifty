@@ -8,6 +8,12 @@ require_once(MODEL_PATH . 'Order.php');
 
 require_once(MODEL_PATH . 'Address.php');
 
+require_once(MODEL_PATH . 'Cart.php');
+
+require_once(MODEL_PATH . 'CartDetail.php');
+
+require_once(MODEL_PATH . 'Product.php');
+
 class AccountController extends Controller {
 
 	public function index() {
@@ -21,7 +27,7 @@ class AccountController extends Controller {
 			$user->load('customer');
 
 			if (!$user->customer)
-				View::render('accounts/register.php');
+				View::render('accounts/register.php', ['in_cart' => Cart::count()]);
 			else {
 				/*$user->customer->load('payment_method');
 
@@ -32,7 +38,7 @@ class AccountController extends Controller {
 
 				$order = Order::with('address')->where('customer_id', $user->customer->id)->orderBy('created_at', 'DESC')->first();
 			
-				View::render('accounts/home.php', ['user' => $user, 'order' => $order]);
+				View::render('accounts/home.php', ['user' => $user, 'order' => $order, 'in_cart' => Cart::count()]);
 			}
 		}
 		else if ($user->isAdmin()) {

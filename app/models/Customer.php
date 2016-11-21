@@ -31,6 +31,13 @@ class Customer extends Model {
 	public function payment_methods() {
 		return $this->hasMany('PaymentMethod');
 	}
+
+
+
+
+	public static function current() {
+		return Auth::id() ? Customer::where('user_id', Auth::id())->get() : null;
+	}
 }
 
 Customer::initialize();

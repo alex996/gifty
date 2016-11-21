@@ -11,15 +11,8 @@ Router::get('register', 'AuthController@showRegister');
 Router::post('register', 'AuthController@register');
 Router::post('logout', 'AuthController@logout');
 
-// User routes
-
-// Customer routes
-//Router::post('customers', 'CustomerController@store');
-
-// Account routes. 'account' substitutes 'customer/(\d+)''
-
 /*
- *	Account routes.
+ *	Account routes (customers ONLY).
 */
 Router::get('account', 'AccountController@index');
 
@@ -36,6 +29,13 @@ Router::get('account/payment-methods', 'PaymentMethodController@index');
 Router::get('account/security', 'UserController@edit_password');
 Router::patch('account/security', 'UserController@update_password');
 
+/**
+ *  Cart routes.
+ */
+Router::get('cart', 'CartController@index');
+Router::post('cart', 'CartController@store');
+Router::patch('cart/cart-details/(\d+)', 'CartController@update');
+Router::delete('cart/cart-details/(\d+)', 'CartController@destroy');
 
 
 

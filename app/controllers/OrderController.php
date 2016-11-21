@@ -10,6 +10,12 @@ require_once(MODEL_PATH . 'OrderDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
 
+require_once(MODEL_PATH . 'Cart.php');
+
+require_once(MODEL_PATH . 'CartDetail.php');
+
+require_once(MODEL_PATH . 'Product.php');
+
 class OrderController {
 
 	public function index() {
@@ -22,7 +28,7 @@ class OrderController {
 		$customer_id = Customer::where('user_id', Auth::id())->get()->id;
 		$orders = Order::with('address')->where('customer_id', $customer_id)->orderBy('created_at', 'DESC')->get();
 
-		View::render('orders/index.php', ['orders' => $orders]);
+		View::render('orders/index.php', ['orders' => $orders, 'in_cart' => Cart::count()]);
 
 		/*$user = Auth::user();
 
@@ -50,7 +56,7 @@ class OrderController {
 
 		$order = Order::with('order_details.product')->find($id);
 
-		View::render('orders/details.php', ['order' => $order]);
+		View::render('orders/details.php', ['order' => $order, 'in_cart' => Cart::count()]);
 
 	}
 

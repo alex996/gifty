@@ -25,9 +25,9 @@
 						<div class="col-md-8 col-md-offset-2">
 							<table class="table table-hover">
 								<tbody>
-									<tr>
-										<td class="table-no-border"><b>Display Name</b></td>
-										<td class="table-no-border"><?= $user->name ?></td>
+									<tr class="top-no-border">
+										<td ><b>Display Name</b></td>
+										<td><?= $user->name ?></td>
 									</tr>
 									<tr>
 										<td><b>Email</b></td>
@@ -88,4 +88,4 @@
 </script>
 <?php $this->endblock() ?>
 
-<?php echo $this->display('layouts/app.php', []); ?>
+<?php echo $this->display('layouts/app.php', get_defined_vars()); ?>

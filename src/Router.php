@@ -61,7 +61,7 @@ class Router {
 
 	public static function redirect($path) {
 		$path = trim($path, "/");
-		$host = $_SERVER[HTTP_HOST];
+		$host = $_SERVER["HTTP_HOST"];
 		header("Location: http://$host/$path");
 	}
 

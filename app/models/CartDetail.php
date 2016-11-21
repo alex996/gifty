@@ -4,7 +4,7 @@ class CartDetail extends Model {
 	
 	protected static $class;
 
-	protected static $table;
+	protected static $table = 'cart_details';
 
 	protected static $fillable;
 
@@ -15,6 +15,10 @@ class CartDetail extends Model {
 	public $product_id;
 
 	public $quantity;
+
+	public function product() {
+		return $this->hasOne('Product');
+	}
 }
 
 CartDetail::initialize();

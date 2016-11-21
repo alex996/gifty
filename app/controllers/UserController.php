@@ -2,7 +2,11 @@
 
 require_once(MODEL_PATH . 'User.php');
 
+require_once(MODEL_PATH . 'Product.php');
+
 require_once(MODEL_PATH . 'Cart.php');
+
+require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
 
@@ -17,7 +21,7 @@ class UserController extends Controller {
 		if (!Auth::check())
 			Router::redirect('login');
 
-		View::render('accounts/security.php', []);
+		View::render('accounts/security.php', ['in_cart' => Cart::count()]);
 
 	}
 
@@ -33,12 +37,12 @@ class UserController extends Controller {
 		]);
 
 		if (!empty($errors))
-			View::render('accounts/security.php', ['error' => reset($errors)]);
+			View::render('accounts/security.php', ['error' => reset($errors), 'in_cart' => Cart::count()]);
 		else {
 			$user = Auth::user();
 			$user->password = Auth::hash($_POST['password']);
 			$user->save();
-			View::render('accounts/security.php', ['success' => 'Password updated.']);
+			View::render('accounts/security.php', ['success' => 'Password updated.', 'in_cart' => Cart::count()]);
 		}
 
 	}
