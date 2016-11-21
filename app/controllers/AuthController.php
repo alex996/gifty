@@ -12,7 +12,7 @@ require_once(MODEL_PATH . 'Product.php');
 
 class AuthController extends Controller {
 
-	public function showLogin() {
+	public function show_login() {
 
 		if (Auth::check())
 			Router::redirect('/');
@@ -52,7 +52,7 @@ class AuthController extends Controller {
 		}
 	}
 
-	public function showRegister() {
+	public function show_register() {
 		if (Auth::check())
 			Router::redirect('/');
 		else

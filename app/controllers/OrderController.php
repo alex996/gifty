@@ -60,4 +60,13 @@ class OrderController {
 
 	}
 
+	public function step1() {
+
+		View::render('checkout/step1.php', [
+			'in_cart' => Cart::count(),
+			'orders' => Order::with('address')->where('customer_id', Customer::current()->id)
+								->orderBy('created_at', 'DESC')->get()
+		]);
+	}
+
 }

@@ -2,16 +2,16 @@
 
 Router::get('[/]', 'HomeController@index');
 
-/*
+/**
  *	Auth routes.
 */
-Router::get('login', 'AuthController@showLogin');
+Router::get('login', 'AuthController@show_login');
 Router::post('login', 'AuthController@login');
-Router::get('register', 'AuthController@showRegister');
+Router::get('register', 'AuthController@show_register');
 Router::post('register', 'AuthController@register');
 Router::post('logout', 'AuthController@logout');
 
-/*
+/**
  *	Account routes (customers ONLY).
 */
 Router::get('account', 'AccountController@index');
@@ -38,21 +38,20 @@ Router::patch('cart/cart-details/(\d+)', 'CartController@update');
 Router::delete('cart/cart-details/(\d+)', 'CartController@destroy');
 
 
-
-
-
-Router::get('users', 'UserController@index');
-
-Router::get('blog/(\w+)/(\d+)', function($category, $id){
-	print $category . ':' . $id;
-});
-
+/**
+ *	Product routes.
+ */
 Router::get('products', 'ProductController@index');
-
 Router::get('products/(\d+)', 'ProductController@show');
+Router::get('products/(\w+)', 'ProductController@index_category');
 
-Router::post('products', 'ProductController@store');
 
-Router::fallback(function() {
-	echo "404";
-});
+/**
+ * 	Checkout routes.
+ */
+Router::get('/checkout/step-1', 'OrderController@step1');
+
+/**
+ *	Fallback route (404 error).
+ */
+Router::fallback('HomeController@fallback');

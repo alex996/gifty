@@ -63,7 +63,7 @@
 				</table>
 				<hr>
 				<div class="row col-md-4 col-md-offset-4">
-					<a href="/checkout" class="btn btn-success btn-block btn-lg">Checkout</a>
+					<a href="/checkout/step-1" class="btn btn-success btn-block btn-lg">Checkout</a>
 				</div>
 			<?php else: ?>
 				<div class="empty-cart">

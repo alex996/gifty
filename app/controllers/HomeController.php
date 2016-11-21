@@ -14,7 +14,10 @@ class HomeController {
 			'products' => Product::random(8)->get(),
 			'in_cart' => Cart::count()
 		]);
+	}
 
+	public function fallback() {
+		View::render('errors/404.php', ['in_cart' => Cart::count()]);
 	}
 
 }

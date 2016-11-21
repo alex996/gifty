@@ -109,8 +109,9 @@ class Router {
 	}
 
 	private static function fail() {
-		if (self::$fallback && is_callable(self::$fallback)) {
-            call_user_func(self::$fallback);
+		if (self::$fallback) {
+            return self::dispatch(self::$fallback, []);
+            //call_user_func(self::$fallback);
         } else {
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
         }
