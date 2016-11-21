@@ -15,30 +15,6 @@ class AccountController extends Controller {
 		if (!Auth::check())
 			Router::redirect('login');
 
-<<<<<<< HEAD
-=======
-		//print_r(ModelResolver::$class_table);die();
-		//
-
-		/*$u = User::with('customer')->all();
-		foreach($u as $user) {
-			print_r($user);
-			echo "<br>";
-		}die();*/
-
-		/*$pm = PaymentMethod::find(1);
-		print_r($pm->address());die();*/
-
-		$u = User::find(6)->load('customer');
-		print_r($u->customer);
-		/*echo "<br>";
-		$u->load('customer');
-print_r($u);*/
-
-		die();
-
-
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
 		$user = Auth::user();
 
 		if ($user->isCustomer()) {
@@ -62,17 +38,6 @@ print_r($u);*/
 		else if ($user->isAdmin()) {
 			echo "admin dashboard....";
 		}
-
-
-
-		/*$user = Auth::user();
-		$user->load('customer');
-		
-		if (!$user->customer) {
-			View::render('accounts/register.php');
-		} else {
-			print_r($user->customer);
-		}*/
 
 	}
 }

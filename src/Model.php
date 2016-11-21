@@ -172,7 +172,7 @@ class Model {
     public function hasMany($class, $foreign_key = null) {
 		// Foreign key in the $class model
 		$foreign_key = ($foreign_key) ? $foreign_key : strtolower(static::$class).'_id';
-<<<<<<< HEAD
+
 		$rel = $class::where($foreign_key, $this->id)->get();
 		
 		if (is_array($rel))
@@ -181,9 +181,6 @@ class Model {
 			return [];
 		else
 			return [$rel];
-=======
-		return [ $class::where($foreign_key, $this->id)->get() ];
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
     }
 
     /*$this is OrderDetail
@@ -199,7 +196,7 @@ class Model {
     public function belongsToMany($class, $foreign_key = null) {
     	// Foreign key in the $class model
     	$foreign_key = ($foreign_key) ? $foreign_key : strtolower(static::$class).'_id';
-<<<<<<< HEAD
+
     	$rel = $class::where($foreign_key, $this->id)->get();
     	
     	if (is_array($rel))
@@ -208,9 +205,6 @@ class Model {
 			return [];
 		else
 			return [$rel];
-=======
-    	return [ $class::where($foreign_key, $this->id)->get() ];
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
     }
 
 	/**

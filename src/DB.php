@@ -29,14 +29,13 @@ class DB {
 
     public static function table($table) {
         $db = new DB();
-<<<<<<< HEAD
+
 
 /*        $bt = debug_backtrace();
         var_dump($bt);die();
     $caller_class = (isset($bt[1]['class']) ? $bt[1]['class'] : null);
     echo $caller_class."<br>";*/
-=======
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
+
         // Get the class name from the Model Resolver
         $db->class = ModelResolver::getClass($table);
         
@@ -110,7 +109,7 @@ class DB {
             if (!empty($this->relationship)) {
                 // Load the objects in relationship
                 foreach($res as $object)
-<<<<<<< HEAD
+
                     foreach($this->relationship as $relationship) {
                         if (strpos($relationship, '.') !== false) {
                             $rels = explode(".", $relationship);
@@ -128,10 +127,9 @@ class DB {
                         else
                             $object->$relationship = $object->$relationship();
                     }
-=======
-                    foreach($this->relationship as $relationship)
-                        $object->$relationship = $object->$relationship();
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
+
+/*                    foreach($this->relationship as $relationship)
+                        $object->$relationship = $object->$relationship();*/
 
                     //load($relationship);
             }

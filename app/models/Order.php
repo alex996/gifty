@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
 class Order extends Model {
-=======
-class Order {
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
 
 	protected static $class;
 
@@ -26,7 +22,6 @@ class Order {
 
 	public $created_at;
 
-<<<<<<< HEAD
 	const PENDING = 'PENDING';
 	
 	const APPROVED = 'APPROVED';
@@ -37,8 +32,6 @@ class Order {
 	
 	const ERROR = 'ERROR';
 
-=======
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2
 	public function customer() {
 		return $this->belongsTo('Customer');
 	}
@@ -48,7 +41,6 @@ class Order {
 	}
 
 	public function payment_method() {
-<<<<<<< HEAD
 		return $this->hasOne('PaymentMethod');
 	}
 
@@ -58,10 +50,3 @@ class Order {
 }
 
 Order::initialize();
-=======
-		return $this->hasOne('PaymentMethod')
-	}
-
-
-}
->>>>>>> 4ebd9df5ef231b7df010269c13d9d233788bf8c2

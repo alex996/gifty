@@ -1,6 +1,5 @@
 <?php
 
-
 require_once(MODEL_PATH . 'Customer.php');
 
 require_once(MODEL_PATH . 'Order.php');
