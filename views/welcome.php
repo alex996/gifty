@@ -124,26 +124,6 @@
 			</div>
             <?php foreach($products as $product): ?>
                 <div class="col-sm-6 col-md-4 col-lg-3">
-                    <?php /*<div class="thumbnail">
-                        <img src="http://placehold.it/320x300" alt="">
-                        <div class="caption">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4 class="pull-right text-success product-price"><b>$<?= $product->price ?></b></h4>
-                                    <h4 class="product-name"><a href="#"><?= $product->name ?></a></h4>
-                                    <p class="product-desc"><?= $product->description ?></p>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <a class="btn btn-default btn-block"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Details</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-primary btn-block"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add to Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */ ?>
                     <div class="thumbnail">
                         <img src="http://placehold.it/500x400" alt="...">
                         <div class="caption">
@@ -169,7 +149,7 @@
             <?php endforeach; ?>
             <div class="col-md-12 ">
 				<div class="col-sm-4 col-sm-offset-4">
-					<a href="" class="btn btn-lg btn-primary btn-block">View All</a>
+					<a href="/products" class="btn btn-lg btn-primary btn-block">View All</a>
 				</div>
 			</div>
         </div>
@@ -213,7 +193,7 @@
                 <div class="col-md-8">
                     <p>Enjoy our collection of high-quality products at ridiculously low prices!
                     We offer fast delivery and excellent service to all our beloved customers.
-                    Check out our <a href="#">products</a> and buy your gift today!</p>
+                    Check out our <a href="/products">products</a> and buy your gift today!</p>
                 </div>
                 <div class="col-md-2">
                     <a class="btn btn-lg btn-default btn-block" href="login">Sign In</a>

@@ -20,6 +20,15 @@ class Cart extends Model {
 		return $this->hasMany('CartDetail');
 	}
 
+	public function isAnonymous() {
+		return empty($this->customer_id);
+	}
+
+	public function isAuthenticated() {
+		return ! empty($this->customer_id);
+	}
+
+
 	public static function recent() {
 		return Cart::where('customer_id', Customer::current()->id)->orderBy('created_at', 'DESC')->first();
 	}

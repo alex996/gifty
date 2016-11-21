@@ -46,6 +46,21 @@ class Product extends Model {
 		return $this->hasOne('Promotion');
 	}
 
+	public function rating() {
+		$reviews = $this->reviews();
+		$count = count($reviews);
+		$ratings_sum = 0;
+
+		foreach($reviews as $review)
+			$ratings_sum += $review->rating;
+
+		return ($count > 0) ? $ratings_sum / count($reviews) : 0;
+	}
+
+	public function status() {
+		return ucwords(strtolower(str_replace('_', ' ', $this->status)));
+	}
+
 	/*public function __construct() {
 
 		$reviews = $this->load('review');

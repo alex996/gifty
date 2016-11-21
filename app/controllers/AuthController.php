@@ -10,7 +10,11 @@ require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
 
+require_once(CTRL_PATH . 'traits/CartTrait.php');
+
 class AuthController extends Controller {
+
+	use CartTrait;
 
 	public function show_login() {
 
@@ -38,13 +42,13 @@ class AuthController extends Controller {
 
 				if (!$auth_error) {
 
-					$cart = Cart::current();
-					if (Auth::user()->isCustomer() && $cart) {
-						$cart->customer_id = Customer::current()->id;
-						$cart->save();
+					if (Auth::user()->isCustomer()) {
+						// Process the cart
+						CartTrait::process();
+						Router::redirect('/');
 					}
-
-					Router::redirect('/');
+					else // isAdmin
+						Router::redirect('dashboard');
 				}
 			}
 

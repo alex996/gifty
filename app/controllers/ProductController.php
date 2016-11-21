@@ -8,6 +8,8 @@ require_once(MODEL_PATH . 'Product.php');
 
 require_once(MODEL_PATH . 'Category.php');
 
+require_once(MODEL_PATH . 'Review.php');
+
 class ProductController extends Controller {
 	
 	public function index() {
@@ -28,18 +30,18 @@ class ProductController extends Controller {
 		]);
 	}
 
-	public function create() {
-		
-	}
-
-
 	// Create a new user:
 	public function store() {
 		print_r($_POST);
 	}
 
 	public function show($id) {
-		
+		$product = Product::with('category')->find($id);
+
+		View::render('products/details.php', [
+			'product' => $product,
+			'in_cart' => Cart::count()
+		]);
 	}
 
 	public function edit() {

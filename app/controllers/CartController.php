@@ -12,7 +12,11 @@ require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
 
+require_once(CTRL_PATH . 'traits/CartTrait.php');
+
 class CartController {
+
+	use CartTrait;
 
 	public function index() {
 
@@ -33,22 +37,9 @@ class CartController {
 			// Get the current cart
 			$cart = Cart::current();
 
-			// Get the current customer
-			$customer = Customer::current();
-
 			// If cart does not exist, create it
-			if (!$cart) {
-				$cart = Cart::create([
-					'customer_id' => ($customer) ? $customer->id : null,
-					'sess_id' => session_id(),
-					'created_at' => date("Y-m-d H:i:s"),
-				]);
-				// Store cart_id in session
-				$_SESSION['cart_id'] = $cart->id;
-				// There are not cart details to load, but this will
-				// create $cart->cart_details instance var
-				$cart->load('cart_details');
-			}
+			if (!$cart)
+				$cart = CartTrait::setup();
 
 			// Try to find the cart detail
 			$cart_detail = null;

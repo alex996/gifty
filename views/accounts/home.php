@@ -13,8 +13,13 @@
 			<h2>Welcome Back to Your Account, <?= $user->name ?>!</h2>
 		</div>
 		<div class="col-md-9">
+
+			<?php include_once(VIEWS_PATH . 'components/info.php') ?>
+
 			<div class="panel panel-default">
-				<div class="panel-heading text-center"><h4>Recent Orders</h4></div>
+				<div class="panel-heading text-center">
+					<h4>Recent Orders</h4>
+				</div>
 				<div class="panel-body">
 
 					<table class="table">
