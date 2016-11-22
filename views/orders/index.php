@@ -1,9 +1,6 @@
 <?php $this->block('title', 'Order History') ?>
 
 <?php $this->block('styles') ?>
-<style>
-	.label {font-size: 13px;}
-</style>
 <?php $this->endblock() ?>
 
 <?php $this->block('content') ?>
@@ -30,25 +27,16 @@
 						<tbody>
 							<?php if(!empty($orders)): ?>				
 								<?php foreach($orders as $index => $order): ?>
-									<?php
-										$class = "";
-										switch($order->status) {
-											case Order::PENDING: $class = "default";break;
-											case Order::APPROVED: $class = "primary";break;
-											case Order::DELIVERED: $class = "success";break;
-											case Order::CANCELLED: $class = "warning";break;
-											case Order::ERROR: $class = "danger";break;
-										}
-									?>
+									<?php include_once(VIEWS_PATH . 'orders/components/status.php') ?>
 									<tr>
 										<td><?= $index + 1 ?></td>
-										<td><span class="label label-<?= $class ?>"><?= $order->status ?></span></td>
+										<td><span class="label label-<?= $status_label_class ?> status-label"><?= $order->status ?></span></td>
 										<td><?= $order->created_at ?></td>
 										<?php $addr = $order->address ?>
 										<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
 										<td>$<?= $order->total ?></td>
 										<td>
-											<a href="/account/orders/<?= $addr->id ?>" class="btn btn-primary"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Details</a>
+											<a href="/account/orders/<?= $order->id ?>" class="btn btn-primary"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Details</a>
 										</td>
 									</tr>
 								<?php endforeach; ?>

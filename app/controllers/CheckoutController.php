@@ -192,16 +192,73 @@ class CheckoutController {
 
 	public function confirm() {
 
-		// create order
+		$customer = Customer::current();
+		$cart = Cart::current();
+		$address_id = $_SESSION['address_id'];
+		$payment_method_id = $_SESSION['payment_method_id'];
 
-		// create order details
-		// loop through cart
+		// Create an order
+		$order = Order::create([
+			'customer_id' => $customer->id,
+			'address_id' => $address_id,
+			'payment_method_id' => $payment_method_id,
+			'status' => Order::PENDING,
+			'total' => $cart->total(),
+			'created_at' => date("Y-m-d H:i:s"),
+		]);
 
-		// delete cart & cart_details
+		foreach($cart->cart_details as $cart_detail) {
+			// Create an order_detail
+			$order_detail = OrderDetail::create([
+				'order_id' => $order->id,
+				'product_id' => $cart_detail->product_id,
+				'price' => $cart_detail->product->price, // current price
+				'quantity' => $cart_detail->quantity,
+			]);
+			// Decrement quantity in stock
+			$cart_detail->product->quantity -= $cart_detail->quantity;
+			$cart_detail->product->save();
+			// Delete the cart detail
+			$cart_detail->delete();
+		}
 
-		// display an invoice
+		// Delete the cart
+		$cart->delete();
 
+		// Unset session vars
 		unset($_SESSION['address_id']);
 		unset($_SESSION['payment_method_id']);
+		unset($_SESSION['cart_id']);
+
+		// Set a flag to indicate successful purchase
+		$_SESSION['order_id'] = $order->id;
+
+		Router::redirect('checkout/success');
+
+		/*View::render('checkout/success.php', [
+			'customer' => Customer::current(),
+			'in_cart' => 0,
+			'order' => $order,
+		]);*/
+	}
+
+	public function success() {
+
+		// Customer must confirm the order first
+		if (! isset($_SESSION['order_id']))
+			Router::redirect('/checkout/confirmation');
+
+		// Get the order with its shipping address
+		// and payment method + billing address
+		$order = Order::with(['address', 'payment_method.address'])
+							->find($_SESSION['order_id']);
+		unset($_SESSION['order_id']);
+
+		View::render('/checkout/success.php', [
+			'customer' => Customer::current(),
+			'in_cart' => 0,
+			'order' => $order
+		]);
+
 	}
 }

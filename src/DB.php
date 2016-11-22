@@ -118,10 +118,16 @@ class DB {
                             $nested_rel_name = $rels[1];
 
                             $parent_rel = $object->$parent_rel_name();
-                            foreach($parent_rel as $rel)
-                                if ($rel)
-                                    $rel->$nested_rel_name = $rel->$nested_rel_name();
-
+                            // Single relationship object
+                            if (!is_array($parent_rel) && !empty($parent_rel))
+                                $parent_rel->$nested_rel_name = $parent_rel->$nested_rel_name();
+                            // Array of relationship objects
+                            else {
+                                foreach($parent_rel as $rel)
+                                    if ($rel)
+                                        $rel->$nested_rel_name = $rel->$nested_rel_name();
+                            }
+                            
                             $object->$parent_rel_name = $parent_rel;
                         }
                         else

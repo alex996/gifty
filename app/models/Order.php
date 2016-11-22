@@ -41,7 +41,7 @@ class Order extends Model {
 	}
 
 	public function payment_method() {
-		return $this->hasOne('PaymentMethod');
+		return $this->hasOne('PaymentMethod', 'payment_method_id');
 	}
 
 	public function order_details() {

@@ -28,8 +28,12 @@ class OrderController {
 		$customer_id = Customer::where('user_id', Auth::id())->get()->id;
 		$orders = Order::with('address')->where('customer_id', $customer_id)->orderBy('created_at', 'DESC')->get();
 
+		if (!is_array($orders))
+			$orders = [$orders];
+		
 		View::render('orders/index.php', [
-			'orders' => $orders, 'in_cart' => Cart::count(),
+			'orders' => $orders,
+			'in_cart' => Cart::count(),
 			'categories' => Category::all(),
 		]);
 
@@ -59,10 +63,31 @@ class OrderController {
 
 		$order = Order::with('order_details.product')->find($id);
 
-		View::render('orders/details.php', [
-			'order' => $order, 'in_cart' => Cart::count(),
-			'categories' => Category::all(),
-		]);
+	    if (empty($order)) {
+			View::render('errors/404.php', [
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
+		} else {
+			View::render('orders/details.php', [
+				'order' => $order, 'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
+		}
+	}
 
+	public function update_quantity($oder_detail_id) {
+/*		$order_detail = OrderDetail::find($order_id);
+		if ($order && $_POST['quantity']) {
+			// chechk errors quantity
+
+			$order_detail->quantity = $_POST['quantity'];
+		}
+*/
+		Router::redirect_back();
+	}
+
+	public function delete_detail($oder_detail_id) {
+		Router::redirect_back();
 	}
 }

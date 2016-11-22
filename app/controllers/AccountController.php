@@ -6,6 +6,8 @@ require_once(MODEL_PATH . 'Customer.php');
 
 require_once(MODEL_PATH . 'Order.php');
 
+require_once(MODEL_PATH . 'OrderDetail.php');
+
 require_once(MODEL_PATH . 'Address.php');
 
 require_once(MODEL_PATH . 'Cart.php');
@@ -41,7 +43,7 @@ class AccountController extends Controller {
 				foreach ($payment_methods as $method)
 					$method->load('address');*/
 
-				$order = Order::with('address')->where('customer_id', $user->customer->id)->orderBy('created_at', 'DESC')->first();
+				$order = Order::with(['address', 'order_details.product'])->where('customer_id', $user->customer->id)->orderBy('created_at', 'DESC')->first();
 			
 				View::render('accounts/home.php', [
 					'user' => $user,

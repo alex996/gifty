@@ -46,7 +46,8 @@ class Customer extends Model {
 
 		$addresses = [];
 		foreach($orders as $order)
-			$addresses[] = Address::find($order->address_id);
+			if (!empty($order))
+				$addresses[] = Address::find($order->address_id);
 
 		return $addresses;
 	}

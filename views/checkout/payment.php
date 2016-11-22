@@ -143,7 +143,7 @@
 								</div>
 								<div class="panel-body">
 									<div class="col-md-6 col-md-offset-3 text-center">
-										<form class="form-horizontal" action="/checkout/shipping" method="POST">										
+										<form class="form-horizontal" action="/checkout/payment" method="POST">										
 											<?php foreach($payment_methods as $method): ?>
 												<?php $addr = $method->address; ?>
 												<div class="radio">

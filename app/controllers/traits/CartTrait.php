@@ -11,10 +11,19 @@ trait CartTrait {
 		if ($cart) {
 
 			if ($cart->isAuthenticated()) {
-				// If is authenticated, but belongs to a different
-				// customer, then reinitialize the cart
-				if ($cart->customer_id != $customer_id)
-					$cart = CartTrait::setup();
+				// If cart is authenticated, but belongs to a
+				// different customer, switch to your own cart
+				if ($cart->customer_id != $customer_id) {
+					// Load the most recent cart, if any
+					$cart = Cart::where('customer_id', $customer_id)
+							->orderBy('created_at', 'DESC')->first();
+					// If no cart found, then reinitialize the cart
+					if (!cart)
+						$cart = CartTrait::setup();
+
+					// Store cart_id in session
+					$_SESSION['cart_id'] = $cart->id;
+				}
 				// Else, update the session id if needed
 				else {
 					$session_id = session_id();

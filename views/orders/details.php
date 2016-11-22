@@ -17,7 +17,8 @@
 		</div>
 		<div class="col-md-9">
 			<div class="panel panel-default">
-				<div class="panel-heading text-center"><h4>View Order Details</h4></div>
+				<?php $manageable = $order->status == Order::PENDING; ?>
+				<div class="panel-heading text-center"><h4>View <?= $manageable ? "or Manage" : "" ?> Your Order</h4></div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table table-hover">
@@ -29,7 +30,7 @@
 									<th>Quantity</th>
 									<th>Unit Price</th>
 									<th>Total</th>
-									<th></th>
+									<?= $manageable ? "<th></th>" : "" ?>
 								</tr>
 							</thead>
 							<tbody>
@@ -42,17 +43,26 @@
 												<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
 											</td>
 											<td class="product-desc"><?= $detail->product->description ?></td>
-											<td>
-												<input class="form-control product-qty" type="number" name="quantity" value="<?= $detail->quantity ?>" min="0" max="99">
+											<td class="text-center">
+												<?php if ($manageable): ?>
+													<form method="POST" action="/account/orders/order-details/<?= $detail->id ?>">
+														<input type="hidden" name="_method" value="PATCH">
+														<input class="form-control product-qty" type="number" name="quantity" value="<?= $detail->quantity ?>" min="0" max="99">
+													</form>
+												<?php else: ?>
+													<?= $detail->quantity ?>
+												<?php endif; ?>
 											</td>
 											<td>$<?= $detail->price ?></td>
 											<td>$<?= $detail->quantity * $detail->price ?></td>
-											<td>
-												<form method="POST">
-													<input type="hidden" name="_method" value="DELETE">
-													<button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-												</form>
-											</td>
+											<?php if ($manageable): ?>
+												<td>
+													<form method="POST">
+														<input type="hidden" name="_method" value="DELETE">
+														<button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+													</form>
+												</td>
+											<?php endif; ?>
 										</tr>
 									<?php endforeach; ?>
 								<?php else: ?>
@@ -65,13 +75,24 @@
 			</div>
 		</div>
 		<?php include_once(VIEWS_PATH . 'accounts/components/sidebar.php') ?>
+		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center"><h4>View Order Invoice</h4></div>
+				<div class="panel-body">
+				</div>
+			</div>
+		</div>
 	</div>
 <div>
 <?php $this->endblock() ?>
 
 <?php $this->block('scripts') ?>
 <script>
-
+$(function() {
+	$('.product-qty').change(function() {
+		$(this).closest('form').submit();
+	})
+});
 </script>
 <?php $this->endblock() ?>
 

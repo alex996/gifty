@@ -9,6 +9,8 @@ body {
 
 .btn-cta {padding: 10px 0; font-size: 16px !important}
 
+.status-label {font-size: 13px;}
+
 .top-no-border td { border-top: none !important; }
 
 .account-sidebar .list-group a {padding: 17px 15px;}

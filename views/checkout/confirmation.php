@@ -15,8 +15,14 @@
 			<div class="row">
 				<div class="col-md-6">
 					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Order Details</th>
+							</tr>
+						</thead>
 						<tbody>
-							<tr class="top-no-border">
+							<tr>
 								<td><b>Customer</b></td>
 								<td><?= $customer->first . " " . $customer->last ?></td>
 							</tr>
@@ -46,7 +52,7 @@
 					</table>
 				</div>
 				<div class="col-md-6">
-					<table class="table table-hover cart">
+					<table class="table table-hover">
 					    <thead>
 							<tr>
 								<th class="text-center">#</th>

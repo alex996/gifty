@@ -38,7 +38,7 @@ class ProductController extends Controller {
 	}
 
 	public function show($id) {
-		$product = Product::with('category')->find($id);
+		$product = Product::with(['category','reviews'])->find($id);
 
 		if (empty($product)) {
 			View::render('errors/404.php', [

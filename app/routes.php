@@ -15,14 +15,13 @@ Router::post('logout', 'AuthController@logout');
  *	Account routes (customers ONLY).
 */
 Router::get('account', 'AccountController@index');
-
 Router::post('account', 'CustomerController@store');
 Router::get('account/profile', 'CustomerController@show');
 Router::patch('account/profile', 'CustomerController@update_phone');
 
 Router::get('account/orders', 'OrderController@index');
 Router::get('account/orders/(\d+)', 'OrderController@show');
-Router::get('account/orders/(\d+)/edit', 'OrderController@edit');
+Router::patch('account/orders/order-details/(\d+)', 'OrderController@update_quantity');
 
 Router::get('account/payment-methods', 'PaymentMethodController@index');
 
@@ -55,6 +54,7 @@ Router::get('/checkout/payment', 'CheckoutController@show_payment');
 Router::post('/checkout/payment', 'CheckoutController@store_payment');
 Router::get('/checkout/confirmation', 'CheckoutController@show_confirmation');
 Router::post('/checkout/confirmation', 'CheckoutController@confirm');
+Router::get('/checkout/success', 'CheckoutController@success');
 
 /**
  *	Fallback route (404 error).

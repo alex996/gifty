@@ -65,6 +65,10 @@ class Router {
 		header("Location: http://$host/$path");
 	}
 
+	public static function redirect_back() {
+		header("Location: {$_SERVER['HTTP_REFERER']}");
+	}
+
 	public static function url() {
 		return filter_var( '/' . trim( strtok($_SERVER["REQUEST_URI"], '?'), '/' ), FILTER_SANITIZE_URL);
 	}
