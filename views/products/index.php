@@ -17,16 +17,9 @@
 		<div class="col-md-2">
 			<div class="list-group sidebar">
 				<a class="list-group-item text-center disabled">Categories</a>
-				<a class="list-group-item" href="/products/electronics">Electronics</a>
-				<a class="list-group-item" href="/products/beauty">Beauty</a>
-				<a class="list-group-item" href="/products/fashion">Fashion</a>
-				<a class="list-group-item" href="/products/toys">Toys</a>
-				<a class="list-group-item" href="/products/games">Games</a>
-				<a class="list-group-item" href="/products/drinks">Drinks</a>
-				<a class="list-group-item" href="/products/candies">Candies</a>
-				<a class="list-group-item" href="/products/flowers">Flowers</a>
-				<a class="list-group-item" href="/products/home">Home</a>
-				<a class="list-group-item" href="/products/accessories">Accessories</a>
+				<?php foreach($categories as $category): ?>
+					<a class="list-group-item <?= Router::url() == "/products/{$category->name}" ? "active" : "" ?>" href="/products/<?= $category->name ?>"><?= ucfirst($category->name) ?></a>
+				<?php endforeach; ?>
 			</div>
 		</div>
 		<div class="col-md-10">
@@ -46,8 +39,8 @@
                                     <form method="POST" action="/cart" class="form-add-cart">
                                         <input type="hidden" name="product_id" value="<?= $product->id ?>">
                                         <input type="hidden" name="quantity" value="1">
+                                        <a class="btn btn-primary btn-block btn-add-cart"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</a>
                                     </form>
-                                    <a class="btn btn-primary btn-block btn-add-cart"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</a>
                                 </div>
                             </div>
                         </div>

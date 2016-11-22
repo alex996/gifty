@@ -138,8 +138,8 @@
                                     <form method="POST" action="/cart" class="form-add-cart">
                                         <input type="hidden" name="product_id" value="<?= $product->id ?>">
                                         <input type="hidden" name="quantity" value="1">
+                                        <a class="btn btn-primary btn-block btn-add-cart"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</a>
                                     </form>
-                                    <a class="btn btn-primary btn-block btn-add-cart"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</a>
                                 </div>
                             </div>
                         </div>

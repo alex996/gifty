@@ -15,7 +15,8 @@ class ProductController extends Controller {
 	public function index() {
 		View::render('products/index.php', [
 			'products' => Product::all(),
-			'in_cart' => Cart::count()
+			'in_cart' => Cart::count(),
+			'categories' => Category::all(),
 		]);
 	}
 
@@ -26,7 +27,8 @@ class ProductController extends Controller {
 
 		View::render('products/index.php', [
 			'products' => $products,
-			'in_cart' => Cart::count()
+			'in_cart' => Cart::count(),
+			'categories' => Category::all(),
 		]);
 	}
 
@@ -38,10 +40,18 @@ class ProductController extends Controller {
 	public function show($id) {
 		$product = Product::with('category')->find($id);
 
-		View::render('products/details.php', [
-			'product' => $product,
-			'in_cart' => Cart::count()
-		]);
+		if (empty($product)) {
+			View::render('errors/404.php', [
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
+		} else {
+			View::render('products/details.php', [
+				'product' => $product,
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
+		}
 	}
 
 	public function edit() {

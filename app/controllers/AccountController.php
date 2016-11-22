@@ -14,6 +14,8 @@ require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
 
+require_once(MODEL_PATH . 'Category.php');
+
 class AccountController extends Controller {
 
 	public function index() {
@@ -27,7 +29,10 @@ class AccountController extends Controller {
 			$user->load('customer');
 
 			if (!$user->customer)
-				View::render('accounts/register.php', ['in_cart' => Cart::count()]);
+				View::render('accounts/register.php', [
+					'in_cart' => Cart::count(),
+					'categories' => Category::all(),
+				]);
 			else {
 				/*$user->customer->load('payment_method');
 
@@ -38,7 +43,12 @@ class AccountController extends Controller {
 
 				$order = Order::with('address')->where('customer_id', $user->customer->id)->orderBy('created_at', 'DESC')->first();
 			
-				View::render('accounts/home.php', ['user' => $user, 'order' => $order, 'in_cart' => Cart::count()]);
+				View::render('accounts/home.php', [
+					'user' => $user,
+					'order' => $order,
+					'in_cart' => Cart::count(),
+					'categories' => Category::all(),
+				]);
 			}
 		}
 		else if ($user->isAdmin()) {

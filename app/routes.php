@@ -49,7 +49,12 @@ Router::get('products/(\w+)', 'ProductController@index_category');
 /**
  * 	Checkout routes.
  */
-Router::get('/checkout/step-1', 'OrderController@step1');
+Router::get('/checkout/shipping', 'CheckoutController@show_shipping');
+Router::post('/checkout/shipping', 'CheckoutController@store_shipping');
+Router::get('/checkout/payment', 'CheckoutController@show_payment');
+Router::post('/checkout/payment', 'CheckoutController@store_payment');
+Router::get('/checkout/confirmation', 'CheckoutController@show_confirmation');
+Router::post('/checkout/confirmation', 'CheckoutController@confirm');
 
 /**
  *	Fallback route (404 error).

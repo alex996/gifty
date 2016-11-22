@@ -4,11 +4,6 @@
 <style>
 	.empty-cart h3 {margin-bottom: 20px;}
 	.empty-cart { margin-bottom: 30px; }
-
-	.table tbody>tr>td { vertical-align: middle; }
-	.product-image {float:left; margin-right:10px;}
-	.product-desc {width: 500px;}
-	.product-qty {width: 60px;}
 </style>
 <?php $this->endblock() ?>
 
@@ -22,22 +17,22 @@
 
 		<div class="col-md-12">
 			<?php if(!empty($cart) && !empty($cart->cart_details)): ?>
-				<table class="table">
+				<table class="table table-hover cart">
 				    <thead>
 						<tr>
-							<th>#</th>
+							<th class="text-center">#</th>
 							<th>Product</th>
 							<th>Description</th>
 							<th>Quantity</th>
-							<th>Unit Price</th>
-							<th>Total</th>
+							<th class="text-center">Unit Price</th>
+							<th class="text-center">Total</th>
 							<th></th>
 						</tr>
 					</thead>
 				    <tbody>
 				     	<?php foreach($cart->cart_details as $index => $detail): ?>
 							<tr>
-								<td><?= $index + 1 ?></td>
+								<td class="text-center"><?= $index + 1 ?></td>
 								<td>
 									<img class="product-image" src="http://placehold.it/50x50" alt="">
 									<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
@@ -46,15 +41,15 @@
 								<td>
 									<form method="POST" action="/cart/cart-details/<?= $detail->id ?>" class="form-edit-qty">
 										<input type="hidden" name="_method" value="PATCH">
-										<input class="form-control product-qty" type="number" name="quantity" value="<?= $detail->quantity ?>" min="0" max="99">
+										<input class="form-control product-qty" type="number" name="quantity" value="<?= $detail->quantity ?>" min="1" max="99">
 									</form>
 								</td>
-								<td>$<?= $detail->product->price ?></td>
-								<td>$<?= $detail->quantity * $detail->product->price ?></td>
-								<td>
-									<form method="POST" action="/cart/cart-details/<?= $detail->id ?>">
+								<td class="text-center">$<?= $detail->product->price ?></td>
+								<td class="text-center">$<?= $detail->quantity * $detail->product->price ?></td>
+								<td class="text-center">
+									<form method="POST" action="/cart/cart-details/<?= $detail->id ?>" class="form-del-cart">
 										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+										<button type="button" class="btn btn-danger btn-del-cart"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 									</form>
 								</td>
 							</tr>
@@ -63,7 +58,7 @@
 				</table>
 				<hr>
 				<div class="row col-md-4 col-md-offset-4">
-					<a href="/checkout/step-1" class="btn btn-success btn-block btn-lg">Checkout</a>
+					<a href="/checkout/shipping" class="btn btn-success btn-block btn-lg">Checkout</a>
 				</div>
 			<?php else: ?>
 				<div class="empty-cart">
@@ -81,21 +76,64 @@
 
 <?php $this->block('scripts') ?>
 <script>
-	$(function() {
-        $('.product-qty').change(function() {
-        	var input = $(this);
-        	var val = input.val();
+$(function() {
 
-        	if (val < 1)
-        		input.val(1);
-        	else if (val > 100)
-        		input.val(99);
-        	else {
-        		var form = input.closest('.form-edit-qty');
-        		form.submit();
-        	}
-        });
+	$('.product-qty').keypress(function(e){
+		if (e.keyCode === 10 || e.keyCode === 13) e.preventDefault();
 	});
+
+	// Update quantity of a product
+    $('.product-qty').change(function() {
+
+    	var input = $(this);
+    	var quantity = input.val();
+
+    	if (quantity < 1)
+    		input.val(1);
+    	else if (quantity > 99)
+    		input.val(99);
+    	else {
+    		var form = input.closest('.form-edit-qty');
+    		var action = form.attr('action');
+
+    		$.post(action, form.serialize())
+	            .done(function(res) {
+	                res = JSON.parse(res);
+	                if (res.status == 1) {
+	                    var in_cart = $('#in-cart').text();
+	                    $('#in-cart').text(parseInt(in_cart) + 1);
+	                }
+	                else
+	                    alert(res.errors.shift());
+	            }).fail(function() {
+	                console.log("AJAX request to " + action + "failed.");
+	            });
+    	}
+    });
+
+    // Remove a product from the cart
+    $('.btn-del-cart').click(function() {
+
+    	var form = $(this).closest('.form-del-cart');
+    	var row = form.closest('tr');
+    	var action = form.attr('action');
+    	var quantity = row.find('.product-qty').val();
+
+    	$.post(action, form.serialize())
+    		.done(function(res) {
+                res = JSON.parse(res);
+                if (res.status == 1) {
+                    var in_cart = $('#in-cart').text();
+                    $('#in-cart').text(parseInt(in_cart) - parseInt(quantity));
+                    row.remove();
+                }
+                else
+                    alert(res.errors.shift());
+            }).fail(function() {
+                console.log("AJAX request to " + action + "failed.");
+            });
+    });
+});
 </script>
 <?php $this->endblock() ?>
 

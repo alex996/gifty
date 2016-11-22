@@ -7,9 +7,15 @@ body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
-.btn-cta {padding: 10px 0}
+.btn-cta {padding: 10px 0; font-size: 16px !important}
 
 .top-no-border td { border-top: none !important; }
 
 .account-sidebar .list-group a {padding: 17px 15px;}
+
+/* Cart */
+.cart.table tbody>tr>td { vertical-align: middle; }
+.cart .product-image {float:left; margin-right:10px;}
+.cart .product-desc {width: 500px;}
+.cart .product-qty {width: 60px;}
 

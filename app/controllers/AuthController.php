@@ -10,6 +10,8 @@ require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
 
+require_once(MODEL_PATH . 'Category.php');
+
 require_once(CTRL_PATH . 'traits/CartTrait.php');
 
 class AuthController extends Controller {
@@ -21,7 +23,10 @@ class AuthController extends Controller {
 		if (Auth::check())
 			Router::redirect('/');
 		else
-			View::render('auth/login.php', ['in_cart' => Cart::count()]);
+			View::render('auth/login.php', [
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
 	}
 
 	public function login() {
@@ -52,7 +57,11 @@ class AuthController extends Controller {
 				}
 			}
 
-			View::render('auth/login.php', ['error' => $auth_error, 'in_cart' => Cart::count()]);
+			View::render('auth/login.php', [
+				'error' => $auth_error,
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
 		}
 	}
 
@@ -60,7 +69,10 @@ class AuthController extends Controller {
 		if (Auth::check())
 			Router::redirect('/');
 		else
-			View::render('auth/register.php', ['in_cart' => Cart::count()]);
+			View::render('auth/register.php', [
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
 	}
 
 	public function register() {
@@ -74,7 +86,11 @@ class AuthController extends Controller {
 			]);
 
 			if (!empty($errors))
-				View::render('auth/register.php', ['error' => reset($errors), 'in_cart' => Cart::count()]);
+				View::render('auth/register.php', [
+					'error' => reset($errors),
+					'in_cart' => Cart::count(),
+					'categories' => Category::all(),
+				]);
 			else {
 				// Create a new user
 				User::create([

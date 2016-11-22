@@ -21,30 +21,30 @@
 					<h4>Recent Orders</h4>
 				</div>
 				<div class="panel-body">
-
-					<table class="table">
-						<?php
-							$class = "";
-							switch($order->status) {
-								case Order::PENDING: $class = "default";break;
-								case Order::APPROVED: $class = "primary";break;
-								case Order::DELIVERED: $class = "success";break;
-								case Order::CANCELLED: $class = "warning";break;
-								case Order::ERROR: $class = "danger";break;
-							}
-						?>
-						<tr class="top-no-border">
-							<td><span class="label label-<?= $class ?>"><?= $order->status ?></span></td>
-							<td><?= $order->created_at ?></td>
-							<?php $addr = $order->address ?>
-							<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
-							<td>$<?= $order->total ?></td>
-							<td>
-								<a href="/account/orders/<?= $addr->id ?>" class="btn btn-primary"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Details</a>
-							</td>
-						</tr>
-					</table>
-
+					<?php if (!empty($order)): ?>
+						<table class="table">
+							<?php
+								$class = "";
+								switch($order->status) {
+									case Order::PENDING: $class = "default";break;
+									case Order::APPROVED: $class = "primary";break;
+									case Order::DELIVERED: $class = "success";break;
+									case Order::CANCELLED: $class = "warning";break;
+									case Order::ERROR: $class = "danger";break;
+								}
+							?>
+							<tr class="top-no-border">
+								<td><span class="label label-<?= $class ?>"><?= $order->status ?></span></td>
+								<td><?= $order->created_at ?></td>
+								<?php $addr = $order->address ?>
+								<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
+								<td>$<?= $order->total ?></td>
+								<td>
+									<a href="/account/orders/<?= $addr->id ?>" class="btn btn-primary"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Details</a>
+								</td>
+							</tr>
+						</table>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

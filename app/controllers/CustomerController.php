@@ -10,6 +10,8 @@ require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
 
+require_once(MODEL_PATH . 'Category.php');
+
 class CustomerController extends Controller {
 
 	/* RESTful routes:
@@ -34,7 +36,11 @@ class CustomerController extends Controller {
 		]);
 
 		if (!empty($errors))
-			View::render('accounts/register.php', ['errors' => $errors, 'in_cart' => Cart::count()]);
+			View::render('accounts/register.php', [
+				'errors' => $errors,
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
 		else {
 			Customer::create([
 				'user_id' => Auth::id(),
@@ -54,7 +60,8 @@ class CustomerController extends Controller {
 
 		View::render('accounts/profile.php', [
 			'user' => User::with('customer')->find(Auth::id()),
-			'in_cart' => Cart::count()
+			'in_cart' => Cart::count(),
+			'categories' => Category::all(),
 		]);
 	}
 
@@ -69,11 +76,21 @@ class CustomerController extends Controller {
 		$user = User::with('customer')->find(Auth::id());
 
 		if (!empty($errors))
-			View::render('accounts/profile.php', ['user' => $user, 'error' => reset($errors), 'in_cart' => Cart::count()]);
+			View::render('accounts/profile.php', [
+				'user' => $user,
+				'error' => reset($errors),
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
 		else {
 			$user->customer->phone = $_POST['phone'];
 			$user->customer->save();
-			View::render('accounts/profile.php', ['user' => $user, 'success' => 'Phone number updated.', 'in_cart' => Cart::count()]);
+			View::render('accounts/profile.php', [
+				'user' => $user,
+				'success' => 'Phone number updated.',
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
 		}
 	}
 

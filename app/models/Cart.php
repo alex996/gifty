@@ -37,6 +37,13 @@ class Cart extends Model {
 		return isset($_SESSION['cart_id']) ? Cart::with('cart_details.product')->find($_SESSION['cart_id']) : null;
 	}
 
+	public function total() {
+		$total = 0;
+		foreach($this->cart_details as $detail)
+			$total += $detail->product->price;
+		return $total;
+	}
+
 	public static function count() {
 		$cart = Cart::current();
 		if (!$cart)

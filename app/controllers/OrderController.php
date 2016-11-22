@@ -8,13 +8,13 @@ require_once(MODEL_PATH . 'Address.php');
 
 require_once(MODEL_PATH . 'OrderDetail.php');
 
-require_once(MODEL_PATH . 'Product.php');
-
 require_once(MODEL_PATH . 'Cart.php');
 
 require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Product.php');
+
+require_once(MODEL_PATH . 'Category.php');
 
 class OrderController {
 
@@ -28,7 +28,10 @@ class OrderController {
 		$customer_id = Customer::where('user_id', Auth::id())->get()->id;
 		$orders = Order::with('address')->where('customer_id', $customer_id)->orderBy('created_at', 'DESC')->get();
 
-		View::render('orders/index.php', ['orders' => $orders, 'in_cart' => Cart::count()]);
+		View::render('orders/index.php', [
+			'orders' => $orders, 'in_cart' => Cart::count(),
+			'categories' => Category::all(),
+		]);
 
 		/*$user = Auth::user();
 
@@ -56,17 +59,10 @@ class OrderController {
 
 		$order = Order::with('order_details.product')->find($id);
 
-		View::render('orders/details.php', ['order' => $order, 'in_cart' => Cart::count()]);
-
-	}
-
-	public function step1() {
-
-		View::render('checkout/step1.php', [
-			'in_cart' => Cart::count(),
-			'orders' => Order::with('address')->where('customer_id', Customer::current()->id)
-								->orderBy('created_at', 'DESC')->get()
+		View::render('orders/details.php', [
+			'order' => $order, 'in_cart' => Cart::count(),
+			'categories' => Category::all(),
 		]);
-	}
 
+	}
 }

@@ -92,6 +92,10 @@ class Validator {
 		return ctype_alnum($value);
 	}
 
+    private static function alphanum_dash($value) {
+        return ctype_alnum(str_replace('-', '', $value));
+    }
+
     private static function size($value, $size) {
         return strlen($value) == $size;
     }

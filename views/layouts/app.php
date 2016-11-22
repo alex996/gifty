@@ -38,30 +38,23 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="cart"><i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i> Cart (<span id="in-cart"><?= $in_cart ?></span>)</a>
+                        <a href="/cart"><i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i> Cart (<span id="in-cart"><?= $in_cart ?></span>)</a>
                     </li>
                     <li>
-                        <a href="products">Products</a>
+                        <a href="/products">Products</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="portfolio-1-col.html">Electronics</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-2-col.html">Fashion &amp; Beauty</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-3-col.html">Toys &amp; Games</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-4-col.html">Drinks &amp; Candies</a>
-                            </li>
+                            <?php foreach($categories as $category): ?>
+                                <li class="<?= Router::url() == "/products/{$category->name}" ? "active" : "" ?>">
+                                    <a href="/products/<?= $category->name ?>"><?= ucfirst($category->name) ?></a>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </li>
                     <li>
-                        <a href="contact">Contact</a>
+                        <a href="/contact">Contact</a>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -83,8 +76,8 @@
                               <form method="POST" action="/logout" name="logout"></form>
                               <li><a href="javascript:document.logout.submit();"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Log out</a></li>
                             <?php else: ?>
-                              <li><a href="login"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign in</a></li>
-                              <li><a href="register"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Register</a></li>
+                              <li><a href="/login"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign in</a></li>
+                              <li><a href="/register"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Register</a></li>
                             <?php endif; ?>
                         </ul>
                         <!-- /.dropdown-user -->
