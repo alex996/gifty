@@ -15,8 +15,19 @@ require_once(MODEL_PATH . 'Customer.php');
 class ProductController extends Controller {
 	
 	public function index() {
+
+		if (isset($_GET['search']))
+			$products = Product::where('name', 'LIKE', "%{$_GET['search']}%")
+									->orWhere('description', 'LIKE', "%{$_GET['search']}%")->get();
+		else if (isset($_GET['filter']) && isset($_GET['direction']))
+			$products = Product::orderBy($_GET['filter'], $_GET['direction'])->get();
+		else
+			$products = Product::all();
+
+		if (!is_array($products) && $products) $products = [$products];
+
 		View::render('products/index.php', [
-			'products' => Product::all(),
+			'products' => $products,
 			'in_cart' => Cart::count(),
 			'categories' => Category::all(),
 		]);
