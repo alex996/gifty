@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2016 at 03:58 AM
+-- Generation Time: Nov 23, 2016 at 08:13 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -46,7 +46,10 @@ INSERT INTO `addresses` (`id`, `street`, `city`, `state`, `country`, `zip`) VALU
 (4, '2890 Willston Street', 'Los Angeles', 'CA', 'US', '19032'),
 (5, '12 Luther King Avenue', 'Seattle', 'WA', 'US', '45289'),
 (6, '984 Bauer Street', 'Sacremento', 'CA', 'US', '34290'),
-(7, '872 J. F. Kennedy Boulevard', 'Boston', 'MA', 'US', '13432');
+(7, '872 J. F. Kennedy Boulevard', 'Boston', 'MA', 'US', '13432'),
+(9, '1990 Rue de l''Eglise', 'Montreal', 'Quebec', 'CA', 'H5G1K5'),
+(12, '2323 Rue des Heros', 'Ville de Quebec', 'Quebec', 'CA', 'J8K2F5'),
+(13, '2889 Rue de la Liberte', 'Montreal', 'Quebec', 'CA', 'H9K2L3');
 
 -- --------------------------------------------------------
 
@@ -61,6 +64,14 @@ CREATE TABLE `carts` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `customer_id`, `sess_id`, `created_at`) VALUES
+(45, 5, '21l7tnjv23b9854geaqhsjuvi0', '2016-11-22 08:48:23'),
+(46, 4, '1qd5kecpj8porvhjp6govfo5f2', '2016-11-23 01:56:05');
+
 -- --------------------------------------------------------
 
 --
@@ -73,6 +84,18 @@ CREATE TABLE `cart_details` (
   `product_id` int(5) UNSIGNED NOT NULL,
   `quantity` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cart_details`
+--
+
+INSERT INTO `cart_details` (`id`, `cart_id`, `product_id`, `quantity`) VALUES
+(55, 45, 4, 1),
+(56, 45, 1, 2),
+(57, 45, 10, 2),
+(58, 45, 9, 1),
+(59, 45, 5, 1),
+(77, 46, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -122,8 +145,9 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`id`, `user_id`, `first`, `last`, `dob`, `phone`) VALUES
 (1, 4, 'Liza', 'White', '1989-05-12', '2329029302'),
-(2, 3, 'Isaac', 'Davidson', '0000-00-00', '3452320923'),
-(3, 5, 'Aiden', 'Carlton', '0000-00-00', '9235842359');
+(2, 3, 'Isaac', 'Davidson', '2016-06-07', '3452320923'),
+(4, 6, 'Dwayne', 'Johnson', '2016-11-16', '3452352345'),
+(5, 5, 'Aiden', 'Carlton', '1986-11-27', '2342342342');
 
 -- --------------------------------------------------------
 
@@ -154,6 +178,13 @@ CREATE TABLE `orders` (
   `total` decimal(8,2) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_id`, `address_id`, `payment_method_id`, `status`, `total`, `created_at`) VALUES
+(15, 4, 13, 6, 'CANCELLED', '0.00', '2016-11-23 03:48:04');
 
 -- --------------------------------------------------------
 
@@ -189,9 +220,10 @@ CREATE TABLE `payment_methods` (
 --
 
 INSERT INTO `payment_methods` (`id`, `customer_id`, `type`, `cardholder`, `last_digits`, `address_id`) VALUES
-(1, 3, 'VISA', 'CAITLIN SMITH', 9039, 5),
+(1, 4, 'VISA', 'DWAYNE JOHNSON', 9039, 5),
 (2, 2, 'MASTERCARD', 'JOHN GARTNER', 2390, 3),
-(3, 1, 'INTERAC', 'LIZA WHITE', 3421, 2);
+(3, 1, 'INTERAC', 'LIZA WHITE', 3421, 2),
+(6, 4, 'MASTERCARD', 'DWAYNE JOHNSON', 2131, 12);
 
 -- --------------------------------------------------------
 
@@ -216,16 +248,21 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `category_id`, `price`, `promotion_id`, `quantity`, `status`, `featured`) VALUES
-(1, 'Red Wine from Paris', 'Excellent quality, superb taste, and low price! What can be better? Feel the taste of France in your glass', 6, '12.99', NULL, 100, 'IN_STOCK', 1),
+(1, 'Red Wine from Paris', 'Excellent quality, superb taste, and low price! What can be better? Feel the taste of France in your glass', 6, '12.99', NULL, 118, 'IN_STOCK', 1),
 (2, 'Fluffy Teddy Bear', 'Super cute and awesome Teddy Bear, just the one you dreamt of! 100% Cotton and 300% love! Make your girfriend happy again', 4, '25.99', 2, 50, 'IN_STOCK', 1),
-(3, 'Greek Candies in Assortment', 'Have you ever been in Greece? Well, now is your chance! All you need to do is buy these amazingly delicious candies with a 100% Greek quality made in a candy shop in Athenes', 7, '10.99', NULL, 100, 'IN_STOCK', 1),
-(4, 'Asus X988 Slim Black', 'Superior performance with a Octa-core Intel processor, 32 GB of RAM, 5 TB of SSD storage, and 4 GB of video - just about everything you will need for the rest of your life!', 1, '1999.99', NULL, 5, 'IN_STOCK', 1),
-(5, 'Gucci Handbag (Italy) ', 'For those passionate about Italy, here is an excellent handbag that will fit any clothing, be a dress or a business suit. High quality and reasonable price!', 3, '99.99', 1, 20, 'IN_STOCK', 1),
-(6, 'Face moisturizer, Avon', 'Proven quality and guaranteed satisfaction from one of the best known brands in the world - Avon', 2, '29.99', NULL, 40, 'IN_STOCK', 1),
-(7, 'Assassin''s Creed II Empire', 'Fascinating and breath-taking action-packed video game, now available on Windows, MAC, and XBox. Hurry up, supply is limited!', 5, '32.99', NULL, 20, 'IN_STOCK', 1),
-(8, 'Rose Tulips in a Bouquet ', 'Beautiful and fresh, these tulips will help you win the heart of any woman', 8, '17.46', NULL, 500, 'IN_STOCK', 0),
+(3, 'Greek Candies in Assortment', 'Have you ever been in Greece? Well, now is your chance! All you need to do is buy these amazingly delicious candies with a 100% Greek quality made in a candy shop in Athenes', 7, '10.99', NULL, 99, 'IN_STOCK', 1),
+(4, 'Asus X988 Slim Black', 'Superior performance with a Octa-core Intel processor, 32 GB of RAM, 5 TB of SSD storage, and 6 GB of video - just about everything you will need for the rest of your life!', 1, '3999.99', NULL, 4, 'IN_STOCK', 1),
+(5, 'Gucci Handbag (Italy) ', 'For those passionate about Italy, here is an excellent handbag that will fit any clothing, be a dress or a business suit. High quality and reasonable price!', 3, '99.99', 1, 24, 'IN_STOCK', 1),
+(6, 'Face moisturizer, Avon', 'Proven quality and guaranteed satisfaction from one of the best known brands in the world - Avon', 2, '29.99', NULL, 38, 'IN_STOCK', 1),
+(7, 'Assassin''s Creed II Empire', 'Fascinating and breath-taking action-packed video game, now available on Windows, MAC, and XBox. Hurry up, supply is limited!', 5, '32.99', NULL, 16, 'IN_STOCK', 1),
+(8, 'Rose Tulips in a Bouquet ', 'Beautiful and fresh, these tulips will help you win the heart of any woman', 8, '17.46', NULL, 495, 'IN_STOCK', 0),
 (9, 'Swing Set Table', 'Arguably one of the best presents to home lovers. Excellent wood quality and 100% security with money back guarantee. Shipped from Germany', 9, '189.23', NULL, 25, 'IN_STOCK', 1),
-(10, 'Swiss Watch, Pure Leather', 'If you are looking for a gift for your boyfriend or husband, look no further. Here is a fantastic Swiss watch made in Zurich. Supreme quality and competitive price', 10, '299.12', NULL, 10, 'IN_STOCK', 0);
+(10, 'Swiss Watch, Pure Leather', 'If you are looking for a gift for your boyfriend or husband, look no further. Here is a fantastic Swiss watch made in Zurich. Supreme quality and competitive price', 10, '299.12', NULL, 10, 'IN_STOCK', 0),
+(11, 'Apple iPhone 7 32GB Black', 'Extremely powerful and fast, this is the phone you were waiting for and now it''finally out for sale!', 1, '799.99', NULL, 80, 'IN_STOCK', 0),
+(12, 'Apple MacBook Pro 15"', 'Extraordinarily beautiful and performant, the MacBook Pro is the certainly the next device on your wish list', 1, '2399.99', NULL, 20, 'IN_STOCK', 0),
+(13, 'Google Pixel', 'Ready to buy a new phone? We recommend Google Pixel, the latest smartphone by Google with the ultimate Android experience. Awesome camera, display, and customization features make this phone a dream!', 1, '999.99', NULL, 30, 'IN_STOCK', 0),
+(14, 'Galaxy Tab S2 VE 9.7" (4G)', 'If you are tight on budget, here is an excellent table option that you might certainly be interested in. It runs on Android 6.0 and is powered by an octa-core processor with 3 GB of RAM. Oh and did we mention the battery? It''s quite outstanding compared to other tablets in the same price range!', 1, '599.99', NULL, 50, 'IN_STOCK', 0),
+(15, 'Bose SoundLink® wireless headphones II - Black', 'These premium upscale headphones guarantee to deliver you the purest crystal-clear sound ever possible with the comfort of the latest wireless technology', 1, '299.99', NULL, 50, 'IN_STOCK', 0);
 
 -- --------------------------------------------------------
 
@@ -268,9 +305,11 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `customer_id`, `product_id`, `comment`, `rating`, `created_at`) VALUES
-(1, 3, 1, 'Wow, this product is just amazing, and I can''t believe the shipping was so blazingly fast!', 5, '2016-11-17 18:51:25'),
-(2, 1, 4, 'Awesome! I bought this for my bf, he is so happy!!!', 5, '2016-11-17 18:52:25'),
-(3, 2, 5, 'Nuh, I expected more to be honest, especially for this price. I''ll give it a 4. The shipping was good though, I got my delivery in 20 hours.', 4, '2016-11-17 18:54:01');
+(1, 4, 1, 'Wow, this product is just amazing, and I can''t believe the shipping was so blazingly fast!', 3, '2016-11-17 18:51:25'),
+(2, 1, 2, 'Awesome! I bought this for my bf, he is so happy!!!', 5, '2016-11-17 18:52:25'),
+(3, 2, 1, 'Nuh, I expected more to be honest, especially for this price. I''ll give it a 4. The shipping was good though, I got my delivery in 20 hours.', 4, '2016-11-17 18:54:01'),
+(4, 2, 3, 'Great wine!', 4, '2016-11-21 13:14:52'),
+(5, 4, 1, 'Super, I love it!', 5, '2016-11-23 05:55:16');
 
 -- --------------------------------------------------------
 
@@ -296,7 +335,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (3, 'Isaac', 'isaac@gmail.com', '$2y$10$7dhoAspzXx6LAeLpFIgUMuarZMB./LynzGnB5zryk9Aak678EpFrq', 'CUSTOMER'),
 (4, 'Liza', 'liza@gmail.com', '$2y$10$Oq4CI0v2FVnAnwatKsKM6ujSML1UasaQBCnidcBo3aRlXPz1LP0I2', 'CUSTOMER'),
 (5, 'Aiden', 'aiden@gmail.com', '$2y$10$IsYe3Q4uGQZHhkGB/tYViO5UnqMK9nTPvM9E.GSr9d3e/sEIdnyQy', 'CUSTOMER'),
-(6, 'Dwayne', 'dwayne@gmail.com', '$2y$10$V0rK3HALQnP..9woo3/RWuun85KVS47h3JgG7JbOscZG1E4t0HceW', 'CUSTOMER'),
+(6, 'Dwayne', 'dwayne@gmail.com', '$2y$10$oDleLgPBBwKoArI48hmY1ejvWGdz8XR.gsM2SECsD8JXLoDeD36c6', 'CUSTOMER'),
 (7, 'Emma', 'emma@gmail.com', '$2y$10$IOS6JFfuwq1L81rDKJftH.FOOmXVrjY1kEoDapWfs0Z6J5ysUQq4u', 'CUSTOMER');
 
 --
@@ -335,7 +374,7 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `images`
@@ -351,7 +390,7 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `customer_id` (`customer_id`),
   ADD KEY `address_id` (`address_id`),
-  ADD KEY `payment_method_id` (`payment_method_id`);
+  ADD KEY `method_id` (`payment_method_id`);
 
 --
 -- Indexes for table `order_details`
@@ -406,17 +445,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `cart_details`
 --
 ALTER TABLE `cart_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -426,7 +465,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `images`
 --
@@ -436,7 +475,7 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `order_details`
 --
@@ -446,12 +485,12 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `promotions`
 --
@@ -461,7 +500,7 @@ ALTER TABLE `promotions`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --
