@@ -13,13 +13,13 @@
 <div class="container">
 	<div class="row">
 		<div class="page-header text-center">
-			<h2>All Products</h2>
+			<h2><?= isset($category) ? "Products in " . ucfirst($category) : "All Products" ?></h2>
 		</div>
 		<div class="col-md-2">
 			<div class="list-group sidebar">
 				<a class="list-group-item text-center disabled">Categories</a>
 				<?php foreach($categories as $category): ?>
-					<a class="list-group-item <?= Router::url() == "/products/{$category->name}" ? "active" : "" ?>" href="/products/<?= $category->name ?>"><?= ucfirst($category->name) ?></a>
+					<a class="list-group-item <?= (strpos(Router::url(), $category->name) !== false) ? "active" : "" ?>" href="/products/<?= $category->name ?>"><?= ucfirst($category->name) ?></a>
 				<?php endforeach; ?>
 			</div>
 		</div>

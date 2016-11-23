@@ -53,7 +53,7 @@ class AuthController extends Controller {
 						Router::redirect('/');
 					}
 					else // isAdmin
-						Router::redirect('dashboard');
+						Router::redirect('admin/dashboard');
 				}
 			}
 

@@ -62,19 +62,26 @@
                         </a>
                         <ul class="dropdown-menu dropdown-user">
                             <?php if (Auth::check()): ?>
-                              <li><a href="/account"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> User Account</a></li>
-                                
-                              <li class="divider"></li>
-                              <li><a href="/account/orders"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Order History</a></li>
-                              <li><a href="/account/payment-methods"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Payment Methods</a></li>
-                              
-                              <li class="divider"></li>
-                              <li><a href="/account/profile"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Profile Information</a></li>
-                              <li><a href="/account/security"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Security Settings</a></li>
-                            
-                              <li class="divider"></li>
-                              <form method="POST" action="/logout" name="logout"></form>
-                              <li><a href="javascript:document.logout.submit();"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Log out</a></li>
+                              <?php if (Auth::user()->isCustomer()): ?>
+                                  <li><a href="/account"><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> User Account</a></li>
+                                    
+                                  <li class="divider"></li>
+                                  <li><a href="/account/orders"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Order History</a></li>
+                                  <li><a href="/account/payment-methods"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> Payment Methods</a></li>
+                                  
+                                  <li class="divider"></li>
+                                  <li><a href="/account/profile"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Profile Information</a></li>
+                                  <li><a href="/account/security"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Security Settings</a></li>
+                              <?php elseif (Auth::user()->isAdmin()): ?>
+                                  <li><a href="/admin/dashboard"><i class="fa fa-tachometer fa-fw" aria-hidden="true"></i> Dashboard</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="/admin/inventory"><i class="fa fa-database fa-fw" aria-hidden="true"></i> Inventory</a></li>
+                                  <li><a href="/admin/sales"><i class="fa fa-area-chart fa-fw" aria-hidden="true"></i> Sales</a></li>
+                                  <li><a href="/admin/promotions"><i class="fa fa-percent fa-fw" aria-hidden="true"></i> Promotions</a></li>
+                              <?php endif; ?>
+                                  <li class="divider"></li>
+                                  <form method="POST" action="/logout" name="logout"></form>
+                                  <li><a href="javascript:document.logout.submit();"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Log out</a></li>
                             <?php else: ?>
                               <li><a href="/login"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Sign in</a></li>
                               <li><a href="/register"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> Register</a></li>

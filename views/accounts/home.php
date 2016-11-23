@@ -1,9 +1,6 @@
 <?php $this->block('title', 'Account') ?>
 
 <?php $this->block('styles') ?>
-<style>
-	
-</style>
 <?php $this->endblock() ?>
 
 <?php $this->block('content') ?>
@@ -93,9 +90,6 @@
 <?php $this->endblock() ?>
 
 <?php $this->block('scripts') ?>
-<script>
-
-</script>
 <?php $this->endblock() ?>
 
 <?php echo $this->display('layouts/app.php', get_defined_vars()); ?>

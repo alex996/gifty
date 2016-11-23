@@ -35,14 +35,35 @@ class ProductController extends Controller {
 
 	public function index_category($category) {
 		$category_id = Category::id($category);
-		$products = Product::where('category_id', $category_id)->get();
-		$products = is_array($products) ? $products : [$products];
 
-		View::render('products/index.php', [
-			'products' => $products,
-			'in_cart' => Cart::count(),
-			'categories' => Category::all(),
-		]);
+		if ($category_id) {
+			if (isset($_GET['search']))
+				$products = Product::where('name', 'LIKE', "%{$_GET['search']}%")
+										->orWhere('description', 'LIKE', "%{$_GET['search']}%")
+										->andWhere('category_id', $category_id)
+										->get();
+			else if (isset($_GET['filter']) && isset($_GET['direction']))
+				$products = Product::where('category_id', $category_id)
+										->orderBy($_GET['filter'], $_GET['direction'])
+										->get();
+			else
+				$products = Product::where('category_id', $category_id)->get();
+
+			if (!is_array($products) && $products) $products = [$products];
+
+			View::render('products/index.php', [
+				'products' => $products,
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+				'category' => $category
+			]);
+		}
+		else {
+			View::render('errors/404.php', [
+				'in_cart' => Cart::count(),
+				'categories' => Category::all(),
+			]);
+		}
 	}
 
 	// Create a new user:
@@ -59,8 +80,12 @@ class ProductController extends Controller {
 				'categories' => Category::all(),
 			]);
 		} else {
+			$suggestions = Product::where('category_id', $product->category_id)
+									->andWhere('id', '!=', $product->id)->random(4)->get();
+
 			View::render('products/details.php', [
 				'product' => $product,
+				'suggestions' => $suggestions,
 				'in_cart' => Cart::count(),
 				'categories' => Category::all(),
 			]);

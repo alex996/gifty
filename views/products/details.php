@@ -103,6 +103,23 @@
 				</div>
 			</div>
 			<hr>
+			<?php if (!empty($suggestions)): ?>
+				<div class="row">
+					<h4 class="text-center">Related Products - Suggestions</h4><br>
+	    			<?php foreach($suggestions as $suggestion): ?>
+	                    <div class="col-sm-6 col-md-3">
+	                        <div class="thumbnail">
+	                            <img src="http://placehold.it/500x400" alt="...">
+	                            <div class="caption">
+	                                <h5 class="product-name"><a href="/products/<?= $suggestion->id ?>"><?= $suggestion->name ?></a></h5>
+	                                <span class="text-success lead product-price"><b>$<?= $suggestion->price ?></b></span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                <?php endforeach; ?>
+				</div>
+			<hr>
+			<?php endif; ?>
 			<div class="row">
 				<h4 class="text-center"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews</h4><br>
 				<div class="col-md-6">
@@ -148,6 +165,7 @@
 							</div>
 						</div>
 					</form>
+					<br>
 				</div>
 			</div>
 		</div>

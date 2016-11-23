@@ -29,24 +29,7 @@ class DB {
 
     public static function table($table) {
         $db = new DB();
-
-
-/*        $bt = debug_backtrace();
-        var_dump($bt);die();
-    $caller_class = (isset($bt[1]['class']) ? $bt[1]['class'] : null);
-    echo $caller_class."<br>";*/
-
-        // Get the class name from the Model Resolver
         $db->class = ModelResolver::getClass(trim($table, " "));
-        
-        /* this works, but is messy ;)
-        if ($table == 'addresses')
-            $db->class = "Address";
-        else {
-            $table_arr = explode("_", trim($table));
-            $db->class = substr( ucfirst($table_arr[0]) . ucfirst( isset($table_arr[1]) ? $table_arr[1] : "" ), 0, -1);
-        }*/
-        //old stuf... $db->class = ucfirst(substr(trim($table),0,-1));
         $db->query = "$table ";
         return $db;
     }
@@ -207,6 +190,8 @@ class DB {
     }
 
     public function all() {
-        return $this->select();
+        $all = $this->select();
+        if (!is_array($all) && $all) $all = [$all];
+        return $all;
     }
 }

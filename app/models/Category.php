@@ -13,7 +13,8 @@ class Category extends Model {
 	public $name;
 
 	public static function id($name) {
-		return Category::where('name', $name)->get()->id;
+		$category = Category::where('name', $name)->select('id');
+		return $category ? $category->id : null;
 	}
 }
 

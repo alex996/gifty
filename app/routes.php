@@ -30,6 +30,20 @@ Router::get('account/security', 'UserController@edit_password');
 Router::patch('account/security', 'UserController@update_password');
 
 /**
+ *	Dashboard routes (admins ONLY)	 
+ */
+Router::get('admin/dashboard', 'DashboardController@index');
+
+/**
+ *  Promotion routes (admins ONLY)
+ */
+Router::get('admin/promotions', 'PromotionController@index');
+Router::get('admin/promotions/create', 'PromotionController@create');
+Router::get('admin/promotions/(\d+)/edit', 'PromotionController@edit');
+Router::patch('admin/promotions/(\d+)', 'PromotionController@update');
+Router::delete('admin/promotions/(\d+)/delete', 'PromotionController@delete');
+
+/**
  *  Cart routes.
  */
 Router::get('cart', 'CartController@index');

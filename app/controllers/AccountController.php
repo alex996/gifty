@@ -53,9 +53,8 @@ class AccountController extends Controller {
 				]);
 			}
 		}
-		else if ($user->isAdmin()) {
-			echo "admin dashboard....";
-		}
+		else if ($user->isAdmin())
+			Router::redirect('admin/dashboard');
 
 	}
 }

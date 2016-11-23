@@ -11,7 +11,8 @@ require_once(MODEL_PATH . 'Category.php');
 class HomeController {
 
 	public function index() {
-
+		// TODO: when we add more products to the db,
+		// and andWhere('featured', 1) to the $products below
 		View::render('welcome.php', [
 			'products' => Product::random(8)->get(),
 			'in_cart' => Cart::count(),
