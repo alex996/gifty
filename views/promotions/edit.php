@@ -25,6 +25,13 @@
 					<input type="hidden" name="_method" value="PATCH">
 					
 					<div class="form-group">
+						<label class="control-label col-sm-4">ID:</label>
+						<div class="col-sm-6">
+					    	<input class="form-control" value="<?= $promotion->id ?>" disabled>
+					    </div>
+					</div>
+
+					<div class="form-group">
 					    <label class="control-label col-sm-4">Discount (%):</label>
 						<div class="col-sm-6">
 					    	<input type="number" min="0" max="99.99" step="0.01" class="form-control" name="discount" required="true" value="<?= $promotion->discount ?>">

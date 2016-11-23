@@ -34,7 +34,7 @@
 		<div class="col-md-9">
 			
 			<?php if(!empty($promotions)) : ?>
-				<table class="table">
+				<table class="table table-hover">
 				    <thead>
 						<tr>
 							<th>#</th>
@@ -46,16 +46,16 @@
 						</tr>
 					</thead>
 				    <tbody>
-				     	<?php foreach($promotions as $index => $curr_promo): 
+				     	<?php foreach($promotions as $promo): 
 				     	?>
 							<tr>
-								<td><?= $index + 1 ?></td>
-								<td><?= $curr_promo->starts_at ?></td>
-								<td><?= $curr_promo->ends_at ?></td>
-								<td><?= $curr_promo->discount ?>%</td>
-								<td><a href="/admin/promotions/<?= $curr_promo->id ?>/edit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+								<td><?= $promo->id ?></td>
+								<td><?= $promo->starts_at ?></td>
+								<td><?= $promo->ends_at ?></td>
+								<td><?= $promo->discount ?>%</td>
+								<td><a href="/admin/promotions/<?= $promo->id ?>/edit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
 								<td>
-									<form method="POST" action="/admin/promotions/<?= $curr_promo->id ?>">
+									<form method="POST" action="/admin/promotions/<?= $promo->id ?>">
 										<input type="hidden" name="_method" value="DELETE">
 										<button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 									</form>

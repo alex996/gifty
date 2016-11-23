@@ -139,34 +139,45 @@
 					</div>
 					<?php endforeach; ?>
 				</div>
+				
 				<div class="col-md-6 <?= empty($product->reviews) ? "col-md-offset-3" : "" ?>">
-					<form class="form-horizontal" method="POST" action="/products/<?= $product->id ?>/reviews">
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="rating">Rating:</label>
-							<div class="col-sm-10">
-								<select class="form-control" id="rating" name="rating" required>
-									<option value="5">5 - Awesome!</option>
-									<option value="4">4 - Very good!</option>
-									<option value="3">3 - Average</option>
-									<option value="2">2 - Bad</option>
-									<option value="1">1 - Terrible!</option>
-								</select>
+					<?php if (Auth::check()): ?>
+						<form class="form-horizontal" method="POST" action="/products/<?= $product->id ?>/reviews">
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="rating">Rating:</label>
+								<div class="col-sm-10">
+									<select class="form-control" id="rating" name="rating" required>
+										<option value="5">5 - Awesome!</option>
+										<option value="4">4 - Very good!</option>
+										<option value="3">3 - Average</option>
+										<option value="2">2 - Bad</option>
+										<option value="1">1 - Terrible!</option>
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="comment">Comment:</label>
-							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="5" id="comment" name="comment" placeholder="Your thoughts or commentary about this product" required></textarea>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="comment">Comment:</label>
+								<div class="col-sm-10"> 
+									<textarea class="form-control" rows="5" id="comment" name="comment" placeholder="Your thoughts or commentary about this product" required></textarea>
+								</div>
 							</div>
-						</div>
-						<div class="form-group"> 
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-default btn-block">Submit</button>
+							<div class="form-group"> 
+								<div class="col-sm-offset-2 col-sm-10">
+									<button type="submit" class="btn btn-default btn-block">Submit</button>
+								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					<?php else: ?>
+						<?php if (empty($product->reviews)): ?>
+							<div class="text-center">
+								<h4 style="margin-bottom:20px"><i>No reviews yet. Be first to leave a comment!</i></h4>
+								<h5>Please <a href="/login">sign in</a> to write a review</h5>
+							</div>
+						<?php endif; ?>
+					<?php endif; ?>
 					<br>
 				</div>
+
 			</div>
 		</div>
 	</div>
