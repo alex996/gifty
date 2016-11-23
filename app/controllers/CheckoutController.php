@@ -204,7 +204,7 @@ class CheckoutController {
 			'payment_method_id' => $payment_method_id,
 			'status' => Order::PENDING,
 			'total' => $cart->total(),
-			'created_at' => date("Y-m-d H:i:s"),
+			'created_at' => date('Y-m-d G:i:s'),
 		]);
 
 		foreach($cart->cart_details as $cart_detail) {

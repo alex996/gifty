@@ -63,6 +63,12 @@ class PromotionController extends Controller {
 		]);
 	}
 
+	public function store() {
+
+		// date('Y-m-d G:i:s')
+
+	}
+
 	public function update($id) {
 		$this->check_auth();
 
