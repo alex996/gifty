@@ -44,7 +44,7 @@ Router::delete('cart/cart-details/(\d+)', 'CartController@destroy');
 Router::get('products', 'ProductController@index');
 Router::get('products/(\d+)', 'ProductController@show');
 Router::get('products/(\w+)', 'ProductController@index_category');
-
+Router::post('products/(\d+)/reviews', 'ProductController@store_review');
 
 /**
  * 	Checkout routes.

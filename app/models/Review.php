@@ -23,6 +23,10 @@ class Review extends Model {
 	public function products() {
 		return $this->belongsTo('Product');
 	}
+
+	public function customer() {
+		return $this->belongsTo('Customer');
+	}
 }
 
 Review::initialize();

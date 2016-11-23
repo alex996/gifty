@@ -10,6 +10,8 @@ require_once(MODEL_PATH . 'Category.php');
 
 require_once(MODEL_PATH . 'Review.php');
 
+require_once(MODEL_PATH . 'Customer.php');
+
 class ProductController extends Controller {
 	
 	public function index() {
@@ -38,7 +40,7 @@ class ProductController extends Controller {
 	}
 
 	public function show($id) {
-		$product = Product::with(['category','reviews'])->find($id);
+		$product = Product::with(['category','reviews.customer'])->find($id);
 
 		if (empty($product)) {
 			View::render('errors/404.php', [
@@ -52,6 +54,28 @@ class ProductController extends Controller {
 				'categories' => Category::all(),
 			]);
 		}
+	}
+
+	public function store_review($product_id) {
+		$product = Product::find($product_id);
+		if ($product) {
+			$errors = Validator::validate($_POST, [
+				'comment' => 'required',
+				'rating' => 'required|min:1|max:5'
+			]);
+
+			if (empty($errors)) {
+				Review::create([
+					'customer_id' => Customer::current()->id,
+					'product_id' => $product_id,
+					'comment' => $_POST['comment'],
+					'rating' => $_POST['rating'],
+					'created_at' => date("Y-m-d H:i:s"),
+				]);
+			}
+		}
+
+		Router::redirect_bacK();
 	}
 
 	public function edit() {

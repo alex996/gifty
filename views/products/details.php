@@ -4,6 +4,7 @@
 <style>
 	.product-cat {font-size: 12px}
 	.product-qty {width:75px !important;}
+	.quote {margin-bottom: 0; font-size: 14px}
 </style>
 <?php $this->endblock() ?>
 
@@ -38,7 +39,7 @@
 					</ul>-->
 						
 				</div>
-				<div class="details col-md-6">
+				<div class="col-md-6">
 					<h3><?= $product->name ?></h3>
 
 					<h5>
@@ -99,6 +100,54 @@
 						<?= $product->category->name ?></a>
 					</h4>
 
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<h4 class="text-center"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews</h4><br>
+				<div class="col-md-6">
+					<?php foreach($product->reviews as $review): ?>
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								By <i><?= $review->customer->first . " " .  $review->customer->last ?></i> on <?= date('F d, Y', strtotime($review->created_at)) ?>
+								<span class="pull-right">Rating: <?= $review->rating ?> / 5</span>
+							</div>
+							<div class="panel-body">
+								<blockquote class="quote">
+									<?= $review->comment ?>
+								</blockquote>
+							</div>
+						</div>
+					</div>
+					<?php endforeach; ?>
+				</div>
+				<div class="col-md-6 <?= empty($product->reviews) ? "col-md-offset-3" : "" ?>">
+					<form class="form-horizontal" method="POST" action="/products/<?= $product->id ?>/reviews">
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="rating">Rating:</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="rating" name="rating" required>
+									<option value="5">5 - Awesome!</option>
+									<option value="4">4 - Very good!</option>
+									<option value="3">3 - Average</option>
+									<option value="2">2 - Bad</option>
+									<option value="1">1 - Terrible!</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="comment">Comment:</label>
+							<div class="col-sm-10"> 
+								<textarea class="form-control" rows="5" id="comment" name="comment" placeholder="Your thoughts or commentary about this product" required></textarea>
+							</div>
+						</div>
+						<div class="form-group"> 
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-default btn-block">Submit</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
