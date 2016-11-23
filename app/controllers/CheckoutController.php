@@ -234,12 +234,6 @@ class CheckoutController {
 		$_SESSION['order_id'] = $order->id;
 
 		Router::redirect('checkout/success');
-
-		/*View::render('checkout/success.php', [
-			'customer' => Customer::current(),
-			'in_cart' => 0,
-			'order' => $order,
-		]);*/
 	}
 
 	public function success() {

@@ -100,7 +100,7 @@ class CartController {
 				$cart_detail->quantity = $_POST['quantity'];
 				$cart_detail->save();
 
-				exit(json_encode(['status' => 1]));
+				exit(json_encode(['status' => 1, 'in_cart' => Cart::count()]));
 			}
 		} 
 
@@ -111,7 +111,7 @@ class CartController {
 		$cart_detail = CartDetail::find($id);
 		if ($cart_detail) {
 			CartDetail::find($id)->delete();
-			echo json_encode(['status' => 1]);
+			echo json_encode(['status' => 1, 'in_cart' => Cart::count()]);
 		} else 
 			echo json_encode(['status' => 0, 'errors' => ["Cart detail with id of $id cannot be found."]]);
 	}

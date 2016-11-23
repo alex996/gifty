@@ -21,7 +21,8 @@ Router::patch('account/profile', 'CustomerController@update_phone');
 
 Router::get('account/orders', 'OrderController@index');
 Router::get('account/orders/(\d+)', 'OrderController@show');
-Router::patch('account/orders/order-details/(\d+)', 'OrderController@update_quantity');
+Router::patch('account/orders/(\d+)/order-details/(\d+)', 'OrderController@update_quantity');
+Router::delete('account/orders/(\d+)/order-details/(\d+)', 'OrderController@delete_detail');
 
 Router::get('account/payment-methods', 'PaymentMethodController@index');
 

@@ -44,8 +44,8 @@
 										<input class="form-control product-qty" type="number" name="quantity" value="<?= $detail->quantity ?>" min="1" max="99">
 									</form>
 								</td>
-								<td class="text-center">$<?= $detail->product->price ?></td>
-								<td class="text-center">$<?= $detail->quantity * $detail->product->price ?></td>
+								<td class="text-center unit-price">$<?= number_format($detail->product->price, 2) ?></td>
+								<td class="text-center unit-qty-price">$<?= number_format($detail->quantity * $detail->product->price, 2) ?></td>
 								<td class="text-center">
 									<form method="POST" action="/cart/cart-details/<?= $detail->id ?>" class="form-del-cart">
 										<input type="hidden" name="_method" value="DELETE">
@@ -100,8 +100,12 @@ $(function() {
 	            .done(function(res) {
 	                res = JSON.parse(res);
 	                if (res.status == 1) {
-	                    var in_cart = $('#in-cart').text();
-	                    $('#in-cart').text(parseInt(in_cart) + 1);
+	                	// Reset product count in cart
+	                    $('#in-cart').text(res.in_cart);
+	                    // Reset product total (quantity * unit price)
+	                    var unit_price = parseFloat(form.parent().siblings('.unit-price').text().substring(1));
+	                    var unit_qty_price = "$" + (unit_price * parseFloat(quantity)).toFixed(2);
+	                    form.parent().siblings('.unit-qty-price').text(unit_qty_price);
 	                }
 	                else
 	                    alert(res.errors.shift());
@@ -123,9 +127,12 @@ $(function() {
     		.done(function(res) {
                 res = JSON.parse(res);
                 if (res.status == 1) {
-                    var in_cart = $('#in-cart').text();
-                    $('#in-cart').text(parseInt(in_cart) - parseInt(quantity));
-                    row.remove();
+                	if (res.in_cart == 0)
+                		location.reload();
+                	else {
+	                    $('#in-cart').text(res.in_cart);
+	                    row.remove();
+	                }
                 }
                 else
                     alert(res.errors.shift());

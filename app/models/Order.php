@@ -47,6 +47,14 @@ class Order extends Model {
 	public function order_details() {
 		return $this->hasMany('OrderDetail');
 	}
+
+	public function recalculate_total() {
+		$total = 0;
+		foreach($this->order_details as $detail)
+			$total += $detail->price * $detail->quantity;
+		$this->total = $total;
+		$this->save();
+	}
 }
 
 Order::initialize();

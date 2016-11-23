@@ -29,13 +29,13 @@
 					<div class="preview-pic tab-content">
 					  <div class="tab-pane active" id="pic-1"><img class="img-responsive img-rounded" src="http://placekitten.com/450/300" /></div>
 					</div>
-					<ul class="preview-thumbnail nav nav-tabs">
+					<!--<ul class="preview-thumbnail nav nav-tabs">
 					  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
 					  <li><a data-target="#pic-2" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
 					  <li><a data-target="#pic-3" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
 					  <li><a data-target="#pic-4" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
 					  <li><a data-target="#pic-5" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
-					</ul>
+					</ul>-->
 						
 				</div>
 				<div class="details col-md-6">

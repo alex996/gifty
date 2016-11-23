@@ -56,31 +56,33 @@
 								</tr>
 							</tbody>
 						</table>
-						<table class="table table-hover">
-						    <thead>
-								<tr>
-									<th class="text-center">#</th>
-									<th class="text-center">Product</th>
-									<th class="text-center">Quantity</th>
-									<th class="text-center">Unit Price</th>
-									<th class="text-center">Total</th>
-								</tr>
-							</thead>
-						    <tbody>
-						     	<?php foreach($order->order_details as $index => $detail): ?>
+						<?php if (!empty($order->order_details)): ?>
+							<table class="table table-hover">
+							    <thead>
 									<tr>
-										<td class="text-center"><?= $index + 1 ?></td>
-										<td>
-											<img class="product-image" src="http://placehold.it/50x50" alt="">&ensp;
-											<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
-										</td>
-										<td class="text-center"><?= $detail->quantity ?></td>
-										<td class="text-center">$<?= $detail->product->price ?></td>
-										<td class="text-center">$<?= $detail->quantity * $detail->product->price ?></td>
+										<th class="text-center">#</th>
+										<th class="text-center">Product</th>
+										<th class="text-center">Quantity</th>
+										<th class="text-center">Unit Price</th>
+										<th class="text-center">Total</th>
 									</tr>
-								<?php endforeach; ?>
-						    </tbody>
-						</table>
+								</thead>
+							    <tbody>
+							     	<?php foreach($order->order_details as $index => $detail): ?>
+										<tr>
+											<td class="text-center"><?= $index + 1 ?></td>
+											<td>
+												<img class="product-image" src="http://placehold.it/50x50" alt="">&ensp;
+												<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
+											</td>
+											<td class="text-center"><?= $detail->quantity ?></td>
+											<td class="text-center">$<?= $detail->product->price ?></td>
+											<td class="text-center">$<?= $detail->quantity * $detail->product->price ?></td>
+										</tr>
+									<?php endforeach; ?>
+							    </tbody>
+							</table>
+						<?php endif; ?>
 					<?php endif; ?>
 				</div>
 			</div>
