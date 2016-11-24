@@ -31,7 +31,7 @@ class CustomerController extends Controller {
 		$errors = Validator::validate($_POST, [
 			'first' => 'required|max:50',
 			'last' => 'required|max:50',
-			'dob' => 'required|date',
+			'dob' => 'required|date|before:now',
 			'phone' => 'required|phone',
 		]);
 

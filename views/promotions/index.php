@@ -31,7 +31,7 @@
 				<div class="panel-heading text-center">
 					<h4>
 						<div class="pull-left">
-							<a href="promotions/create" class="btn btn-cta btn-success btn-block btn-launch"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Launch</a>
+							<a href="/admin/promotions/create" class="btn btn-cta btn-success btn-block btn-launch"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Launch</a>
 						</div>
 						<p>View and Manage Promotions</p>
 					</h4>
@@ -46,8 +46,8 @@
 									<th>Start Date (GMT)</th>
 									<th>End Date (GMT)</th>
 									<th>Discount</th>
-									<th>Edit</th>
-									<th>Delete</th>
+									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 						    <tbody>

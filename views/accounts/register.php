@@ -2,9 +2,6 @@
 
 <?php $this->block('styles') ?>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-<style>
-
-</style>
 <?php $this->endblock() ?>
 
 <?php $this->block('content') ?>

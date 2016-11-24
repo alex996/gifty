@@ -38,6 +38,10 @@ Router::get('admin/dashboard', 'DashboardController@index');
  *  Inventory routes (admins ONLY)
  */ 
 Router::get('admin/inventory', 'InventoryController@index');
+Router::post('admin/inventory', 'InventoryController@store');
+Router::get('admin/inventory/(\d+)', 'InventoryController@show');
+Router::get('admin/inventory/(\d+)/edit', 'InventoryController@edit');
+Router::delete('admin/inventory/(\d+)', 'InventoryController@destroy');
 
 /**
  *  Promotion routes (admins ONLY)

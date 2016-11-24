@@ -21,7 +21,8 @@
 	    </div>
 	    <div id="collapseTwo" class="panel-collapse collapse <?= strpos($url, 'inventory') !== false ? "in" : "" ?>" role="tabpanel" aria-labelledby="headingTwo">
 	      <ul class="list-group">
-		    <a class="list-group-item" href="/admin/products">&emsp;<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i> Products</a>
+		    <a class="list-group-item" href="/admin/inventory">&emsp;<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i> View All Products</a>
+		    <a class="list-group-item" href="/admin/inventory/create">&emsp;<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i> Add a Product</a>
 		  </ul>
 	    </div>
 	  </div>
@@ -33,7 +34,7 @@
 	    </div>
 	    <div id="collapseThree" class="panel-collapse collapse" <?= strpos($url, 'sales') !== false ? "in" : "" ?> role="tabpanel" aria-labelledby="headingThree">
 	      <ul class="list-group">
-		    <a class="list-group-item" href="/admin/products">&emsp;<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i> Orders</a>
+		    <a class="list-group-item" href="/admin/sales">&emsp;<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i> Orders</a>
 		  </ul>
 	    </div>
 	  </div>

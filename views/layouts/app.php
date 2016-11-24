@@ -53,9 +53,6 @@
                             <?php endforeach; ?>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/contact">Contact</a>
-                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-user fa-fw"></i> <?= Auth::check() ? Auth::user()->name : '' ?> <i class="fa fa-caret-down fa-fw"></i>

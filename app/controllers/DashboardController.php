@@ -1,5 +1,7 @@
 <?php
 
+require_once(MODEL_PATH . 'Category.php');
+
 class DashboardController extends Controller {
 
 	public function index() {

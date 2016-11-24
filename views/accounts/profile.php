@@ -1,9 +1,6 @@
 <?php $this->block('title', 'Profile') ?>
 
 <?php $this->block('styles') ?>
-<style>
-	
-</style>
 <?php $this->endblock() ?>
 
 <?php $this->block('content') ?>
