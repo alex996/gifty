@@ -29,8 +29,8 @@
 						     	<input class="form-control" id="name" name="name" placeholder="ex: Hershey's Kisses" required>
 						    </div>
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
-						    	<label for="category">Category</label>
-						     	<select class="form-control" name="category" id="category" required>
+						    	<label for="category_id">Category</label>
+						     	<select class="form-control" name="category_id" id="category_id" required>
 						     		<option selected disabled value hidden>Select...</option>
 						     		<?php foreach($categories as $category): ?>
 		                            	<option value="<?= $category->id ?>"><?= $category->name ?></option>
@@ -46,9 +46,10 @@
 						     	<textarea class="form-control" id="phone" rows="2" name="description" placeholder="Description of the product and its features."></textarea>
 						    </div>
 							<div class="form-group col-xs-12 col-sm-12 col-md-8">
-								<label for="promotion">Promotion</label>
-								<select class="form-control" name="promotion" id="promotion">
+								<label for="promotion_id">Promotion</label>
+								<select class="form-control" name="promotion_id" id="promotion_id">
 						     		<option selected disabled value hidden>Select...</option>
+						     		<option value="">None</option>
 						     		<?php foreach($promotions as $promotion): ?>
 		                            	<option value="<?= $promotion->id ?>"><?= $promotion->discount * 100 ?>% off from <?= $promotion->starts_at ?> until <?= $promotion->ends_at ?></option>
 		                            <?php endforeach; ?>
@@ -56,7 +57,7 @@
 							</div>
 							<div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="quantity">Quantity</label>
-						     	<input class="form-control" type="number" min="1" max="99999" placeholder="1" name="quantity" id="quantity" required>
+						     	<input class="form-control" type="number" min="1" max="99999" placeholder="0" name="quantity" id="quantity" required>
 						    </div>
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="status">Status</label>
@@ -77,18 +78,25 @@
 						    <div class="clearfix"></div>
 						    <hr>
 							<div class="form-group col-xs-12 col-sm-6 col-md-4">
-								<label for="alt_text">Image for Upload</label>
+								<!--<label for="alt_text">Image for Upload</label>
 							    <label class="btn btn-default btn-block btn-file">
-								   <i class="fa fa-upload fa-fw" aria-hidden="true"></i> Browse <input type="file" name="img" style="display: none;">
+								   <i class="fa fa-upload fa-fw" aria-hidden="true"></i> Browse <input type="file" name="img" class="hidden">
+								</label>-->
+
+								<label>Upload an Image</label><br>
+								<label class="btn btn-default" for="img-picker">
+								    <input id="img-picker" type="file" class="hidden pull-left" onchange="$('#filename').html(this.files[0].name);" name="img">
+								    <i class="fa fa-upload fa-fw" aria-hidden="true"></i> Browse
 								</label>
+								&ensp;<span id="filename"><i>No file chosen.</i></span>
 							</div>
 							<div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="alt_text">Alternative Img Text</label>
-						     	<input class="form-control" placeholder="alt" name="alt_text" id="alt_text" required>
+						     	<input class="form-control" placeholder="alt" name="alt_text" id="alt_text">
 						    </div>
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
-						    	<label for="alt_text">Featured Image</label>
-						     	<select class="form-control" name="featured" id="featured" required>
+						    	<label for="featured_img">Featured Image</label>
+						     	<select class="form-control" name="featured_img" id="featured_img">
 						     		<option selected disabled value hidden>Select...</option>
 						     		<option value="1">Yes</option>
 						     		<option value="0">No</option>

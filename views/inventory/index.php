@@ -19,6 +19,11 @@
 		</div>
 
 		<div class="col-md-9">
+
+			<?php 
+				include_once VIEWS_PATH."components/success.php";
+				include_once VIEWS_PATH."components/errors.php";
+		  	?>
 			
 			<div class="panel panel-default">
 				<div class="panel-heading text-center">
@@ -83,7 +88,7 @@
 										<td>
 											<form method="POST" action="/admin/inventory/<?= $product->id ?>">
 												<input type="hidden" name="_method" value="DELETE">
-												<button type="button" class="btn btn-danger btn-del-prod"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+												<button type="button" class="btn btn-danger btn-del"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 											</form>
 										</td>
 									</tr>
@@ -110,7 +115,7 @@
 <?php $this->block('scripts') ?>
 <script>
 $(function() {
-	$('.btn-del-prod').click(function(e) {
+	$('.btn-del').click(function(e) {
 		e.preventDefault();
 		var res = confirm("Delete the product from the inventory?");
 		if (res)

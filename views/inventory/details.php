@@ -2,9 +2,10 @@
 
 <?php $this->block('styles') ?>
 <style>
-	.btn-edit, .btn-del {width: 50px}
+	.btn-edit {width: 50px}
 	.panel-heading h4 {margin-top:0;}
 	.panel-heading p {padding-top:15px; margin-left: 100px}
+	.product-image {width:250px;}
 </style>
 <?php $this->endblock() ?>
 
@@ -27,10 +28,6 @@
 					<h4>
 						<div class="pull-right">
 							<a href="/admin/inventory/<?= $product->id ?>/edit" class="btn btn-cta btn-primary btn-edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-							<form method="POST" action="/admin/inventory/<?= $product->id ?>" style="display: inline">
-								<input type="hidden" name="_method" value="DELETE">
-								<a class="btn btn-cta btn-danger btn-del"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-							</form>
 						</div>
 						<p>View Product &ndash; <i><?= $product->name ?></i></p>
 					</h4>
@@ -56,14 +53,10 @@
 						    	</tr>
 						    	<tr>
 						    		<td></td>
-						    		<td><b>Image</b></td>
+						    		<td><b>Featured Image</b></td>
 						    		<td>
-						    			<img style="width: 200px" src="<?php
-											if(!$product->images())
-												echo "http://placehold.it/350x150";
-											else 
-												echo "../public/img/".$product->images()->path;
-										?>" />
+						    			<img class="product-image" src="<?= !$featured_img ? "http://placehold.it/350x150" : $featured_img->path ?>" />
+						    			<br><span><?= !$featured_img ? "" : $featured_img->path ?></span>
 						    		</td>
 						    	</tr>
 						    	<tr>

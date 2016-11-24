@@ -50,6 +50,12 @@ class Product extends Model {
 		return $this->hasMany('Image');
 	}
 
+	public function featured_img() {
+		$images = Image::where('product_id', $this->id)
+					->andWhere('featured', 1)->get();
+		return is_array($images) ? reset($images) : $images;
+	}
+
 	public function rating() {
 		$reviews = $this->reviews();
 		$count = count($reviews);
