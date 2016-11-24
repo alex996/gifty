@@ -3,6 +3,8 @@
 <?php $this->block('styles') ?>
 <style>
 	.total {margin-top:0;}
+	.product-image {margin-right: 10px}
+	.table tbody>tr>td { vertical-align: middle; }
 </style>
 <?php $this->endblock() ?>
 
@@ -67,7 +69,7 @@
 								<tr>
 									<td class="text-center"><?= $index + 1 ?></td>
 									<td>
-										<img class="product-image" src="http://placehold.it/50x50" alt="">
+										<img class="product-image pull-left" src="http://placehold.it/50x50" alt="">
 										<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
 									</td>
 									<td class="text-center"><?= $detail->quantity ?></td>

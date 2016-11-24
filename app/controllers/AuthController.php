@@ -108,8 +108,14 @@ class AuthController extends Controller {
 	}
 
 	public function logout() {
-		if (Auth::check())
+		if (Auth::check()) {
 			Auth::logout();
+
+			// Checkout security -- invalidate unfinished order
+			if (isset($_SESSION['address_id'])) unset($_SESSION['address_id']);
+			if (isset($_SESSION['payment_method_id'])) unset($_SESSION['payment_method_id']);
+			if (isset($_SESSION['order_id'])) unset($_SESSION['order_id']);
+		}
 		Router::redirect('/');
 	}
 }

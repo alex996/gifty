@@ -22,7 +22,7 @@
 		<div style="clear:both; margin-top: 10px;">
 			<?php 
 				include_once VIEWS_PATH."components/success.php";
-				include_once VIEWS_PATH."components/error.php";
+				include_once VIEWS_PATH."components/errors.php";
 		  	?>
 		</div>
 

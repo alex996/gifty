@@ -37,6 +37,7 @@ class InventoryController {
 
 		View::render('inventory/create.php', [
 			'categories' => Category::all(),
+			'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all()
 		]);
 	}
 
@@ -55,9 +56,31 @@ class InventoryController {
 				'product' => $product,
 				'categories' => Category::all(),
 			]);
+	}
 
-		
-		
+	public function store($id) {
+		// http://www.w3schools.com/php/php_file_upload.asp
+	}
+
+	public function edit($id) {
+		$this->check_auth();
+
+		$product = Product::with(['category', 'images'])->find($id);
+
+		if (!$product)
+			View::render('errors/404.php', [
+				'categories' => Category::all(),
+			]);
+		else
+			View::render('inventory/edit.php', [
+				'product' => $product,
+				'categories' => Category::all(),
+				'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all()
+			]);
+	}
+
+	public function destroy($id) {
+
 	}
 	
 }

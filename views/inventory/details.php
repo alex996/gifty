@@ -19,7 +19,7 @@
 		<div class="col-md-9">
 			<?php 
 				include_once VIEWS_PATH."components/success.php";
-				include_once VIEWS_PATH."components/error.php";
+				include_once VIEWS_PATH."components/errors.php";
 		  	?>
 
 			<div class="panel panel-default">

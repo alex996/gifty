@@ -22,6 +22,9 @@ class CartController {
 
 	public function index() {
 
+		if (Auth::check() && Auth::user()->isAdmin())
+			Router::redirect('/admin/dashboard');
+
 		View::render('/cart/index.php', [
 			'cart' => Cart::current(),
 			'in_cart' => Cart::count(),

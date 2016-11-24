@@ -129,6 +129,7 @@ class Validator {
 	}
 
     private static function zip($value) {
+        //https://itmnetcom.ca/ib/knowledgebase/39/What-is-the-regular-expression-used-in-PHP-for-Canadian-and-US-ZIPorPostal-Codes.html
         return preg_match('/(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)/i', $value);
     }
 
