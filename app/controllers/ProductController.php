@@ -42,14 +42,21 @@ class ProductController extends Controller {
 		$category_id = Category::id($category);
 
 		if ($category_id) {
-			if (isset($_GET['search']))
-				$products = Product::where('name', 'LIKE', "%{$_GET['search']}%")
+
+			if (!empty($_GET['search']) && !empty($_GET['filter']) && !empty($_GET['direction']))
+				$products = Product::where('category_id', $category_id)
+										->andWhere('name', 'LIKE', "%{$_GET['search']}%")
 										->orWhere('description', 'LIKE', "%{$_GET['search']}%")
-										->andWhere('category_id', $category_id)
+										->orderBy($_GET['filter'], $_GET['direction'])
 										->get();
-			else if (isset($_GET['filter']) && isset($_GET['direction']))
+			else if (!empty($_GET['filter']) && !empty($_GET['direction']))
 				$products = Product::where('category_id', $category_id)
 										->orderBy($_GET['filter'], $_GET['direction'])
+										->get();
+			else if (!empty($_GET['search']))
+				$products = Product::where('category_id', $category_id)
+										->andWhere('name', 'LIKE', "%{$_GET['search']}%")
+										->orWhere('description', 'LIKE', "%{$_GET['search']}%")
 										->get();
 			else
 				$products = Product::where('category_id', $category_id)->get();

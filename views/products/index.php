@@ -18,8 +18,8 @@
 		<div class="col-md-2">
 			<div class="list-group sidebar">
 				<a class="list-group-item text-center disabled">Categories</a>
-				<?php foreach($categories as $category): ?>
-					<a class="list-group-item <?= (strpos(Router::url(), $category->name) !== false) ? "active" : "" ?>" href="/products/<?= $category->name ?>"><?= ucfirst($category->name) ?></a>
+				<?php foreach($categories as $cat): ?>
+					<a class="list-group-item <?= (strpos(Router::url(), $cat->name) !== false) ? "active" : "" ?>" href="/products/<?= $cat->name ?>"><?= ucfirst($cat->name) ?></a>
 				<?php endforeach; ?>
 			</div>
 		</div>
@@ -35,6 +35,9 @@
 
                             Name: <a href="?filter=name&direction=asc&search=<?= isset($_GET['search']) ? $_GET['search'] : "" ?>" class="btn btn-<?= ( isset($_GET['filter']) && $_GET['filter'] == "name" && isset($_GET['direction']) && $_GET['direction'] == "asc") ? "primary" : "default" ?>"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> A-Z</i></a>
                             <a href="?filter=name&direction=desc&search=<?= isset($_GET['search']) ? $_GET['search'] : "" ?>" class="btn btn-<?= ( isset($_GET['filter']) && $_GET['filter'] == "name" && isset($_GET['direction']) && $_GET['direction'] == "desc") ? "primary" : "default" ?>"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Z-A</i></a>
+                            <?php if (isset($_GET['filter']) || isset($_GET['direction']) || isset($_GET['search'])): ?>
+                               &ensp; | &ensp;<a href="/products<?= isset($category) ? "/".$category : "" ?>" class="btn btn-default"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            <?php endif; ?>
                         </h4>
                         <div class="input-group col-md-4 pull-right">
                             <!--<div class="input-group-btn search-panel">
