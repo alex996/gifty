@@ -6,7 +6,7 @@
 	.panel-heading h4 {margin-top:0;}
 	.panel-heading p {padding-top:15px;}
 	.table tbody>tr>td { vertical-align: middle; }
-	.product-image {margin-right: 10px}
+	.product-thumb {margin-right: 10px; width:50px;}
 </style>
 <?php $this->endblock() ?>
 
@@ -55,14 +55,8 @@
 									<tr>
 										<td><?= $product->id ?></td>
 										<td>
-											<img class="product-image pull-left" src="
-												<?php
-													if (isset($images[$product->id])){
-														echo IMG_PATH.$images[$product->id]->path;
-													}
-													else
-														echo "http://placehold.it/50x50";
-												?>" alt="">
+											<?php $featured = $product->featured_img(); ?>
+											<img class="product-thumb pull-left" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" />
 											<span><a href="/admin/inventory/<?= $product->id ?>"><?= $product->name ?></a></span>
 										</td>
 										<?php

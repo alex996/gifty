@@ -5,7 +5,7 @@
 	.btn-edit {width: 50px}
 	.panel-heading h4 {margin-top:0;}
 	.panel-heading p {padding-top:15px; margin-left: 100px}
-	.product-image {width:250px;}
+	.featured-img {width:250px;}
 </style>
 <?php $this->endblock() ?>
 
@@ -55,8 +55,7 @@
 						    		<td></td>
 						    		<td><b>Featured Image</b></td>
 						    		<td>
-						    			<img class="product-image" src="<?= !$featured_img ? "http://placehold.it/350x150" : $featured_img->path ?>" />
-						    			<br><span><?= !$featured_img ? "" : $featured_img->path ?></span>
+						    			<img class="featured-img" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" />
 						    		</td>
 						    	</tr>
 						    	<tr>
@@ -66,9 +65,16 @@
 						    	</tr>
 						    	<tr>
 						    		<td></td>
-						    		<td><b>Price</b></td>
+						    		<td><b>Stock Price</b></td>
 						    		<td>$<?= $product->price ?></td>
 						    	</tr>
+						    	<?php if ($product->promotion_id): ?>
+						    		<tr>
+							    		<td></td>
+							    		<td><b>Promo Price</b></td>
+							    		<td>$<?= round($product->price - ($product->price * $product->promotion->discount),2) ?></td>
+							    	</tr>
+						    	<?php endif; ?>
 						    	<tr>
 						    		<td><?= $product->promotion_id?></td>
 						    		<td><b>Promotion</b></td>
@@ -109,6 +115,23 @@
 											?>
 									</td>
 						    </tbody>
+						</table>
+						<div class="row">
+							<?php foreach($product->images as $img): ?>
+							  <div class="col-md-4">
+							    <div class="thumbnail">
+							      <a href="#">
+							        <img src="<?= $img->path ?>" alt="Image" style="width:100%">
+							      </a>
+							    </div>
+							  </div>
+							<?php endforeach; ?>
+						</div>
+						<table class="table table-hover">
+							<thead>
+								<th>
+							</thead>
+							<tbody></tbody>
 						</table>
 					</div>
 				</div>

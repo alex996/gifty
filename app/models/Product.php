@@ -51,9 +51,8 @@ class Product extends Model {
 	}
 
 	public function featured_img() {
-		$images = Image::where('product_id', $this->id)
-					->andWhere('featured', 1)->get();
-		return is_array($images) ? reset($images) : $images;
+		return Image::where('product_id', $this->id)
+					->andWhere('featured', 1)->first();
 	}
 
 	public function rating() {

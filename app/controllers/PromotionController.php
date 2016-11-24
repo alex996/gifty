@@ -59,7 +59,7 @@ class PromotionController extends Controller {
 		$this->check_auth();
 
 		$errors = Validator::validate($_POST, [
-			'discount' => 'required|min:0|max:0.99',
+			'discount' => 'required|minval:0|maxval:0.99',
 			'starts_at' =>'required|after:now',
 			'ends_at' =>'required|after:'.$_POST['starts_at'],
 		]);
@@ -94,7 +94,7 @@ class PromotionController extends Controller {
 		if ($promotion) {
 
 			$errors = Validator::validate($_POST, [
-				'discount' => 'required|min:0|max:0.99',
+				'discount' => 'required|minval:0|maxval:0.99',
 				'starts_at' =>'required|after:now',
 				'ends_at' =>'required|after:'.$_POST['starts_at'],
 			]);

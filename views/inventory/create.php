@@ -13,7 +13,7 @@
 
 		<div class="col-md-9">
 			<?php 
-				include_once VIEWS_PATH."components/success.php";
+				include_once VIEWS_PATH."components/successes.php";
 				include_once VIEWS_PATH."components/errors.php";
 		  	?>
 
@@ -77,30 +77,33 @@
 						    </div>
 						    <div class="clearfix"></div>
 						    <hr>
-							<div class="form-group col-xs-12 col-sm-6 col-md-4">
-								<!--<label for="alt_text">Image for Upload</label>
-							    <label class="btn btn-default btn-block btn-file">
-								   <i class="fa fa-upload fa-fw" aria-hidden="true"></i> Browse <input type="file" name="img" class="hidden">
-								</label>-->
-
-								<label>Upload an Image</label><br>
-								<label class="btn btn-default" for="img-picker">
-								    <input id="img-picker" type="file" class="hidden pull-left" onchange="$('#filename').html(this.files[0].name);" name="img">
-								    <i class="fa fa-upload fa-fw" aria-hidden="true"></i> Browse
-								</label>
-								&ensp;<span id="filename"><i>No file chosen.</i></span>
-							</div>
-							<div class="form-group col-xs-12 col-sm-6 col-md-4">
-						    	<label for="alt_text">Alternative Img Text</label>
-						     	<input class="form-control" placeholder="alt" name="alt_text" id="alt_text">
+						    <div class="row add-img-container">
+						    	<div class="col-md-12 add-img-div">
+							    	<div class="form-group col-xs-12 col-sm-6 col-md-4">
+										<label>Upload an Image</label><br>
+										<label class="btn btn-default">
+										    <input type="file" class="hidden pull-left img-uploader" name="img[]">
+										    <i class="fa fa-upload fa-fw" aria-hidden="true"></i> Browse
+										</label>&ensp;
+										<span class="filename"><i>No file chosen.</i></span>
+									</div>
+									<div class="form-group col-xs-12 col-sm-6 col-md-4">
+								    	<label for="alt_text">Alternative Img Text</label>
+								     	<input class="form-control" placeholder="alt" name="alt_text[]">
+								    </div>
+								    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+								    	<label for="featured_img">Featured Image</label>
+								     	<select class="form-control" name="featured_img[]">
+								     		<option selected disabled value hidden>Select...</option>
+								     		<option value="1">Yes</option>
+								     		<option value="0">No</option>
+								     	</select>
+								    </div>
+							    </div>
 						    </div>
-						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
-						    	<label for="featured_img">Featured Image</label>
-						     	<select class="form-control" name="featured_img" id="featured_img">
-						     		<option selected disabled value hidden>Select...</option>
-						     		<option value="1">Yes</option>
-						     		<option value="0">No</option>
-						     	</select>
+						    <div class="col-sm-12">
+								<button type="button" class="btn btn-success btn-add-img"><i class="fa fa-plus" aria-hidden="true"></i></button>&ensp;
+								<span><i>Add more images</i></span>
 						    </div>
 
 						    <div class="clearfix"></div>
@@ -120,6 +123,21 @@
 <?php $this->endblock() ?>
 
 <?php $this->block('scripts') ?>
+<script>
+$(function() {
+
+	$('.img-uploader').change(function() {
+		var name = $(this)[0].files[0].name;
+		$(this).parent().siblings('.filename').html(name);
+	});
+
+	var copy = $('.add-img-div').first().clone(true, true);
+
+    $('.btn-add-img').click(function() {
+    	copy.clone(true, true).appendTo(".add-img-container");
+    })
+});
+</script>
 <?php $this->endblock() ?>
 
 <?php echo $this->display('layouts/app.php', get_defined_vars()); ?>

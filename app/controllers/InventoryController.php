@@ -49,7 +49,7 @@ class InventoryController {
 
 		$this->check_auth();
 
-		$product = Product::with(['category', 'images'])->find($id);
+		$product = Product::with(['category', 'promotion', 'images', 'review'])->find($id);
 
 		if (!$product)
 			View::render('errors/404.php', [
@@ -58,13 +58,12 @@ class InventoryController {
 		else
 			View::render('inventory/details.php', [
 				'product' => $product,
-				'featured_img' => $product->featured_img(),
+				'featured' => $product->featured_img(),
 				'categories' => Category::all(),
 			]);
 	}
 
 	public function store() {
-		// http://www.w3schools.com/php/php_file_upload.asp
 
 		$this->check_auth();
 		
@@ -82,6 +81,8 @@ class InventoryController {
 			'featured' => 'required|in:0,1'
 		]);
 
+		$successes = [];
+
 		if (empty($errors)) {
 
 			$product = Product::create([
@@ -97,51 +98,49 @@ class InventoryController {
 
  			if ($product) {
 
- 				$success = 'Product created. No image was uploaded.';
+ 				// Upload images
+ 				$total = count($_FILES['img']['name']);
+ 				for($i = 0; $i < $total; $i++) {
+ 					// Check if an image was uploaded using the form
+	 				if(file_exists($_FILES['img']['tmp_name'][$i]) && is_uploaded_file($_FILES['img']['tmp_name'][$i])) {
 
- 				// Check if an image was uploaded using the form
- 				if(file_exists($_FILES['img']['tmp_name']) && is_uploaded_file($_FILES['img']['tmp_name'])) {
+	 					// Upload the image
+		 				$res = ImageTrait::upload($_FILES["img"], $i, $product->category()->name);
 
- 					// Upload the image
-	 				$res = ImageTrait::upload($_FILES["img"], $product->category()->name);
+		 				if ($res['status'] == 1) {
 
-	 				if ($res['status'] == 1) {
+		 					$path = $res['path'];
 
-	 					$path = $res['path'];
-
-	 					// Upload successful
-	 					Image::create([
-							"product_id" => $product->id,
-							"path" => $path,
-							"alt_text" => $_POST['alt_text'],
-							"featured" => empty($_POST['featured_img']) ? 0 : 1
-	 					]);
-	 					$success = "Product created. Image uploaded to $path";
-	 				} else {
-	 					$errors = $res['errors'];
-
-	 					View::render('inventory/create.php', [
-							'categories' => Category::all(),
-							'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all(),
-							'errors' => $errors
-						]);
+		 					// Upload successful
+		 					Image::create([
+								"product_id" => $product->id,
+								"path" => $path,
+								"alt_text" => $_POST['alt_text'][$i],
+								"featured" => empty($_POST['featured_img'][$i]) ? 0 : 1
+		 					]);
+		 					$successes[] = "Product with id {$product->id} created. Image uploaded to $path";
+		 				} else {
+		 					$successes[] = "Product with id {$product->id} created. No image was uploaded.";
+		 					if (empty($errors))
+		 						$errors = $res['errors'];
+		 					else
+		 						$errors[] = array_merge($errors, $res['errors']);
+		 				}
 	 				}
  				}
 
- 				View::render('inventory/create.php', [
-					'categories' => Category::all(),
-					'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all(),
-					'success' => $success
-				]);
+ 				if (empty($successes))
+ 					$successes[] = "Product created with id {$product->id}. No image was uploaded.";
 
  			} else
  				$errors[] = 'Product was not created.';
 		}
-
+print_r($errors);die();
 		View::render('inventory/create.php', [
 			'categories' => Category::all(),
 			'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all(),
-			'errors' => $errors
+			'successes' => $successes,
+			'errors' => $errors,
 		]);
 	}
 

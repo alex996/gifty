@@ -1,4 +1,4 @@
-<?php if(isset($success)): ?>
+<?php if(!empty($success)): ?>
 <div class="alert alert-success">
 	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 	<strong>Success!</strong> <?= $success ?>
