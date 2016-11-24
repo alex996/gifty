@@ -30,7 +30,7 @@ class OrderController {
 		$customer_id = Customer::where('user_id', Auth::id())->get()->id;
 		$orders = Order::with('address')->where('customer_id', $customer_id)->orderBy('created_at', 'DESC')->get();
 
-		if (!is_array($orders))
+		if (!is_array($orders) && $orders)
 			$orders = [$orders];
 		
 		View::render('orders/index.php', [
