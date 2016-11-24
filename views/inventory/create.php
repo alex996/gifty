@@ -31,7 +31,7 @@
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="category">Category</label>
 						     	<select class="form-control" name="category" id="category" required>
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<?php foreach($categories as $category): ?>
 		                            	<option value="<?= $category->id ?>"><?= $category->name ?></option>
 		                            <?php endforeach; ?>
@@ -48,7 +48,7 @@
 							<div class="form-group col-xs-12 col-sm-12 col-md-8">
 								<label for="promotion">Promotion</label>
 								<select class="form-control" name="promotion" id="promotion">
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<?php foreach($promotions as $promotion): ?>
 		                            	<option value="<?= $promotion->id ?>"><?= $promotion->discount * 100 ?>% off from <?= $promotion->starts_at ?> until <?= $promotion->ends_at ?></option>
 		                            <?php endforeach; ?>
@@ -61,7 +61,7 @@
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="status">Status</label>
 						     	<select class="form-control" name="status" id="status" required>
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<option value="IN_STOCK">IN STOCK</option>
 						     		<option value="OUT_OF_STOCK">OUT OF STOCK</option>
 						     	</select>
@@ -69,7 +69,7 @@
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="featured">Featured on Home Page</label>
 						     	<select class="form-control" name="featured" id="featured" required>
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<option value="1">Yes</option>
 						     		<option value="0">No</option>
 						     	</select>
@@ -89,7 +89,7 @@
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="alt_text">Featured Image</label>
 						     	<select class="form-control" name="featured" id="featured" required>
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<option value="1">Yes</option>
 						     		<option value="0">No</option>
 						     	</select>

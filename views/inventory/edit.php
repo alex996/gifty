@@ -32,7 +32,7 @@
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="category">Category</label>
 						     	<select class="form-control" name="category" id="category" required>
-						     		<option disabled hidden>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<?php foreach($categories as $category): ?>
 		                            	<option value="<?= $category->id ?>" <?= ($product->category_id == $category->id) ? "selected" : "" ?>><?= $category->name ?></option>
 		                            <?php endforeach; ?>
@@ -49,7 +49,7 @@
 							<div class="form-group col-xs-12 col-sm-12 col-md-8">
 								<label for="promotion">Promotion</label>
 								<select class="form-control" name="promotion" id="promotion">
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<?php foreach($promotions as $promotion): ?>
 		                            	<option value="<?= $promotion->id ?>" <?= ($product->promotion_id == $promotion->id) ? "selected" : "" ?>><?= $promotion->discount * 100 ?>% off from <?= $promotion->starts_at ?> until <?= $promotion->ends_at ?></option>
 		                            <?php endforeach; ?>
@@ -62,7 +62,7 @@
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="status">Status</label>
 						     	<select class="form-control" name="status" id="status" required>
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<option value="IN_STOCK" <?= ($product->status == Product::IN_STOCK) ? "selected" : "" ?>>IN STOCK</option>
 						     		<option value="OUT_OF_STOCK" <?= ($product->status == Product::OUT_OF_STOCK) ? "selected" : "" ?>>OUT OF STOCK</option>
 						     		<option value="END_OF_LIFE" <?= ($product->status == Product::END_OF_LIFE) ? "selected" : "" ?>>END OF LIFE</option>
@@ -71,7 +71,7 @@
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="featured">Featured on Home Page</label>
 						     	<select class="form-control" name="featured" id="featured" required>
-						     		<option disabled hidden selected>Select...</option>
+						     		<option selected disabled value hidden>Select...</option>
 						     		<option value="1" <?= ($product->featured == 1) ? "selected" : "" ?>>Yes</option>
 						     		<option value="0" <?= ($product->featured == 0) ? "selected" : "" ?>>No</option>
 						     	</select>

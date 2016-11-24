@@ -52,7 +52,7 @@
 										   <label class="control-label col-sm-3">Country:</label>
 											<div class="col-sm-9">
 										    	<select class="form-control" name="country" required>
-										    		<option selected disabled hidden>Select...</option>
+										    		<option selected disabled value hidden>Select...</option>
 										    		<option value="US">United States</option>  
 										    		<option value="CA">Canada</option>  
 										    	</select>

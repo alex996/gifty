@@ -53,7 +53,7 @@
 											    <label class="control-label col-sm-3">Card Type:</label>
 												<div class="col-sm-9">
 											    	<select class="form-control" name="type" required>
-											    		<option selected disabled hidden>Select...</option>
+											    		<option selected disabled value hidden>Select...</option>
 											    		<option value="VISA">Visa</option>  
 											    		<option value="MASTERCARD">Master Card</option>  
 											    		<option value="INTERAC">INTERAC</option>  
@@ -70,7 +70,7 @@
 											    <label class="control-label col-sm-3">Expiry Date:</label>
 												<div class="col-sm-4">
 											    	<select class="form-control" name="expiry_month" required>
-											    		<option selected disabled hidden>Month</option>
+											    		<option selected disabled value hidden>Month</option>
 											    		<?php for($i = 1; $i <= 12; $i++): ?>
 											    			<option value="<?= $i ?>"><?= strlen($i) == 1 ? "0$i" : $i ?></option>
 											    		<?php endfor; ?>
@@ -78,7 +78,7 @@
 											    </div>
 											    <div class="col-sm-4">
 											    	<select class="form-control" name="expiry_year" required>
-											    		<option selected disabled hidden>Year</option>
+											    		<option selected disabled value hidden>Year</option>
 											    		<?php $year = date("Y") ?>
 											    		<?php for($i = 1; $i <= 5; $i++): ?>
 											    			<option value="<?= $year ?>"><?= $year++ ?></option>
@@ -113,7 +113,7 @@
 											    <label class="control-label col-sm-3">Country:</label>
 												<div class="col-sm-9">
 											    	<select class="form-control" name="country" required>
-											    		<option selected disabled hidden>Select...</option>
+											    		<option selected disabled value hidden>Select...</option>
 											    		<option value="US">United States</option>  
 											    		<option value="CA">Canada</option>  
 											    	</select>

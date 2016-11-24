@@ -128,7 +128,7 @@ class Validator {
         return strlen($value) >= $length;
     }
 
-    private static function minlen($value, $length) {
+    private static function maxlen($value, $length) {
         return strlen($value) <= $length;
     }
 
