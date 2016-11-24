@@ -46,6 +46,10 @@ class Product extends Model {
 		return $this->hasOne('Promotion');
 	}
 
+	public function images() {
+		return $this->hasMany('Image');
+	}
+
 	public function rating() {
 		$reviews = $this->reviews();
 		$count = count($reviews);

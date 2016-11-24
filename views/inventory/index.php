@@ -24,7 +24,7 @@
 				<div class="panel-heading text-center">
 					<h4>
 						<div class="pull-left">
-							<a href="promotions/create" class="btn btn-cta btn-success btn-block btn-add"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Add</a>
+							<a href="/admin/inventory/create" class="btn btn-cta btn-success btn-block btn-add"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Add</a>
 						</div>
 						<p>Manage Products in the Inventory</p>
 					</h4>
@@ -74,11 +74,11 @@
 										<td>$<?= $product->price ?></td>
 										<td class="text-center">
 											<?php if ($product->promotion_id): ?>
-												<a href="/admin/promotions/<?= $product->promotion_id ?>/edit"><?= number_format($product->promotion->discount * 100, 2) ?> %</a></td>
+												<a href="/admin/promotions/<?= $product->promotion_id ?>/edit"><?= number_format($product->promotion->discount * 100, 2) ?> %</a>
 											<?php else: ?>
 												&ndash;
 											<?php endif; ?>
-										
+										</td>
 										<td><a href="/admin/inventory/<?= $product->id ?>/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 										<td>
 											<form method="POST" action="/admin/inventory/<?= $product->id ?>">
@@ -94,14 +94,10 @@
 					<?php else: ?>
 						<div class="empty-cart">
 							<h3>Your Inventory is currently empty.</h3>
-							<h4>Please add an item to start your business.</h4><br>
+							<h4>Please add a product to get started.</h4><br>
 						</div>
 					<?php endif; ?>
 				</div>
-			</div>
-
-			<div id="">
-				<a href="inventories/addItem" class="btn btn-success"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Add a product</a>
 			</div>
 			
 		</div>

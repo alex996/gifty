@@ -14,8 +14,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				
-				<?php include_once(VIEWS_PATH . 'components/errors.php') ?>
 				<?php include_once(VIEWS_PATH . 'components/error.php') ?>
+				<?php include_once(VIEWS_PATH . 'components/errors.php') ?>
 				
 				<?php if (!empty($payment_methods)): ?>
 					<ul class="nav nav-tabs nav-justified">

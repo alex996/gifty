@@ -25,7 +25,6 @@ class PromotionController extends Controller {
 		$this->check_auth();
 
 		View::render('promotions/index.php', [
-			'in_cart' => 0,
 			'promotions' => Promotion::orderBy('ends_at', 'DESC')->all(),
 			'categories' => Category::all(),
 		]);
@@ -39,13 +38,11 @@ class PromotionController extends Controller {
 
 		if ($promotion)
 			View::render('promotions/edit.php', [
-				'in_cart' => 0,
 				'promotion' => $promotion,
 				'categories' => Category::all(),
 			]);
 		else
 			View::render('errors/404.php', [
-				'in_cart' => 0,
 				'categories' => Category::all(),
 			]);
 	}
@@ -53,7 +50,6 @@ class PromotionController extends Controller {
 	public function create() {
 		$this->check_auth();
 		View::render('promotions/create.php', [
-			'in_cart' => 0,
 			'categories' => Category::all(),
 		]);
 	}
@@ -71,7 +67,6 @@ class PromotionController extends Controller {
 		if (!empty($errors))
 			View::render('promotions/create.php', [
 				'errors' => $errors,
-				'in_cart' => 0,
 				'categories' => Category::all(),
 			]);
 		else {
@@ -82,7 +77,6 @@ class PromotionController extends Controller {
 			]);
 
 			View::render('promotions/index.php', [
-				'in_cart' => 0,
 				'promotions' => Promotion::orderBy('ends_at', 'DESC')->all(),
 				'categories' => Category::all(),
 				'success' => 'Promotion launched.'
@@ -109,7 +103,6 @@ class PromotionController extends Controller {
 				View::render('promotions/edit.php', [
 					'errors' => $errors,
 					'promotion' => $promotion,
-					'in_cart' => 0,
 					'categories' => Category::all(),
 				]);
 			else {
@@ -119,7 +112,6 @@ class PromotionController extends Controller {
 				$promotion->save();
 
 				View::render('promotions/edit.php', [
-					'in_cart' => 0,
 					'promotion' => $promotion,
 					'success' => 'Promotion updated.',
 					'categories' => Category::all(),
@@ -129,7 +121,6 @@ class PromotionController extends Controller {
 			
 		else
 			View::render('errors/404.php', [
-				'in_cart' => 0,
 				'errors' => ['Promotion with id of $id not found.'],
 				'categories' => Category::all(),
 			]);
@@ -153,7 +144,6 @@ class PromotionController extends Controller {
 			$promotion->delete();
 
 			View::render('promotions/index.php', [
-				'in_cart' => 0,
 				'promotions' => Promotion::orderBy('ends_at', 'DESC')->all(),
 				'categories' => Category::all(),
 				'success' => ['Promotion deleted.']
@@ -161,7 +151,6 @@ class PromotionController extends Controller {
 
 		} else
 			View::render('errors/404.php', [
-				'in_cart' => 0,
 				'errors' => ['Promotion with id of $id not found.'],
 				'categories' => Category::all(),
 			]);

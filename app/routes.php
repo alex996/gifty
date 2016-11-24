@@ -39,6 +39,7 @@ Router::get('admin/dashboard', 'DashboardController@index');
  */ 
 Router::get('admin/inventory', 'InventoryController@index');
 Router::post('admin/inventory', 'InventoryController@store');
+Router::get('admin/inventory/create', 'InventoryController@create');
 Router::get('admin/inventory/(\d+)', 'InventoryController@show');
 Router::get('admin/inventory/(\d+)/edit', 'InventoryController@edit');
 Router::delete('admin/inventory/(\d+)', 'InventoryController@destroy');

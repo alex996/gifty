@@ -11,8 +11,8 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				
-				<?php include_once(VIEWS_PATH . 'components/errors.php') ?>
 				<?php include_once(VIEWS_PATH . 'components/error.php') ?>
+				<?php include_once(VIEWS_PATH . 'components/errors.php') ?>
 				
 				<?php if (!empty($addresses)): ?>
 					<ul class="nav nav-tabs nav-justified">
@@ -61,7 +61,7 @@
 										<div class="form-group">
 										   <label class="control-label col-sm-3">Zip Code:</label>
 											<div class="col-sm-9">
-										    	<input class="form-control" name="zip" placeholder="12345" required>
+										    	<input class="form-control" name="zip" placeholder="12345" minlength="5" maxlength="10" required>
 										    </div>
 										</div>
 										

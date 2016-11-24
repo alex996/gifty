@@ -37,9 +37,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/cart"><i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i> Cart (<span id="in-cart"><?= $in_cart ?></span>)</a>
-                    </li>
+                    <?php if (Auth::check() && Auth::user()->isCustomer() || !Auth::check()): ?>
+                      <li>
+                          <a href="/cart"><i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i> Cart (<span id="in-cart"><?= $in_cart ?></span>)</a>
+                      </li>
+                    <?php endif; ?>
                     <li>
                         <a href="/products">Products</a>
                     </li>

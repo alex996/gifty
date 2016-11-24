@@ -26,11 +26,38 @@ class InventoryController {
 		$this->check_auth();
 
 		View::render('inventory/index.php', [
-				'products' => Product::with(['category', 'promotion'])->all(),
-				'in_cart'  => Cart::count(),
+			'products' => Product::with(['category', 'promotion'])->all(),
+			'categories' => Category::all(),
+		]);
+	}
+
+	public function create() {
+
+		$this->check_auth();
+
+		View::render('inventory/create.php', [
+			'categories' => Category::all(),
+		]);
+	}
+
+	public function show($id) {
+
+		$this->check_auth();
+
+		$product = Product::with(['category', 'images'])->find($id);
+
+		if (!$product)
+			View::render('errors/404.php', [
+				'categories' => Category::all(),
+			]);
+		else
+			View::render('inventory/details.php', [
+				'product' => $product,
 				'categories' => Category::all(),
 			]);
 
+		
+		
 	}
 	
 }

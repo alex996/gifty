@@ -63,9 +63,11 @@ class Validator {
             case "unique":
                 return "$field already exists."; break;
             case "after":
-                return "$field must be a date after $arg.";
+                return "$field must be a date after $arg."; break;
             case "before":
-                return "$field must be a date before $arg.";
+                return "$field must be a date before $arg."; break;
+            case "alphanumeric":
+                return "$field can include letters and digits only."; break;
     		default:
     			return "$field is invalid.";
     	}
@@ -114,9 +116,21 @@ class Validator {
 		return $value >= $min;
 	}
 
+    /*private static function minval($value, $lim) {
+        return $value >= $lim;
+    }
+
+    private static function maxval($value, $lim) {
+        return $value <= $lim;
+    }*/
+
 	private static function date($value) {
 		return /*(bool)*/strtotime($value);
 	}
+
+    private static function zip($value) {
+        return preg_match('/(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)/i', $value);
+    }
 
 	private static function email($value) {
 		return filter_var($value, FILTER_VALIDATE_EMAIL);

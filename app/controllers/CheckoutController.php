@@ -63,7 +63,7 @@ class CheckoutController {
 				'city' => 'required|max:50',
 				'state' => 'required|max:50',
 				'country' => 'required|max:50|in:US,CA',
-				'zip' => 'required|max:10|alphanumeric',
+				'zip' => 'required|zip',
 			]);
 
 			if (!empty($errors))
@@ -134,7 +134,7 @@ class CheckoutController {
 				'city' => 'required|max:50',
 				'state' => 'required|max:50',
 				'country' => 'required|max:50|in:US,CA',
-				'zip' => 'required|max:10|alphanumeric',
+				'zip' => 'required|zip',
 			]);
 
 			if (!empty($errors)) {

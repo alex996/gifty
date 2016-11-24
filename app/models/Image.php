@@ -4,7 +4,7 @@ class Image extends Model {
 
 	protected static $class;
 
-	protected static $table = "addresses";
+	protected static $table;
 
 	protected static $fillable;
 
