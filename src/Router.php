@@ -31,7 +31,7 @@ class Router {
 	}
 	
 	private static function route($method, $pattern, $callback) {
-		$pattern = '/' . str_replace('/', '\/', $pattern) . '$/';
+		$pattern = '/^\/' . str_replace('/', '\/', $pattern) . '$/';
 		self::$routes[$method][$pattern] = $callback;
 	}
 
