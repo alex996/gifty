@@ -16,11 +16,16 @@ class ProductController extends Controller {
 	
 	public function index() {
 
-		if (isset($_GET['search']))
+		if (!empty($_GET['search']) && !empty($_GET['filter']) && !empty($_GET['direction']))
+			$products = Product::where('name', 'LIKE', "%{$_GET['search']}%")
+									->orWhere('description', 'LIKE', "%{$_GET['search']}%")
+									->orderBy($_GET['filter'], $_GET['direction'])
+									->get();
+		else if (!empty($_GET['filter']) && !empty($_GET['direction']))
+			$products = Product::orderBy($_GET['filter'], $_GET['direction'])->get();
+		else if (!empty($_GET['search']))
 			$products = Product::where('name', 'LIKE', "%{$_GET['search']}%")
 									->orWhere('description', 'LIKE', "%{$_GET['search']}%")->get();
-		else if (isset($_GET['filter']) && isset($_GET['direction']))
-			$products = Product::orderBy($_GET['filter'], $_GET['direction'])->get();
 		else
 			$products = Product::all();
 
@@ -81,7 +86,7 @@ class ProductController extends Controller {
 			]);
 		} else {
 			$suggestions = Product::where('category_id', $product->category_id)
-									->andWhere('id', '!=', $product->id)->random(4)->get();
+									->andWhere('id', '!=', $product->id)->random(4)->all();
 
 			View::render('products/details.php', [
 				'product' => $product,

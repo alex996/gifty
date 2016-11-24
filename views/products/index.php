@@ -30,8 +30,11 @@
                         <input type="hidden" name="filter">
                         <input type="hidden" name="direction">
                         <h4 class="pull-left filter">
-                            Price: <a href="?filter=price&direction=asc&search=<?= $_GET['search']; ?>" class="btn btn-default"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Low</i></a> <a href="?filter=price&direction=desc&search=<?= $_GET['search']; ?>" class="btn btn-default"><i class="fa fa-sort-numeric-desc" aria-hidden="true"> High</i></a>&emsp;|&ensp;
-                            Name: <a href="?filter=name&direction=asc" class="btn btn-default"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> A-Z</i></a> <a href="?filter=name&direction=desc" class="btn btn-default"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Z-A</i></a>
+                            Price: <a href="?filter=price&direction=asc&search=<?= isset($_GET['search']) ? $_GET['search'] : "" ?>" class="btn btn-<?= ( isset($_GET['filter']) && $_GET['filter'] == "price" && isset($_GET['direction']) && $_GET['direction'] == "asc") ? "primary" : "default" ?>"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Low</i></a>
+                            <a href="?filter=price&direction=desc&search=<?= isset($_GET['search']) ? $_GET['search'] : "" ?>" class="btn btn-<?= ( isset($_GET['filter']) && $_GET['filter'] == "price" && isset($_GET['direction']) && $_GET['direction'] == "desc") ? "primary" : "default" ?>"><i class="fa fa-sort-numeric-desc" aria-hidden="true"> High</i></a>&emsp;|&ensp;
+
+                            Name: <a href="?filter=name&direction=asc&search=<?= isset($_GET['search']) ? $_GET['search'] : "" ?>" class="btn btn-<?= ( isset($_GET['filter']) && $_GET['filter'] == "name" && isset($_GET['direction']) && $_GET['direction'] == "asc") ? "primary" : "default" ?>"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> A-Z</i></a>
+                            <a href="?filter=name&direction=desc&search=<?= isset($_GET['search']) ? $_GET['search'] : "" ?>" class="btn btn-<?= ( isset($_GET['filter']) && $_GET['filter'] == "name" && isset($_GET['direction']) && $_GET['direction'] == "desc") ? "primary" : "default" ?>"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Z-A</i></a>
                         </h4>
                         <div class="input-group col-md-4 pull-right">
                             <!--<div class="input-group-btn search-panel">
