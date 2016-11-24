@@ -56,6 +56,12 @@ Router::patch('admin/promotions/(\d+)', 'PromotionController@update');
 Router::delete('admin/promotions/(\d+)', 'PromotionController@delete');
 
 /**
+ *  Sales routes (admins ONLY)
+ */
+Router::get('admin/sales', 'SalesController@index');
+Router::get('admin/sales/(\d+)', 'SalesController@show');
+
+/**
  *  Cart routes.
  */
 Router::get('cart', 'CartController@index');
