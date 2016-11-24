@@ -5,6 +5,9 @@
 	.no-promo h3 {margin-bottom: 20px;}
 	.no-promo { margin-bottom: 30px; }
 	.btn-launch {width: 100px}
+
+	.panel-heading h4 {margin-top:0;}
+	.panel-heading p {padding-top:15px;}
 </style>
 <?php $this->endblock() ?>
 
@@ -13,66 +16,73 @@
 	<div class="row">
 
 		<div class="page-header text-center">
-			<div class="pull-left">
-				<a href="promotions/create" class="btn btn-cta btn-success btn-block btn-launch"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Launch</a>
-			</div>
-			<h2>
-				Promotions
-			</h2>
+			<h2>Promotions</h2>
 		</div>
-
-		
 
 		<div style="clear:both; margin-top: 10px;">
 			<?php 
 				include_once VIEWS_PATH."components/success.php";
-
 				include_once VIEWS_PATH."components/error.php";
 		  	?>
 		</div>
 
 		<div class="col-md-9">
-			
-			<?php if(!empty($promotions)) : ?>
-				<table class="table table-hover">
-				    <thead>
-						<tr>
-							<th>#</th>
-							<th>Start Date</th>
-							<th>End Date</th>
-							<th>Discount</th>
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-				    <tbody>
-				     	<?php foreach($promotions as $promo): 
-				     	?>
-							<tr>
-								<td><?= $promo->id ?></td>
-								<td><?= $promo->starts_at ?></td>
-								<td><?= $promo->ends_at ?></td>
-								<td><?= $promo->discount ?>%</td>
-								<td><a href="/admin/promotions/<?= $promo->id ?>/edit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-								<td>
-									<form method="POST" action="/admin/promotions/<?= $promo->id ?>">
-										<input type="hidden" name="_method" value="DELETE">
-										<button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-									</form>
-								</td>
-							</tr>
-						<?php 
-						endforeach; ?>
-				    </tbody>
-				</table>
-				<hr>
-
-			<?php else: ?>
-				<div class="no-promo">
-					<h3>There are currently no active promotions.</h3>
-					<h4>All products are being sold at a regular price.</h4><br>
+			<div class="panel panel-default">
+				<div class="panel-heading text-center">
+					<h4>
+						<div class="pull-left">
+							<a href="promotions/create" class="btn btn-cta btn-success btn-block btn-launch"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Launch</a>
+						</div>
+						<p>View and Manage Promotions</p>
+					</h4>
 				</div>
-			<?php endif; ?>
+				<div class="panel-body">
+					<?php if(!empty($promotions)) : ?>
+						<table class="table table-hover">
+						    <thead>
+								<tr>
+									<th>ID</th>
+									<th>Status</th>
+									<th>Start Date (GMT)</th>
+									<th>End Date (GMT)</th>
+									<th>Discount</th>
+									<th>Edit</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+						    <tbody>
+						     	<?php foreach($promotions as $promo): 
+						     	?>
+									<tr>
+										<td><?= $promo->id ?></td>
+										<?php $active = $promo->ends_at > date('Y-m-d H:i:s') ?> 
+										<td><span class="label label-<?= $active ? "success" : "default" ?>"><?= $active ? "ACTIVE" : "INACTIVE" ?></span></td>
+										<td><?= $promo->starts_at ?></td>
+										<td><?= $promo->ends_at ?></td>
+										<td><?= number_format($promo->discount * 100, 2) ?> %</td>
+										<td><a href="/admin/promotions/<?= $promo->id ?>/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+										<td>
+											<form method="POST" action="/admin/promotions/<?= $promo->id ?>">
+												<input type="hidden" name="_method" value="DELETE">
+												<button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+											</form>
+										</td>
+									</tr>
+								<?php 
+								endforeach; ?>
+						    </tbody>
+						</table>
+						
+
+					<?php else: ?>
+						<hr><div class="no-promo">
+							<h3>There are currently no active promotions.</h3>
+							<h4>All products are being sold at a regular price.</h4><br>
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+			
 		</div>
 		<?php include_once(VIEWS_PATH . 'admin/components/sidebar.php') ?>
 	</div>

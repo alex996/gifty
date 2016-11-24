@@ -14,6 +14,7 @@ class DashboardController extends Controller {
 		View::render('admin/dashboard.php', [
 			'user' => $user,
 			'in_cart' => 0,
+			'categories' => Category::all(),
 		]);
 	}
 

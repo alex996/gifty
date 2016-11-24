@@ -122,7 +122,7 @@
 			<?php endif; ?>
 			<div class="row">
 				<h4 class="text-center"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews</h4><br>
-				<div class="col-md-6">
+				<div class="col-md-<?= Auth::check() ? "6" : "10 col-md-offset-1" ?>">
 					<?php foreach($product->reviews as $review): ?>
 					<div class="col-md-12">
 						<div class="panel panel-default">

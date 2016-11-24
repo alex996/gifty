@@ -35,13 +35,19 @@ Router::patch('account/security', 'UserController@update_password');
 Router::get('admin/dashboard', 'DashboardController@index');
 
 /**
+ *  Inventory routes (admins ONLY)
+ */ 
+Router::get('admin/inventory', 'InventoryController@index');
+
+/**
  *  Promotion routes (admins ONLY)
  */
 Router::get('admin/promotions', 'PromotionController@index');
 Router::get('admin/promotions/create', 'PromotionController@create');
+Router::post('admin/promotions', 'PromotionController@store');
 Router::get('admin/promotions/(\d+)/edit', 'PromotionController@edit');
 Router::patch('admin/promotions/(\d+)', 'PromotionController@update');
-Router::delete('admin/promotions/(\d+)/delete', 'PromotionController@delete');
+Router::delete('admin/promotions/(\d+)', 'PromotionController@delete');
 
 /**
  *  Cart routes.

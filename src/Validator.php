@@ -38,7 +38,7 @@ class Validator {
     		foreach($checks as $check) {
     			//echo $check;die();
 
-                $components = explode(":", $check);
+                $components = explode(":", $check, 2); // 2 elements max
     			$method = $components[0];
     			$arg = isset($components[1]) ? $components[1] : null;
 
@@ -62,6 +62,10 @@ class Validator {
     			return "$field must be in format example@domain.com."; break;
             case "unique":
                 return "$field already exists."; break;
+            case "after":
+                return "$field must be a date after $arg.";
+            case "before":
+                return "$field must be a date before $arg.";
     		default:
     			return "$field is invalid.";
     	}
@@ -140,6 +144,26 @@ class Validator {
 
     private static function same($value, $other) {
         return $value == $other;
+    }
+
+    private static function before($value, $other) {
+        switch ($other) {
+            case 'now': $other = date('Y-m-d G:i:s'); break;
+            //case 'tomorrow': $other = ... // continue if needed
+            default: $other = date('Y-m-d G:i:s', strtotime($other)); break;
+        }
+        $value = date('Y-m-d G:i:s', strtotime($value)); // GMT
+        return $value < $other;
+    }
+
+    private static function after($value, $other) {
+        switch ($other) {
+            case 'now': $other = date('Y-m-d G:i:s'); break;
+            //case 'tomorrow': $other = ... // continue if needed
+            default: $other = date('Y-m-d G:i:s', strtotime($other)); break;
+        }
+        $value = date('Y-m-d G:i:s', strtotime($value)); // GMT
+        return $value > $other;
     }
 
     public static function user_password($value) {

@@ -22,6 +22,9 @@ else {
 	ini_set('error_log', ROOT_PATH.'error.log');
 }
 
+// Set timezone to UTC (i.e. GMT) with 0 offset
+date_default_timezone_set('UTC');
+
 // Start the session:
 session_start();
 

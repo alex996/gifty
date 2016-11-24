@@ -11,15 +11,12 @@
 			<h2>Update Promotion</h2>
 		</div>
 	
-		<div class="col-md-9">
-			<div style="clear:both; margin-top: 10px;">
+		<div class="col-md-9"><br>
+			<div class="col-md-8 col-md-offset-2">
 				<?php 
 					include_once VIEWS_PATH."components/success.php";
-
-					include_once VIEWS_PATH."components/error.php";
+					include_once VIEWS_PATH."components/errors.php";
 			  	?>
-			</div>
-			<div class="col-md-8 col-md-offset-2">
 				<form class="form-horizontal" action="/admin/promotions/<?= $promotion->id ?>" method="POST">
 
 					<input type="hidden" name="_method" value="PATCH">
@@ -32,26 +29,26 @@
 					</div>
 
 					<div class="form-group">
-					    <label class="control-label col-sm-4">Discount (%):</label>
+					    <label class="control-label col-sm-4">Discount:</label>
 						<div class="col-sm-6">
 					    	<input type="number" min="0" max="99.99" step="0.01" class="form-control" name="discount" required="true" value="<?= $promotion->discount ?>">
 					    </div>
 					</div>
 
 					<div class="form-group">
-					   <label class="control-label col-sm-4">Start date:</label>
+					   <label class="control-label col-sm-4">Start date (GMT):</label>
 						<div class="col-sm-6">
 					    	<input type="datetime-local" class="form-control" name="starts_at" required="true" value="<?= date("Y-m-d\TH:i:s", strtotime($promotion->starts_at)) ?>"> 
 					    </div>
 					</div>
 
 					<div class="form-group">
-					   <label class="control-label col-sm-4">End date:</label>
+					   <label class="control-label col-sm-4">End date (GMT):</label>
 						<div class="col-sm-6">
 					    	<input type="datetime-local" class="form-control" name="ends_at" required="true" value="<?= date("Y-m-d\TH:i:s", strtotime($promotion->ends_at)) ?>">
 					    </div>
 					</div>
-					<hr>
+					<br>
 					<div class="col-md-12">
 						<div class="col-md-6 col-md-offset-2">
 							<button type="submit" class="btn btn-success btn-block btn-cta">Update</button>
