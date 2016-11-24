@@ -107,22 +107,30 @@ class Validator {
     }
 
 	private static function max($value, $max) {
-        $value = is_numeric($value) ? $value : strlen($value);
-		return $value <= $max;
+        //$value = is_numeric($value) ? $value : strlen($value);
+		return strlen($value) <= $max;
 	}
 
 	private static function min($value, $min) {
-        $value = is_numeric($value) ? $value : strlen($value);
-		return $value >= $min;
+        //$value = is_numeric($value) ? $value : strlen($value);
+		return strlen($value) >= $min;
 	}
 
-    /*private static function minval($value, $lim) {
+    private static function minval($value, $lim) {
         return $value >= $lim;
     }
 
     private static function maxval($value, $lim) {
         return $value <= $lim;
-    }*/
+    }
+
+    private static function minlen($value, $length) {
+        return strlen($value) >= $length;
+    }
+
+    private static function minlen($value, $length) {
+        return strlen($value) <= $length;
+    }
 
 	private static function date($value) {
 		return /*(bool)*/strtotime($value);

@@ -63,7 +63,7 @@
 							<span class="fa <?= $class ?>"></span>
 							<?php $stars--; ?>
 						<?php endfor; ?>
-						&ensp;<?= $rating?> / 5
+						&ensp;<?= round($rating, 1) ?> / 5
 					</h5>
 
 					<h5><?= count($product->reviews) ?> reviews</h5>
