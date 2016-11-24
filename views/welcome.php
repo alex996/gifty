@@ -195,12 +195,21 @@
                     We offer fast delivery and excellent service to all our beloved customers.
                     Check out our <a href="/products">products</a> and buy your gift today!</p>
                 </div>
-                <div class="col-md-2">
-                    <a class="btn btn-lg btn-default btn-block" href="login">Sign In</a>
-                </div>
-                <div class="col-md-2">
-                    <a class="btn btn-lg btn-default btn-block" href="register">Register</a>
-                </div>
+                <?php if (!Auth::check()): ?>
+                    <div class="col-md-2">
+                        <a class="btn btn-lg btn-default btn-block" href="/login">Sign In</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-lg btn-default btn-block" href="/register">Register</a>
+                    </div>
+                <?php else: ?>
+                    <div class="col-md-2">
+                        <a class="btn btn-lg btn-default btn-block" href="/products">Start Shopping</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-lg btn-default btn-block" href="/cart">View Cart</a>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 		
