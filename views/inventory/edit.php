@@ -80,13 +80,13 @@
 							    	<label>Promo Price</label>
 							     	<div class="input-group">
 							     		<span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
-				                        <input class="form-control" value="<?= round($product->price - ($product->price * $product->promotion->discount),2) ?>" id="quantity" disabled>
+				                        <input class="form-control" value="<?= round($product->price - ($product->price * $product->promotion->discount),2) ?>" disabled>
 				                    </div>
 							    </div>
 							<?php endif; ?>
 							<div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="quantity">Quantity</label>
-						     	<input class="form-control" type="number" min="1" max="99999" placeholder="1" name="quantity" value="<?= $product->price ?>" id="quantity" required>
+						     	<input class="form-control" type="number" min="1" max="99999" placeholder="1" name="quantity" value="<?= $product->quantity ?>" id="quantity" required>
 						    </div>
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="status">Status</label>
