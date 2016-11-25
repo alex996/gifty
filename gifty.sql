@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2016 at 08:13 PM
+-- Generation Time: Nov 25, 2016 at 03:24 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -49,7 +49,10 @@ INSERT INTO `addresses` (`id`, `street`, `city`, `state`, `country`, `zip`) VALU
 (7, '872 J. F. Kennedy Boulevard', 'Boston', 'MA', 'US', '13432'),
 (9, '1990 Rue de l''Eglise', 'Montreal', 'Quebec', 'CA', 'H5G1K5'),
 (12, '2323 Rue des Heros', 'Ville de Quebec', 'Quebec', 'CA', 'J8K2F5'),
-(13, '2889 Rue de la Liberte', 'Montreal', 'Quebec', 'CA', 'H9K2L3');
+(13, '2889 Rue de la Liberte', 'Montreal', 'Quebec', 'CA', 'H9K2L3'),
+(14, 'ad', 'asdf', 'asdf', 'US', '12222222'),
+(15, 'dsf', 'asdf', 'asdf', 'CA', 'h4x 2g2'),
+(16, 'dfasd', 'asdf', 'asdf', 'CA', '12322-1321');
 
 -- --------------------------------------------------------
 
@@ -70,7 +73,9 @@ CREATE TABLE `carts` (
 
 INSERT INTO `carts` (`id`, `customer_id`, `sess_id`, `created_at`) VALUES
 (45, 5, '21l7tnjv23b9854geaqhsjuvi0', '2016-11-22 08:48:23'),
-(46, 4, '1qd5kecpj8porvhjp6govfo5f2', '2016-11-23 01:56:05');
+(46, 4, '1qd5kecpj8porvhjp6govfo5f2', '2016-11-23 01:56:05'),
+(47, 4, 'vqalp4fv4eig15s37nn0tmbmk5', '2016-11-24 04:52:38'),
+(48, 4, 'a5amq8e0pkjm8att1kjqpg6h90', '2016-11-24 04:54:56');
 
 -- --------------------------------------------------------
 
@@ -95,7 +100,12 @@ INSERT INTO `cart_details` (`id`, `cart_id`, `product_id`, `quantity`) VALUES
 (57, 45, 10, 2),
 (58, 45, 9, 1),
 (59, 45, 5, 1),
-(77, 46, 1, 2);
+(77, 46, 1, 2),
+(78, 47, 10, 1),
+(79, 47, 7, 1),
+(80, 48, 8, 1),
+(81, 48, 14, 1),
+(82, 48, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -147,7 +157,8 @@ INSERT INTO `customers` (`id`, `user_id`, `first`, `last`, `dob`, `phone`) VALUE
 (1, 4, 'Liza', 'White', '1989-05-12', '2329029302'),
 (2, 3, 'Isaac', 'Davidson', '2016-06-07', '3452320923'),
 (4, 6, 'Dwayne', 'Johnson', '2016-11-16', '3452352345'),
-(5, 5, 'Aiden', 'Carlton', '1986-11-27', '2342342342');
+(5, 5, 'Aiden', 'Carlton', '1986-11-27', '2342342342'),
+(6, 8, 'asdfasfd', 'asdfasfd', '2016-11-24', '2342342342');
 
 -- --------------------------------------------------------
 
@@ -162,6 +173,21 @@ CREATE TABLE `images` (
   `alt_text` varchar(255) NOT NULL,
   `featured` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`id`, `product_id`, `path`, `alt_text`, `featured`) VALUES
+(12, 1, '/img/drinks/red-wine-paris-10.jpg', 'Red wine from paris', 1),
+(13, 1, '/img/drinks/red-wine-bottle-and-wine-glass-psd-b-jpg-kp0909-clipart.jpg', 'wine', 0),
+(14, 4, '/img/electronics/key-visual.png', 'laptop', 1),
+(15, 4, '/img/electronics/asus-rog-laptop-big.jpg', 'lap', 0),
+(16, 11, '/img/electronics/l_10151578_001.jpg', 'iphone', 1),
+(17, 12, '/img/electronics/macbook-pro-retina-2014-mg-1117-large.jpg', 'laptop', 1),
+(18, 13, '/img/electronics/google-pixel-and-pixel-xl.jpg', 'pixel', 1),
+(19, 14, '/img/electronics/ipad-air-2-vs-galaxy-tab-s2-97-inch-tablet.jpg', 'galaxy', 1),
+(20, 15, '/img/electronics/bose-soundlink-ii-circum-aural.jpg', 'headphones', 1);
 
 -- --------------------------------------------------------
 
@@ -248,11 +274,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `category_id`, `price`, `promotion_id`, `quantity`, `status`, `featured`) VALUES
-(1, 'Red Wine from Paris', 'Excellent quality, superb taste, and low price! What can be better? Feel the taste of France in your glass', 6, '12.99', NULL, 118, 'IN_STOCK', 1),
+(1, 'Red Wine from Paris', 'Excellent quality, superb taste, and low price! What can be better? Feel the taste of France in your glass', 6, '12.99', 2, 118, 'IN_STOCK', 1),
 (2, 'Fluffy Teddy Bear', 'Super cute and awesome Teddy Bear, just the one you dreamt of! 100% Cotton and 300% love! Make your girfriend happy again', 4, '25.99', 2, 50, 'IN_STOCK', 1),
 (3, 'Greek Candies in Assortment', 'Have you ever been in Greece? Well, now is your chance! All you need to do is buy these amazingly delicious candies with a 100% Greek quality made in a candy shop in Athenes', 7, '10.99', NULL, 99, 'IN_STOCK', 1),
 (4, 'Asus X988 Slim Black', 'Superior performance with a Octa-core Intel processor, 32 GB of RAM, 5 TB of SSD storage, and 6 GB of video - just about everything you will need for the rest of your life!', 1, '3999.99', NULL, 4, 'IN_STOCK', 1),
-(5, 'Gucci Handbag (Italy) ', 'For those passionate about Italy, here is an excellent handbag that will fit any clothing, be a dress or a business suit. High quality and reasonable price!', 3, '99.99', 1, 24, 'IN_STOCK', 1),
+(5, 'Gucci Handbag (Italy) ', 'For those passionate about Italy, here is an excellent handbag that will fit any clothing, be a dress or a business suit. High quality and reasonable price!', 3, '99.99', NULL, 24, 'IN_STOCK', 1),
 (6, 'Face moisturizer, Avon', 'Proven quality and guaranteed satisfaction from one of the best known brands in the world - Avon', 2, '29.99', NULL, 38, 'IN_STOCK', 1),
 (7, 'Assassin''s Creed II Empire', 'Fascinating and breath-taking action-packed video game, now available on Windows, MAC, and XBox. Hurry up, supply is limited!', 5, '32.99', NULL, 16, 'IN_STOCK', 1),
 (8, 'Rose Tulips in a Bouquet ', 'Beautiful and fresh, these tulips will help you win the heart of any woman', 8, '17.46', NULL, 495, 'IN_STOCK', 0),
@@ -273,7 +299,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `category_id`, `price`, `pr
 CREATE TABLE `promotions` (
   `id` int(5) UNSIGNED NOT NULL,
   `starts_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ends_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ends_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `discount` decimal(4,2) UNSIGNED NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -282,8 +308,8 @@ CREATE TABLE `promotions` (
 --
 
 INSERT INTO `promotions` (`id`, `starts_at`, `ends_at`, `discount`) VALUES
-(1, '2016-11-18 04:55:17', '2016-11-30 00:00:00', '0.15'),
-(2, '2016-11-22 05:00:00', '2016-11-22 22:00:00', '0.25');
+(2, '2016-11-24 06:11:36', '2016-11-29 22:00:00', '0.25'),
+(3, '2016-12-02 19:32:00', '2016-12-03 20:23:00', '0.23');
 
 -- --------------------------------------------------------
 
@@ -336,7 +362,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (4, 'Liza', 'liza@gmail.com', '$2y$10$Oq4CI0v2FVnAnwatKsKM6ujSML1UasaQBCnidcBo3aRlXPz1LP0I2', 'CUSTOMER'),
 (5, 'Aiden', 'aiden@gmail.com', '$2y$10$IsYe3Q4uGQZHhkGB/tYViO5UnqMK9nTPvM9E.GSr9d3e/sEIdnyQy', 'CUSTOMER'),
 (6, 'Dwayne', 'dwayne@gmail.com', '$2y$10$oDleLgPBBwKoArI48hmY1ejvWGdz8XR.gsM2SECsD8JXLoDeD36c6', 'CUSTOMER'),
-(7, 'Emma', 'emma@gmail.com', '$2y$10$IOS6JFfuwq1L81rDKJftH.FOOmXVrjY1kEoDapWfs0Z6J5ysUQq4u', 'CUSTOMER');
+(7, 'Emma', 'emma@gmail.com', '$2y$10$IOS6JFfuwq1L81rDKJftH.FOOmXVrjY1kEoDapWfs0Z6J5ysUQq4u', 'CUSTOMER'),
+(8, 'Test test', 'test@gmail.com', '$2y$10$lYpzvbG/JDL9.67b2AXHHe.RLQKDAI8E/jkMoFj.jFiYor4dquJ5K', 'CUSTOMER');
 
 --
 -- Indexes for dumped tables
@@ -445,17 +472,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `cart_details`
 --
 ALTER TABLE `cart_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -465,12 +492,12 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -490,12 +517,12 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
@@ -505,7 +532,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Constraints for dumped tables
 --
