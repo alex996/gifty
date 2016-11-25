@@ -43,7 +43,7 @@ class Validator {
     			$arg = isset($components[1]) ? $components[1] : null;
 
                 if ($method == 'sometimes') {
-                    if (self::sometimes($data[$key]))
+                    if (!isset($value))
                         break; // true, value is NOT set, no need to validate
                     else
                         $method = 'required'; // false, value is set, must validate
@@ -88,14 +88,6 @@ class Validator {
 		else
 			return true;
 	}
-
-    /**
-     * Returns true if value is not set,
-     * i.e. does not need to be validated.
-     */
-    public static function sometimes($value) {
-        return !isset($value);
-    }
 
 	private static function digits($value) {
 		return ctype_digit($value);

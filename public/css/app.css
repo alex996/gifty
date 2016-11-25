@@ -21,3 +21,4 @@ body {
 .cart .product-desc {width: 500px;}
 .cart .product-qty {width: 60px;}
 
+a.promo { color:#fff !important; text-decoration:none; }

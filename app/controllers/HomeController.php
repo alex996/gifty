@@ -10,15 +10,19 @@ require_once(MODEL_PATH . 'Category.php');
 
 require_once(MODEL_PATH . 'Image.php');
 
+require_once(MODEL_PATH . 'Promotion.php');
+
 class HomeController {
 
 	public function index() {
-		// TODO: when we add more products to the db,
-		// and andWhere('featured', 1) to the $products below
 		View::render('welcome.php', [
-			'products' => Product::where('featured', 1)->random(8)->get(),
+			'products' => Product::where('featured', 1)
+                                   ->andWHere('status', Product::IN_STOCK)
+			                       ->random(8)->get(),
 			'in_cart' => Cart::count(),
 			'categories' => Category::all(),
+			'on_sale' => Product::on_sale(3),
+			'random_categories' => Category::random(4)->get(),
 		]);
 	}
 

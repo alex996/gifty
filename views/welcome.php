@@ -56,24 +56,18 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
-            <div class="item active">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
-                <div class="carousel-caption">
-                    <h3>Caption 1</h3>
+            <?php foreach($on_sale as $i => $sale): ?>
+                <div class="item <?= $i == 1 ? "active" : ""?>">
+                    <?php $featured = $sale->featured_img(); ?>
+                    <div class="fill" style="background-image:url('<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>');"></div>
+                    <div class="carousel-caption">
+                        <a class="promo" href="/products/<?= $sale->id ?>">
+                            <h1><?= $sale->name ?></h1>
+                            <h2><?= $sale->promotion->discount * 100 ?>% off! Offer ends <?= date('F d, Y', strtotime($sale->promotion->ends_at)) ?></h2>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
-                <div class="carousel-caption">
-                    <h3>Caption 2</h3>
-                </div>
-            </div>
-            <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
-                <div class="carousel-caption">
-                    <h3>Caption 3</h3>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
 
         <!-- Controls -->
@@ -93,30 +87,14 @@
                 	Welcome to Gifty<?= Auth::check() ? ", " . Auth::user()->name . "!" : "!" ?>
                 </h1>
             </div>
-            <div class="col-sm-3">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                    <h4>Electronics</h4>
-                </a>
-            </div>
-            <div class="col-sm-3">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                    <h4>Fashion &amp; Beauty</h4>
-                </a>
-            </div>
-            <div class="col-sm-3">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                    <h4>Toys &amp; Games</h4>
-                </a>
-            </div>
-            <div class="col-sm-3">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                    <h4>Drinks &amp; Candies</h4>
-                </a>
-            </div>
+            <?php foreach($random_categories as $cat): ?>
+                <div class="col-sm-3">
+                    <a href="/products/<?= $cat->name ?>">
+                        <img class="img-responsive img-portfolio img-hover" src="/img/categories/<?= $cat->name ?>.jpg" alt="<?= $cat->name ?>" style="height:175px">
+                        <h4><?= ucfirst($cat->name) ?></h4>
+                    </a>
+                </div>
+            <?php endforeach; ?>
         </div>
 
         <div class="row">
@@ -130,7 +108,9 @@
                     <div class="thumbnail">
                         <?php $featured = $product->featured_img(); ?>
                         <div class="img-card">
-                            <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="...">
+                            <a href="/products/<?= $product->id ?>">
+                                <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="...">
+                            </a>
                         </div>
                         <div class="caption">
                             <p class="pull-right text-success lead product-price"><b>$<?= $product->price ?></b></p>
@@ -155,7 +135,7 @@
             <?php endforeach; ?>
             <div class="col-md-12 ">
 				<div class="col-sm-4 col-sm-offset-4">
-					<a href="/products" class="btn btn-lg btn-primary btn-block">View All</a>
+					<br><a href="/products" class="btn btn-lg btn-primary btn-block">View All</a>
 				</div>
 			</div>
         </div>

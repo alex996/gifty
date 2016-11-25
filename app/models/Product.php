@@ -70,6 +70,18 @@ class Product extends Model {
 		return ucwords(strtolower(str_replace('_', ' ', $this->status)));
 	}
 
+	public static function on_sale($lim = 3) {
+		$promotions = Promotion::where('ends_at', '>', date('Y-m-d H:i:s'))->all();
+		$ids = [];
+		foreach($promotions as $promo)
+			$ids[] = $promo->id;
+		return Product::with('promotion')->where('featured', 1)
+	                       ->andWHere('status', Product::IN_STOCK)
+	                       ->andWhereIn('promotion_id', $ids)
+	                       ->random($lim)
+	                       ->all();
+	}
+
 	/*public function __construct() {
 
 		$reviews = $this->load('review');

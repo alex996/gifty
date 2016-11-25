@@ -55,6 +55,12 @@ class DB {
         return $this->where($column, $operator, $value, 'OR');
     }
 
+    public function andWhereIn($column, $array) {
+        $expression = implode(", ", $array);
+        $this->query .= "AND $column IN ($expression) ";
+        return $this;
+    }
+
     // Builds an ORDER BY clause
     public function orderBy($column, $direction='') {
         if (is_array($column))
