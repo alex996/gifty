@@ -34,7 +34,7 @@ class CartController {
 			'cart' => $cart,
 			'in_cart' => Cart::count(),
 			'categories' => Category::all(),
-			'total' => $cart->total(),
+			'total' => $cart ? $cart->total() : 0,
 		]);
 	}
 
