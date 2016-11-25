@@ -1,4 +1,4 @@
-# ${1:gifty}
+# gifty
 Online Gift Store
 
 ## Installation
