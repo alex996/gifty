@@ -6,6 +6,8 @@
     .product-price {font-size:24px;}
     .product-desc {height: 40px;}
     .filter {margin-top:0;}
+    .img-card {height: 250px; position: relative;}
+    .img-card img {position: absolute; top: 50%; transform: translateY(-50%);}
 </style>
 <?php $this->endblock() ?>
 
@@ -40,15 +42,6 @@
                             <?php endif; ?>
                         </h4>
                         <div class="input-group col-md-4 pull-right">
-                            <!--<div class="input-group-btn search-panel">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span id="search_concept">Filter by</span> <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#name">Name</a></li>
-                                    <li><a href="#description">Description</a></li>
-                                </ul>
-                            </div>-->
                             <input type="text" class="form-control" placeholder="Search..." name="search" required>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -63,7 +56,10 @@
     			<?php foreach($products as $product): ?>
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/500x400" alt="...">
+                            <?php $featured = $product->featured_img(); ?>
+                            <div class="img-card">
+                                <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="..." style="width:100%">
+                            </div>
                             <div class="caption">
                                 <p class="pull-right text-success lead product-price"><b>$<?= $product->price ?></b></p>
                                 <h4 class="product-name"><?= $product->name ?></h4>

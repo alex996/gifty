@@ -37,6 +37,9 @@
     }
 
     .icon {font-size: 100px}
+
+    .img-card {height: 250px; position: relative;}
+    .img-card img {position: absolute; top: 50%; transform: translateY(-50%);width:100%;}
 </style>
 <?php $this->endblock() ?>
 
@@ -125,7 +128,10 @@
             <?php foreach($products as $product): ?>
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="thumbnail">
-                        <img src="http://placehold.it/500x400" alt="...">
+                        <?php $featured = $product->featured_img(); ?>
+                        <div class="img-card">
+                            <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="...">
+                        </div>
                         <div class="caption">
                             <p class="pull-right text-success lead product-price"><b>$<?= $product->price ?></b></p>
                             <h4 class="product-name"><?= $product->name ?></h4>

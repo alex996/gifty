@@ -12,6 +12,8 @@ require_once(MODEL_PATH . 'Review.php');
 
 require_once(MODEL_PATH . 'Customer.php');
 
+require_once(MODEL_PATH . 'Image.php');
+
 class ProductController extends Controller {
 	
 	public function index() {
@@ -79,7 +81,7 @@ class ProductController extends Controller {
 	}
 
 	public function show($id) {
-		$product = Product::with(['category','reviews.customer'])->find($id);
+		$product = Product::with(['category','reviews.customer','images'])->find($id);
 
 		if (empty($product)) {
 			View::render('errors/404.php', [

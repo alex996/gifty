@@ -51,7 +51,7 @@ class InventoryController {
 
 		$this->check_auth();
 
-		$product = Product::with(['category', 'promotion', 'images', 'review'])->find($id);
+		$product = Product::with(['category', 'promotion', 'images', 'reviews'])->find($id);
 
 		if (!$product)
 			View::render('errors/404.php', [
@@ -100,6 +100,8 @@ class InventoryController {
 
  			if ($product) {
 
+ 				$successes[] = "Product with id of {$product->id} created.";
+
  				// Upload images
  				$total = count($_FILES['img']['name']);
  				for($i = 0; $i < $total; $i++) {
@@ -120,24 +122,20 @@ class InventoryController {
 								"alt_text" => $_POST['alt_text'][$i],
 								"featured" => empty($_POST['featured_img'][$i]) ? 0 : 1
 		 					]);
-		 					$successes[] = "Product with id {$product->id} created. Image uploaded to $path";
+		 					$successes[] = "Image uploaded to $path";
 		 				} else {
-		 					$successes[] = "Product with id {$product->id} created. No image was uploaded.";
+		 					//$successes[] = "Product with id {$product->id} created. No image was uploaded.";
 		 					if (empty($errors))
 		 						$errors = $res['errors'];
 		 					else
-		 						$errors[] = array_merge($errors, $res['errors']);
+		 						$errors = array_merge($errors, $res['errors']);
 		 				}
 	 				}
  				}
-
- 				if (empty($successes))
- 					$successes[] = "Product created with id {$product->id}. No image was uploaded.";
-
  			} else
  				$errors[] = 'Product was not created.';
 		}
-print_r($errors);die();
+
 		View::render('inventory/create.php', [
 			'categories' => Category::all(),
 			'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all(),
@@ -149,7 +147,7 @@ print_r($errors);die();
 	public function edit($id) {
 		$this->check_auth();
 
-		$product = Product::with(['category', 'images', 'promotion'])->find($id);
+		$product = Product::with(['category', 'promotion'])->find($id);
 
 		if (!$product)
 			View::render('errors/404.php', [
@@ -158,6 +156,7 @@ print_r($errors);die();
 		else
 			View::render('inventory/edit.php', [
 				'product' => $product,
+				'images' => Image::where('product_id', $product->id)->orderBy('featured', 'DESC')->all(),
 				'categories' => Category::all(),
 				'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all()
 			]);
@@ -259,6 +258,86 @@ print_r($errors);die();
 				'success' => 'Status of product with ID of '.$product->id.' was set to '.Product::END_OF_LIFE.'.'
 			]);
 		}
+	}
+
+	public function destroy_image($product_id, $image_id) {
+		
+		$this->check_auth();
+
+		$image = Image::find($image_id);
+
+		if (!$image)
+			View::render('errors/404.php', [
+				'categories' => Category::all(),
+			]);
+		else {
+			$product = Product::with(['category', 'images', 'promotion'])->find($product_id);
+			$image->delete();
+			View::render('inventory/edit.php', [
+				'product' => $product,
+				'images' => Image::orderBy('featured', 'DESC')->all(),
+				'categories' => Category::all(),
+				'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all()
+			]);
+		}
+	}
+
+	public function store_images($product_id) {
+
+		$this->check_auth();
+
+		$product = Product::with(['category', 'promotion'])->find($product_id);
+
+		$successes = [];
+		$errors = [];
+
+		if (!$product) 
+			View::render('errors/404.php', [
+				'categories' => Category::all(),
+			]);
+		else {
+
+			$total = count($_FILES['img']['name']);
+			for($i = 0; $i < $total; $i++) {
+				// Check if an image was uploaded using the form
+				if(file_exists($_FILES['img']['tmp_name'][$i]) && is_uploaded_file($_FILES['img']['tmp_name'][$i])) {
+
+						// Upload the image
+	 				$res = ImageTrait::upload($_FILES["img"], $i, $product->category()->name);
+
+	 				if ($res['status'] == 1) {
+
+	 					$path = $res['path'];
+
+	 					// Upload successful
+	 					Image::create([
+							"product_id" => $product->id,
+							"path" => $path,
+							"alt_text" => $_POST['alt_text'][$i],
+							"featured" => empty($_POST['featured_img'][$i]) ? 0 : 1
+	 					]);
+	 					$successes[] = "Image uploaded to $path";
+	 				} else {
+	 					//$successes[] = "Product with id {$product->id} created. No image was uploaded.";
+	 					if (empty($errors))
+	 						$errors = $res['errors'];
+	 					else
+	 						$errors = array_merge($errors, $res['errors']);
+	 				}
+				}
+			}
+		}
+
+		View::render('inventory/edit.php', [
+			'product' => $product,
+			'images' => Image::where('product_id', $product->id)->orderBy('featured', 'DESC')->all(),
+			'categories' => Category::all(),
+			'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all(),
+			'errors' => $errors,
+			'successes' => $successes,
+		]);
+
+		
 	}
 	
 }

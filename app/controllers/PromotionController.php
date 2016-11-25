@@ -126,7 +126,7 @@ class PromotionController extends Controller {
 			]);
 	}
 
-	public function delete($id) {
+	public function destroy($id) {
 		$this->check_auth();
 
 		$promotion = Promotion::find($id);

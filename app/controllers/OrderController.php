@@ -125,7 +125,7 @@ class OrderController {
 		Router::redirect_back();
 	}
 
-	public function delete_detail($order_id, $order_detail_id) {
+	public function destroy_detail($order_id, $order_detail_id) {
 
 		$order = Order::find($order_id);
 		if ($order->status != Order::PENDING)

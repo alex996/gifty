@@ -28,16 +28,9 @@
 				<div class="preview col-md-6">
 					
 					<div class="preview-pic tab-content">
-					  <div class="tab-pane active" id="pic-1"><img class="img-responsive img-rounded" src="http://placekitten.com/450/300" /></div>
+					  <?php $featured = $product->featured_img(); ?>
+					  <div class="tab-pane active" id="pic-1"><img class="img-responsive img-rounded" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" /></div>
 					</div>
-					<!--<ul class="preview-thumbnail nav nav-tabs">
-					  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
-					  <li><a data-target="#pic-2" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
-					  <li><a data-target="#pic-3" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
-					  <li><a data-target="#pic-4" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
-					  <li><a data-target="#pic-5" data-toggle="tab"><img class="img-responsive img-rounded" src="http://placekitten.com/200/126" /></a></li>
-					</ul>-->
-						
 				</div>
 				<div class="col-md-6">
 					<h3><?= $product->name ?></h3>
@@ -103,13 +96,30 @@
 				</div>
 			</div>
 			<hr>
+			
+			<div class="row">
+				<?php if (!empty($product->images)): ?>
+					<?php foreach($product->images as $img): ?>
+					  <div class="col-md-3">
+					    <div class="thumbnail img-card">
+					        <img src="<?= $img->path ?>" alt="<?= $img->alt_text ?>">
+					    </div>
+					  </div>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</div>
+
+			<hr>
 			<?php if (!empty($suggestions)): ?>
 				<div class="row">
 					<h4 class="text-center">Related Products - Suggestions</h4><br>
 	    			<?php foreach($suggestions as $suggestion): ?>
 	                    <div class="col-sm-6 col-md-3">
 	                        <div class="thumbnail">
-	                            <img src="http://placehold.it/500x400" alt="...">
+	                            <div class="thumbnail img-card">
+	                            	<?php $featured = $suggestion->featured_img(); ?>
+							        <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="<?= !empty($featured) ? $featured->alt_text : "Image" ?>">
+							    </div>
 	                            <div class="caption">
 	                                <h5 class="product-name"><a href="/products/<?= $suggestion->id ?>"><?= $suggestion->name ?></a></h5>
 	                                <span class="text-success lead product-price"><b>$<?= $suggestion->price ?></b></span>

@@ -8,6 +8,8 @@ require_once(MODEL_PATH . 'CartDetail.php');
 
 require_once(MODEL_PATH . 'Category.php');
 
+require_once(MODEL_PATH . 'Image.php');
+
 class HomeController {
 
 	public function index() {

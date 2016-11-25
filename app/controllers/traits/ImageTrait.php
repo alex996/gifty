@@ -11,15 +11,6 @@ trait ImageTrait {
 		$rel_path = "/img/$category/".  basename($img["name"][$index]);
 		$ext = pathinfo($path,PATHINFO_EXTENSION);
 
-		// Check if image file is a actual image or fake image
-	    $check = getimagesize($img["tmp_name"][$index]);
-	    if($check !== false)
-	        $status = 1;
-	    else {
-	        $errors[] = "File (" . basename($img["name"][$index]) . ") is not an image";
-	        $status = 0;
-	    }
-
 		// Check if file already exists
 		if (file_exists($path)) {
 		    $errors[] = "File (" . basename($img["name"][$index]) . ") already exists at $path.";
@@ -33,7 +24,7 @@ trait ImageTrait {
 
 		// Allow certain file formats
 		if($ext != "jpg" && $ext != "png" && $ext != "jpeg" && $ext != "gif" ) {
-		    $errors[] = "File extension (" . basename($img["name"][$index]) . ") is $ext. Only JPG, JPEG, PNG & GIF files are allowed.";
+		    $errors[] = "File extension (" . basename($img["name"][$index]) . ") is " . strtoupper($ext) . ". Only JPG, JPEG, PNG & GIF files are allowed.";
 		    $status = 0;
 		}
 

@@ -1,10 +1,13 @@
-<?php $this->block('title', 'Add a Product') ?>
+<?php $this->block('title', 'Edit a Product') ?>
 
 <?php $this->block('styles') ?>
 <style>
 	.btn-del {width: 50px}
-	.panel-heading h4 {margin-top:0;}
-	.panel-heading p {padding-top:15px; margin-left: 100px}
+	.head-with-btn h4 {margin-top:0;}
+	.head-with-btn p {padding-top:15px; margin-left: 100px}
+	.img-header {margin-top:0;margin-bottom: 20px}
+	.btn-del-img {position: absolute;right:20px;}
+	.img-card {height: 230px}
 </style>
 <?php $this->endblock() ?>
 
@@ -17,13 +20,14 @@
 		</div>
 
 		<div class="col-md-9">
-			<?php 
+			<?php
 				include_once VIEWS_PATH."components/success.php";
+				include_once VIEWS_PATH."components/successes.php";
 				include_once VIEWS_PATH."components/errors.php";
 		  	?>
 
 			<div class="panel panel-default">
-				<div class="panel-heading text-center">
+				<div class="panel-heading head-with-btn text-center">
 					<h4>
 						<div class="pull-right">
 							<form method="POST" action="/admin/inventory/<?= $product->id ?>" style="display: inline">
@@ -108,13 +112,93 @@
 
 						    <div class="clearfix"></div>
 						    <hr>
+
 							<div class="col-md-6 col-md-offset-3 text-center">
 						    	<button type="submit" class="btn btn-cta btn-block btn-success">Update</button>
 						    </div>
+
 						</form>
 					</div>
 				</div>
 			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading text-center">
+					<h4><i class="fa fa-picture-o fa-fw" aria-hidden="true"></i> Edit Product Images</i></h4>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+							
+						<div class="col-md-12">
+							<?php if (!empty($images)): ?>
+								<?php foreach($images as $img): ?>
+								  <div class="col-md-4">
+								    <div class="thumbnail img-card">
+								      	<form method="POST" action="/admin/inventory/<?= $product->id ?>/images/<?= $img->id ?>">
+								      		<input type="hidden" name="_method" value="DELETE">
+								    		<button type="button" class="btn btn-xs btn-danger btn-del-img""><i class="fa fa-times" aria-hidden="true"></i></button>
+								    	</form>
+								        <img src="<?= $img->path ?>" alt="<?= $img->path ?>" style="width:100%">
+								        <div class="caption">
+								        	<small><?= $img->path ?></small>
+
+								          	<?php if ($img->featured): ?>
+								          		&ensp;<span class="label label-primary">Featured</span>
+								          	<?php else: ?>
+								          		&ensp;<span class="label label-default">Not Featured</span>
+								          	<?php endif; ?>
+								          	
+								        </div>
+								    </div>
+								  </div>
+								<?php endforeach; ?>
+							<?php endif; ?>
+
+							<div class="clearfix"></div>
+
+						    <form method="POST" action="/admin/inventory/<?= $product->id ?>/images" enctype="multipart/form-data">
+							    <div class="row add-img-container">
+							    	<div class="col-md-12 add-img-div">
+								    	<div class="form-group col-xs-12 col-sm-6 col-md-4">
+											<label>Upload an Image</label><br>
+											<label class="btn btn-default">
+											    <input type="file" class="hidden pull-left img-uploader" name="img[]" required>
+											    <i class="fa fa-upload fa-fw" aria-hidden="true"></i> Browse
+											</label>&ensp;
+											<span class="filename"><i>No file chosen.</i></span>
+										</div>
+										<div class="form-group col-xs-12 col-sm-6 col-md-4">
+									    	<label for="alt_text">Alternative Img Text</label>
+									     	<input class="form-control" placeholder="alt" name="alt_text[]" required>
+									    </div>
+									    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+									    	<label for="featured_img">Featured Image</label>
+									     	<select class="form-control" name="featured_img[]" required>
+									     		<option selected disabled value hidden>Select...</option>
+									     		<option value="1">Yes</option>
+									     		<option value="0">No</option>
+									     	</select>
+									    </div>
+								    </div>
+							    </div>
+						   
+							    <div class="col-sm-12">
+									<button type="button" class="btn btn-success btn-add-img"><i class="fa fa-plus" aria-hidden="true"></i></button>&ensp;
+									<span><i>Add more images</i></span>
+							    </div>
+
+								<div class="col-md-4 col-md-offset-4 text-center">
+							    	<button type="submit" class="btn btn-cta btn-block btn-success">Upload</button>
+							    </div>
+							</form>
+						</div>
+
+					    
+
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 		<?php include_once(VIEWS_PATH . 'admin/components/sidebar.php') ?>
@@ -125,9 +209,28 @@
 <?php $this->block('scripts') ?>
 <script>
 $(function() {
+
+	$('.img-uploader').change(function() {
+		var name = $(this)[0].files[0].name;
+		$(this).parent().siblings('.filename').html(name);
+	});
+
+	var copy = $('.add-img-div').first().clone(true, true);
+
+	$('.btn-add-img').click(function() {
+    	copy.clone(true, true).appendTo(".add-img-container");
+    });
+
 	$('.btn-del').click(function(e) {
 		e.preventDefault();
 		var res = confirm("Delete the product from the inventory?");
+		if (res)
+		    $(this).closest('form').submit();
+	});
+
+	$('.btn-del-img').click(function(e) {
+		e.preventDefault();
+		var res = confirm("Delete the image from the inventory?");
 		if (res)
 		    $(this).closest('form').submit();
 	});

@@ -135,7 +135,7 @@ $(function() {
 
     $('.btn-add-img').click(function() {
     	copy.clone(true, true).appendTo(".add-img-container");
-    })
+    });
 });
 </script>
 <?php $this->endblock() ?>

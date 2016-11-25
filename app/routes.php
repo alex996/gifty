@@ -22,7 +22,7 @@ Router::patch('account/profile', 'CustomerController@update_phone');
 Router::get('account/orders', 'OrderController@index');
 Router::get('account/orders/(\d+)', 'OrderController@show');
 Router::patch('account/orders/(\d+)/order-details/(\d+)', 'OrderController@update_quantity');
-Router::delete('account/orders/(\d+)/order-details/(\d+)', 'OrderController@delete_detail');
+Router::delete('account/orders/(\d+)/order-details/(\d+)', 'OrderController@destroy_detail');
 
 Router::get('account/payment-methods', 'PaymentMethodController@index');
 
@@ -42,8 +42,10 @@ Router::post('admin/inventory', 'InventoryController@store');
 Router::get('admin/inventory/create', 'InventoryController@create');
 Router::get('admin/inventory/(\d+)', 'InventoryController@show');
 Router::get('admin/inventory/(\d+)/edit', 'InventoryController@edit');
-Router::patch('admin/inventory', 'InventoryController@update');
+Router::patch('admin/inventory/(\d+)', 'InventoryController@update');
 Router::delete('admin/inventory/(\d+)', 'InventoryController@destroy');
+Router::delete('admin/inventory/(\d+)/images/(\d+)', 'InventoryController@destroy_image');
+Router::post('admin/inventory/(\d+)/images', 'InventoryController@store_images');
 
 /**
  *  Promotion routes (admins ONLY)
@@ -53,7 +55,7 @@ Router::get('admin/promotions/create', 'PromotionController@create');
 Router::post('admin/promotions', 'PromotionController@store');
 Router::get('admin/promotions/(\d+)/edit', 'PromotionController@edit');
 Router::patch('admin/promotions/(\d+)', 'PromotionController@update');
-Router::delete('admin/promotions/(\d+)', 'PromotionController@delete');
+Router::delete('admin/promotions/(\d+)', 'PromotionController@destroy');
 
 /**
  *  Sales routes (admins ONLY)
