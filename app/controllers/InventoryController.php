@@ -12,6 +12,8 @@ require_once(MODEL_PATH . 'Image.php');
 
 require_once(MODEL_PATH . 'Promotion.php');
 
+require_once(MODEL_PATH . 'Review.php');
+
 require_once(CTRL_PATH . 'traits/ImageTrait.php');
 
 class InventoryController {
@@ -72,10 +74,10 @@ class InventoryController {
 		$errors = Validator::validate($_POST, [
 			'name' => 'required|max:255',
 			'description' => 'required',
-			'category_id' => 'required|digits',
-			'price' => 'required|numeric',
-			'promotion_id' => 'sometimes|digits',
-			'quantity' => 'required|digits',
+			'category_id' => 'required|digits|minval:1',
+			'price' => 'required|numeric|minval:0|maxval:999999.99',
+			'promotion_id' => 'sometimes|digits|minval:1',
+			'quantity' => 'required|digits|minval:0|maxval:99999',
 			'status' => 'required|in:'.Product::IN_STOCK.','
 							.Product::OUT_OF_STOCK,
 			'featured' => 'required|in:0,1'
@@ -175,10 +177,10 @@ print_r($errors);die();
 			$errors = Validator::validate($_POST, [
 				'name' => 'sometimes|max:255',
 				'description' => 'sometimes',
-				'category_id' => 'sometimes|digits',
-				'price' => 'sometimes|numeric',
-				'promotion_id' => 'sometimes|digits',
-				'quantity' => 'sometimes|digits',
+				'category_id' => 'sometimes|digits|minval:1',
+				'price' => 'sometimes|numeric|minval:0|maxval:999999.99',
+				'promotion_id' => 'sometimes|digits|minval:1',
+				'quantity' => 'sometimes|digits|minval:0|maxval:99999',
 				'status' => 'sometimes|in:'.Product::IN_STOCK.','
 								.Product::OUT_OF_STOCK,
 				'featured' => 'sometimes|in:0,1'

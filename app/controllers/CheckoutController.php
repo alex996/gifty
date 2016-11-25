@@ -125,7 +125,7 @@ class CheckoutController {
 
 			$errors = Validator::validate($_POST, [
 				'cardholder' => 'required|max:100',
-				'card_number' => 'required|alphanum_dash',
+				'card_number' => 'required|alphanum_dash|max:25',
 				'type' => 'required|in:VISA,MASTERCARD,INTERAC',
 				'cvv' => 'required|digits|size:3',
 				'expiry_month' => 'required|digits',

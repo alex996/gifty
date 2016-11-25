@@ -35,8 +35,8 @@ class CartController {
 	public function store() {
 
 		$errors = Validator::validate($_POST, [
-			'product_id' => 'required|integer|min:1',
-			'quantity' => 'required|integer|min:1|max:99',
+			'product_id' => 'required|integer|minval:1',
+			'quantity' => 'required|integer|minval:1|maxval:99',
 		]);
 
 		if (empty($errors)) {
@@ -87,7 +87,7 @@ class CartController {
 
 	public function update($id) {
 		$errors = Validator::validate($_POST, [
-			'quantity' => 'required|integer|min:1|max:99',
+			'quantity' => 'required|integer|minval:1|maxval:99',
 		]);
 
 		if (empty($errors)) {

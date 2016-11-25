@@ -78,11 +78,6 @@ class ProductController extends Controller {
 		}
 	}
 
-	// Create a new user:
-	public function store() {
-		print_r($_POST);
-	}
-
 	public function show($id) {
 		$product = Product::with(['category','reviews.customer'])->find($id);
 
@@ -109,7 +104,7 @@ class ProductController extends Controller {
 		if ($product) {
 			$errors = Validator::validate($_POST, [
 				'comment' => 'required',
-				'rating' => 'required|min:1|max:5'
+				'rating' => 'required|minval:1|maxval:5'
 			]);
 
 			if (empty($errors)) {

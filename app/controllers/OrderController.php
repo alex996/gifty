@@ -83,7 +83,7 @@ class OrderController {
 	public function update_quantity($order_id, $order_detail_id) {
 
 		$errors = Validator::validate($_POST, [
-			'quantity' => 'required|integer|min:1|max:99',
+			'quantity' => 'required|integer|minval:1|maxval:99',
 		]);
 
 		if (empty($errors)) {
