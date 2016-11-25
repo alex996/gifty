@@ -20,16 +20,6 @@
 				<div class="panel-body">
 					<?php if (!empty($order)): ?>
 						<table class="table">
-							<?php
-								$class = "";
-								switch($order->status) {
-									case Order::PENDING: $class = "default";break;
-									case Order::APPROVED: $class = "primary";break;
-									case Order::DELIVERED: $class = "success";break;
-									case Order::CANCELLED: $class = "warning";break;
-									case Order::ERROR: $class = "danger";break;
-								}
-							?>
 							<thead>
 								<tr>
 									<th>Status</th>

@@ -58,7 +58,9 @@
                         <div class="thumbnail">
                             <?php $featured = $product->featured_img(); ?>
                             <div class="img-card">
-                                <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="..." style="width:100%">
+                                <a href="/products/<?= $product->id ?>">
+                                    <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="..." style="width:100%;max-height: 250px">
+                                </a>
                             </div>
                             <div class="caption">
                                 <p class="pull-right text-success lead product-price"><b>$<?= $product->price ?></b></p>

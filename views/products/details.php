@@ -118,7 +118,7 @@
 			<div class="row">
 				<?php if (!empty($suggestions)): ?>
 					<div class="row">
-						<h4 class="text-center">Related Products &ndash; Suggestions</h4><br>
+						<h4 class="text-center">Related Products</h4><br>
 		    			<?php foreach($suggestions as $suggestion): ?>
 		                    <div class="col-sm-6 col-md-3">
 		                        <a href="/products/<?= $suggestion->id ?>">

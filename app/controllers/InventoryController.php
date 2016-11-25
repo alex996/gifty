@@ -202,25 +202,24 @@ class InventoryController {
 					if (!empty($_POST['name']))
 						$product->name = $_POST['name'];
 					if (!empty($_POST['description']))
-						$product->name = $_POST['description'];
+						$product->description = $_POST['description'];
 					if (!empty($_POST['category_id']))
-						$product->name = $_POST['category_id'];
+						$product->category_id = $_POST['category_id'];
 					if (!empty($_POST['price']))
-						$product->name = $_POST['price'];
+						$product->price = $_POST['price'];
 					if (!empty($_POST['promotion_id']))
-						$product->name = $_POST['promotion_id'];
+						$product->promotion_id = $_POST['promotion_id'];
 					if (!empty($_POST['quantity']))
-						$product->name = $_POST['quantity'];
+						$product->quantity = $_POST['quantity'];
 					if (!empty($_POST['status']))
-						$product->name = $_POST['status'];
-					if (!empty($_POST['status']))
-						$product->name = $_POST['status'];
+						$product->status = $_POST['status'];
 					if (!empty($_POST['featured']))
-						$product->name = $_POST['featured'];
+						$product->featured = $_POST['featured'];
 					$product->save();
 
 					View::render('inventory/edit.php', [
 						'product' => $product,
+						'images' => Image::where('product_id', $product->id)->orderBy('featured', 'DESC')->all(),
 						'categories' => Category::all(),
 						'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all(),
 						'success' => 'Product updated.',

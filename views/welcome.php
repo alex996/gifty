@@ -39,7 +39,7 @@
     .icon {font-size: 100px}
 
     .img-card {height: 250px; position: relative;}
-    .img-card img {position: absolute; top: 50%; transform: translateY(-50%);width:100%;}
+    .img-card img {position: absolute; top: 50%; transform: translateY(-50%);width:100%;max-height: 250px}
 </style>
 <?php $this->endblock() ?>
 

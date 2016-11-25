@@ -34,7 +34,7 @@
 									<td><?= $method->last_digits ?></td>
 									<?php $addr = $method->address ?>
 									<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
-									<td><a href="/account/orders/<?= $addr->id ?>/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></td>
+									<td><a href="" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>

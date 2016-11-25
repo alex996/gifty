@@ -4,6 +4,7 @@
 <style>
 	.empty-cart h3 {margin-bottom: 20px;}
 	.empty-cart { margin-bottom: 30px; }
+	.product-thumb {margin-right: 10px; width:50px;}
 </style>
 <?php $this->endblock() ?>
 
@@ -34,7 +35,8 @@
 							<tr>
 								<td class="text-center"><?= $index + 1 ?></td>
 								<td>
-									<img class="product-image" src="http://placehold.it/50x50" alt="">
+									<?php $featured = $detail->product->featured_img(); ?>
+									<img class="product-thumb pull-left" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="">
 									<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
 								</td>
 								<td class="product-desc"><?= $detail->product->description ?></td>

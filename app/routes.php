@@ -62,6 +62,7 @@ Router::delete('admin/promotions/(\d+)', 'PromotionController@destroy');
  */
 Router::get('admin/sales', 'SalesController@index');
 Router::get('admin/sales/(\d+)', 'SalesController@show');
+Router::patch('admin/sales/(\d+)', 'SalesController@update_status');
 
 /**
  *  Cart routes.
