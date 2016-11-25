@@ -14,6 +14,8 @@ require_once(MODEL_PATH . 'Product.php');
 
 require_once(MODEL_PATH . 'Category.php');
 
+require_once(MODEL_PATH . 'Promotion.php');
+
 require_once(MODEL_PATH . 'Image.php');
 
 require_once(CTRL_PATH . 'traits/CartTrait.php');
@@ -27,10 +29,12 @@ class CartController {
 		if (Auth::check() && Auth::user()->isAdmin())
 			Router::redirect('/admin/dashboard');
 
+		$cart = Cart::current();
 		View::render('/cart/index.php', [
-			'cart' => Cart::current(),
+			'cart' => $cart,
 			'in_cart' => Cart::count(),
 			'categories' => Category::all(),
+			'total' => $cart->total(),
 		]);
 	}
 

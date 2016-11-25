@@ -54,7 +54,7 @@ class Customer extends Model {
 
 	public static function payment_methods_with_addresses() {
 		$methods = PaymentMethod::with('address')->where('customer_id', Customer::current()->id)->get();
-		return is_array($methods) ? $methods : [$methods];
+		return (!is_array($methods) && $methods) ? [$methods] : $methods;
 	}
 }
 

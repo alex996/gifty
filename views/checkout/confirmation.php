@@ -61,6 +61,7 @@
 								<th class="text-center">Product</th>
 								<th class="text-center">Quantity</th>
 								<th class="text-center">Unit Price</th>
+								<th class="text-center">Price with Discount</th>
 								<th class="text-center">Total</th>
 							</tr>
 						</thead>
@@ -74,13 +75,20 @@
 									</td>
 									<td class="text-center"><?= $detail->quantity ?></td>
 									<td class="text-center">$<?= $detail->product->price ?></td>
-									<td class="text-center">$<?= $detail->quantity * $detail->product->price ?></td>
+									<?php $promo = $detail->product->promotion(); ?>
+									<?php if (!empty($promo)): ?>
+										<td class="text-center text-success"><b><?= $promo->discount * 100 ?>%</b></td>
+										<td class="text-center">$<?= round($detail->quantity * ($detail->product->price - ($detail->product->price * $promo->discount)), 2) ?></td>
+									<?php else: ?>
+										<td class="text-center">0%</td>
+										<td class="text-center">$<?= round($detail->quantity * $detail->product->price, 2) ?></td>
+									<?php endif; ?>
 								</tr>
 							<?php endforeach; ?>
 					    </tbody>
 					</table>
 					<hr>
-					<h3 class="pull-right total">Total: <b>$<?= $total ?></b></h3>
+					<h3 class="pull-right total">Total: <b>$<?= round($total,2) ?></b></h3>
 				</div>
 				
 			</div>

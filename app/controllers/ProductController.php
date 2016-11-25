@@ -14,6 +14,8 @@ require_once(MODEL_PATH . 'Customer.php');
 
 require_once(MODEL_PATH . 'Image.php');
 
+require_once(MODEL_PATH . 'Promotion.php');
+
 class ProductController extends Controller {
 	
 	public function index() {

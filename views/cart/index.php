@@ -26,6 +26,7 @@
 							<th>Description</th>
 							<th>Quantity</th>
 							<th class="text-center">Unit Price</th>
+							<th class="text-center">Discount</th>
 							<th class="text-center">Total</th>
 							<th></th>
 						</tr>
@@ -47,7 +48,14 @@
 									</form>
 								</td>
 								<td class="text-center unit-price">$<?= number_format($detail->product->price, 2) ?></td>
-								<td class="text-center unit-qty-price">$<?= number_format($detail->quantity * $detail->product->price, 2) ?></td>
+								<?php $promo = $detail->product->promotion(); ?>
+								<?php if (!empty($promo)): ?>
+									<td class="text-center text-success"><b><?= $promo->discount * 100 ?>%</b></td>
+									<td class="text-center">$<?= round($detail->quantity * ($detail->product->price - ($detail->product->price * $promo->discount)), 2) ?></td>
+								<?php else: ?>
+									<td class="text-center">0%</td>
+									<td class="text-center unit-qty-price">$<?= number_format($detail->quantity * $detail->product->price, 2) ?></td>
+								<?php endif; ?>
 								<td class="text-center">
 									<form method="POST" action="/cart/cart-details/<?= $detail->id ?>" class="form-del-cart">
 										<input type="hidden" name="_method" value="DELETE">
@@ -58,6 +66,10 @@
 						<?php endforeach; ?>
 				    </tbody>
 				</table>
+				<hr>
+				<div class="col-md-12">
+					<h3 class="pull-right total">Total: <b>$<?= round($total,2) ?></b></h3>
+				</div>
 				<hr>
 				<div class="row col-md-4 col-md-offset-4">
 					<a href="/checkout/shipping" class="btn btn-success btn-block btn-lg">Checkout</a>

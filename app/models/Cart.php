@@ -39,8 +39,18 @@ class Cart extends Model {
 
 	public function total() {
 		$total = 0;
-		foreach($this->cart_details as $detail)
-			$total += $detail->product->price;
+		foreach($this->cart_details as $detail) {
+			if ($detail->product->promotion_id) {
+				// Calculate discount
+				$discount = $detail->product->promotion()->discount;
+				$diff = $detail->product->price * $discount;
+				$final = $detail->product->price - $diff;
+			}
+			else
+				$final = $detail->product->price;
+			
+			$total += $final;
+		}
 		return $total;
 	}
 

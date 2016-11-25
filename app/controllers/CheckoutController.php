@@ -18,6 +18,8 @@ require_once(MODEL_PATH . 'Category.php');
 
 require_once(MODEL_PATH . 'PaymentMethod.php');
 
+require_once(MODEL_PATH . 'Promotion.php');
+
 class CheckoutController {
 
 	public function show_shipping() {
@@ -209,10 +211,16 @@ class CheckoutController {
 
 		foreach($cart->cart_details as $cart_detail) {
 			// Create an order_detail
+			$promo = $cart_detail->product->promotion();
+			if (!empty($promo)) // promo price must be applied
+				$price = round($cart_detail->product->price - ($cart_detail->product->price * $promo->discount), 2);
+			else
+				$price = $cart_detail->product->price; // current price
+
 			$order_detail = OrderDetail::create([
 				'order_id' => $order->id,
 				'product_id' => $cart_detail->product_id,
-				'price' => $cart_detail->product->price, // current price
+				'price' => $price, // current price
 				'quantity' => $cart_detail->quantity,
 			]);
 			// Decrement quantity in stock
