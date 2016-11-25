@@ -90,14 +90,14 @@ CREATE TABLE orders
 	id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	customer_id INT(7) UNSIGNED NOT NULL,
 	address_id INT(10) UNSIGNED NOT NULL,
-	method_id INT(10) UNSIGNED NOT NULL,
+	payment_method_id INT(10) UNSIGNED NOT NULL,
 	status VARCHAR(20) NOT NULL,
 	total DECIMAL(8, 2) UNSIGNED NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT 'CURRENT_TIMESTAMP',
     CHECK (status IN ('PENDING', 'APPROVED', 'DELIVERED', 'CANCELLED', 'ERROR')),
     FOREIGN KEY (customer_id) REFERENCES customers(id),
     FOREIGN KEY (address_id) REFERENCES addresses(id),
-    FOREIGN KEY (method_id) REFERENCES payment_methods(id)
+    FOREIGN KEY (payment_method_id) REFERENCES payment_methods(id)
 );
 
 CREATE TABLE order_details
@@ -139,14 +139,3 @@ CREATE TABLE cart_details
 	FOREIGN KEY (cart_id) REFERENCES carts(id),
 	FOREIGN KEY (product_id) REFERENCES products(id)
 );
-
-
--- DB prepping
-
--- users
-INSERT INTO users (name, email, password, role) VALUES ('Alex', 'alex@gmail.com', '123456', 'ADMIN');
-INSERT INTO users (name, email, password, role) VALUES ('Josh', 'josh@gmail.com', '123456', 'ADMIN');
-INSERT INTO users (name, email, password, role) VALUES ('David', 'david@gmail.com', '123456', 'CUSTOMER');
-INSERT INTO users (name, email, password, role) VALUES ('Julia', 'julia@gmail.com', '123456', 'CUSTOMER');
-
-INSERT INTO categories (name) VALUES ('Electronics');
