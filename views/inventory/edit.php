@@ -7,7 +7,7 @@
 	.head-with-btn p {padding-top:15px; margin-left: 100px}
 	.img-header {margin-top:0;margin-bottom: 20px}
 	.btn-del-img {position: absolute;right:20px;}
-	.img-card {height: 230px}
+	.img-card {height: 150px; padding:10px 5px;}
 </style>
 <?php $this->endblock() ?>
 
@@ -138,8 +138,8 @@
 								      		<input type="hidden" name="_method" value="DELETE">
 								    		<button type="button" class="btn btn-xs btn-danger btn-del-img""><i class="fa fa-times" aria-hidden="true"></i></button>
 								    	</form>
-								        <img src="<?= $img->path ?>" alt="<?= $img->path ?>" style="width:150px">
-								        <div class="caption">
+								        <img src="<?= $img->path ?>" alt="<?= $img->path ?>" style="height:100px">
+								        <div class="caption text-center">
 								        	
 								          	<?php if ($img->featured): ?>
 								          		&ensp;<span class="label label-primary">Featured</span>
