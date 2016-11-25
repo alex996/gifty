@@ -16,7 +16,7 @@ class HomeController {
 		// TODO: when we add more products to the db,
 		// and andWhere('featured', 1) to the $products below
 		View::render('welcome.php', [
-			'products' => Product::random(8)->get(),
+			'products' => Product::where('featured', 1)->random(8)->get(),
 			'in_cart' => Cart::count(),
 			'categories' => Category::all(),
 		]);

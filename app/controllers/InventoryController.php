@@ -233,6 +233,7 @@ class InventoryController {
 		View::render('inventory/edit.php', [
 			'product' => $product,
 			'categories' => Category::all(),
+			'images' => Image::where('product_id', $product->id)->orderBy('featured', 'DESC')->all(),
 			'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all(),
 			'errors' => $errors,
 		]);
@@ -275,7 +276,7 @@ class InventoryController {
 			$image->delete();
 			View::render('inventory/edit.php', [
 				'product' => $product,
-				'images' => Image::orderBy('featured', 'DESC')->all(),
+				'images' => Image::where('product_id', $product->id)->orderBy('featured', 'DESC')->all(),
 				'categories' => Category::all(),
 				'promotions' => Promotion::where('ends_at', '>', date('Y-m-d G:i:s'))->all()
 			]);

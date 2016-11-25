@@ -5,6 +5,8 @@
 	.product-cat {font-size: 12px}
 	.product-qty {width:75px !important;}
 	.quote {margin-bottom: 0; font-size: 14px}
+	.thumb {height: 150px; position: relative;}
+    .thumb img {position: absolute; top: 50%; transform: translateY(-50%); height: 100%;}
 </style>
 <?php $this->endblock() ?>
 
@@ -95,6 +97,8 @@
 
 				</div>
 			</div>
+
+			
 			<hr>
 			
 			<div class="row">
@@ -110,26 +114,34 @@
 			</div>
 
 			<hr>
-			<?php if (!empty($suggestions)): ?>
-				<div class="row">
-					<h4 class="text-center">Related Products - Suggestions</h4><br>
-	    			<?php foreach($suggestions as $suggestion): ?>
-	                    <div class="col-sm-6 col-md-3">
-	                        <div class="thumbnail">
-	                            <div class="thumbnail img-card">
-	                            	<?php $featured = $suggestion->featured_img(); ?>
-							        <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="<?= !empty($featured) ? $featured->alt_text : "Image" ?>">
-							    </div>
-	                            <div class="caption">
-	                                <h5 class="product-name"><a href="/products/<?= $suggestion->id ?>"><?= $suggestion->name ?></a></h5>
-	                                <span class="text-success lead product-price"><b>$<?= $suggestion->price ?></b></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                <?php endforeach; ?>
-				</div>
-			<hr>
-			<?php endif; ?>
+			
+			<div class="row">
+				<?php if (!empty($suggestions)): ?>
+					<div class="row">
+						<h4 class="text-center">Related Products &ndash; Suggestions</h4><br>
+		    			<?php foreach($suggestions as $suggestion): ?>
+		                    <div class="col-sm-6 col-md-3">
+		                        <a href="/products/<?= $suggestion->id ?>">
+		                        <div class="thumbnail">
+		                            <div class="thumbnail thumb">
+		                            	<?php $featured = $suggestion->featured_img(); ?>
+								        <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="<?= !empty($featured) ? $featured->alt_text : "Image" ?>">
+								    </div>
+		                            <div class="caption">
+		                                <h5 class="product-name"><a href="/products/<?= $suggestion->id ?>"><?= $suggestion->name ?></a></h5>
+		                                <span class="text-success lead product-price"><b>$<?= $suggestion->price ?></b></span>
+		                            </div>
+		                        </div>
+		                        </a>
+		                    </div>
+		                <?php endforeach; ?>
+					</div>
+				<hr>
+				<?php endif; ?>
+			</div>
+
+			
+			
 			<div class="row">
 				<h4 class="text-center"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews</h4><br>
 				<div class="col-md-<?= Auth::check() ? "6" : "10 col-md-offset-1" ?>">
