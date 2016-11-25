@@ -138,10 +138,9 @@
 								      		<input type="hidden" name="_method" value="DELETE">
 								    		<button type="button" class="btn btn-xs btn-danger btn-del-img""><i class="fa fa-times" aria-hidden="true"></i></button>
 								    	</form>
-								        <img src="<?= $img->path ?>" alt="<?= $img->path ?>" style="width:100%">
+								        <img src="<?= $img->path ?>" alt="<?= $img->path ?>" style="width:150px">
 								        <div class="caption">
-								        	<small><?= $img->path ?></small>
-
+								        	
 								          	<?php if ($img->featured): ?>
 								          		&ensp;<span class="label label-primary">Featured</span>
 								          	<?php else: ?>
