@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.3.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2016 at 03:24 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: Nov 25, 2016 at 04:11 AM
+-- Server version: 5.6.24
+-- PHP Version: 5.5.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `gifty`
@@ -26,14 +26,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `addresses`
 --
 
-CREATE TABLE `addresses` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `addresses` (
+  `id` int(10) unsigned NOT NULL,
   `street` varchar(255) NOT NULL,
   `city` varchar(50) NOT NULL,
   `state` varchar(50) NOT NULL,
   `country` varchar(50) NOT NULL,
   `zip` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `addresses`
@@ -60,12 +60,12 @@ INSERT INTO `addresses` (`id`, `street`, `city`, `state`, `country`, `zip`) VALU
 -- Table structure for table `carts`
 --
 
-CREATE TABLE `carts` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `customer_id` int(7) UNSIGNED DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `carts` (
+  `id` int(10) unsigned NOT NULL,
+  `customer_id` int(7) unsigned DEFAULT NULL,
   `sess_id` varchar(50) DEFAULT NULL,
   `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `carts`
@@ -83,12 +83,12 @@ INSERT INTO `carts` (`id`, `customer_id`, `sess_id`, `created_at`) VALUES
 -- Table structure for table `cart_details`
 --
 
-CREATE TABLE `cart_details` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `cart_id` int(10) UNSIGNED NOT NULL,
-  `product_id` int(5) UNSIGNED NOT NULL,
-  `quantity` int(5) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `cart_details` (
+  `id` int(10) unsigned NOT NULL,
+  `cart_id` int(10) unsigned NOT NULL,
+  `product_id` int(5) unsigned NOT NULL,
+  `quantity` int(5) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart_details`
@@ -113,10 +113,10 @@ INSERT INTO `cart_details` (`id`, `cart_id`, `product_id`, `quantity`) VALUES
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
-  `id` int(3) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(3) unsigned NOT NULL,
   `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `categories`
@@ -140,21 +140,21 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- Table structure for table `customers`
 --
 
-CREATE TABLE `customers` (
-  `id` int(7) UNSIGNED NOT NULL,
-  `user_id` int(7) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `customers` (
+  `id` int(7) unsigned NOT NULL,
+  `user_id` int(7) unsigned NOT NULL,
   `first` varchar(50) NOT NULL,
   `last` varchar(50) NOT NULL,
   `dob` date NOT NULL,
   `phone` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customers`
 --
 
 INSERT INTO `customers` (`id`, `user_id`, `first`, `last`, `dob`, `phone`) VALUES
-(1, 4, 'Liza', 'White', '1989-05-12', '2329029302'),
+(1, 4, 'Liza', 'White', '1989-05-12', '514-967-8903'),
 (2, 3, 'Isaac', 'Davidson', '2016-06-07', '3452320923'),
 (4, 6, 'Dwayne', 'Johnson', '2016-11-16', '3452352345'),
 (5, 5, 'Aiden', 'Carlton', '1986-11-27', '2342342342'),
@@ -166,13 +166,13 @@ INSERT INTO `customers` (`id`, `user_id`, `first`, `last`, `dob`, `phone`) VALUE
 -- Table structure for table `images`
 --
 
-CREATE TABLE `images` (
-  `id` int(7) UNSIGNED NOT NULL,
-  `product_id` int(5) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(7) unsigned NOT NULL,
+  `product_id` int(5) unsigned NOT NULL,
   `path` varchar(255) NOT NULL,
   `alt_text` varchar(255) NOT NULL,
   `featured` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `images`
@@ -187,7 +187,17 @@ INSERT INTO `images` (`id`, `product_id`, `path`, `alt_text`, `featured`) VALUES
 (17, 12, '/img/electronics/macbook-pro-retina-2014-mg-1117-large.jpg', 'laptop', 1),
 (18, 13, '/img/electronics/google-pixel-and-pixel-xl.jpg', 'pixel', 1),
 (19, 14, '/img/electronics/ipad-air-2-vs-galaxy-tab-s2-97-inch-tablet.jpg', 'galaxy', 1),
-(20, 15, '/img/electronics/bose-soundlink-ii-circum-aural.jpg', 'headphones', 1);
+(20, 15, '/img/electronics/bose-soundlink-ii-circum-aural.jpg', 'headphones', 1),
+(21, 2, '/img/toys/pinkBear.jpg', 'Pink Bear', 1),
+(22, 3, '/img/candies/2900-02013B.jpg', 'Greek Candy', 0),
+(23, 3, '/img/candies/greekCandy.jpg', 'Greek Candy', 1),
+(24, 5, '/img/fashion/gucci hand bag.jpg', 'Gucci hand bag', 0),
+(25, 5, '/img/fashion/gucci-bags-74.jpg', 'Hand bag', 1),
+(26, 6, '/img/beauty/moisturizer_avon.jpg', 'Moisturizer', 1),
+(28, 7, '/img/games/assassins-creed.jpg', 'Assassin creed', 1),
+(30, 8, '/img/flowers/tulip.jpg', 'Rose bouquet', 1),
+(32, 9, '/img/home/table-big.jpg', 'Swing table', 1),
+(34, 10, '/img/accessories/2016-Swiss-Watches-gold.jpg', 'watch', 1);
 
 -- --------------------------------------------------------
 
@@ -195,15 +205,15 @@ INSERT INTO `images` (`id`, `product_id`, `path`, `alt_text`, `featured`) VALUES
 -- Table structure for table `orders`
 --
 
-CREATE TABLE `orders` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `customer_id` int(7) UNSIGNED NOT NULL,
-  `address_id` int(10) UNSIGNED NOT NULL,
-  `payment_method_id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(10) unsigned NOT NULL,
+  `customer_id` int(7) unsigned NOT NULL,
+  `address_id` int(10) unsigned NOT NULL,
+  `payment_method_id` int(10) unsigned NOT NULL,
   `status` varchar(20) NOT NULL,
-  `total` decimal(8,2) UNSIGNED NOT NULL,
+  `total` decimal(8,2) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
@@ -218,12 +228,12 @@ INSERT INTO `orders` (`id`, `customer_id`, `address_id`, `payment_method_id`, `s
 -- Table structure for table `order_details`
 --
 
-CREATE TABLE `order_details` (
-  `id` int(12) UNSIGNED NOT NULL,
-  `order_id` int(10) UNSIGNED NOT NULL,
-  `product_id` int(5) UNSIGNED NOT NULL,
-  `price` decimal(8,2) UNSIGNED NOT NULL,
-  `quantity` int(5) UNSIGNED NOT NULL
+CREATE TABLE IF NOT EXISTS `order_details` (
+  `id` int(12) unsigned NOT NULL,
+  `order_id` int(10) unsigned NOT NULL,
+  `product_id` int(5) unsigned NOT NULL,
+  `price` decimal(8,2) unsigned NOT NULL,
+  `quantity` int(5) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -232,14 +242,14 @@ CREATE TABLE `order_details` (
 -- Table structure for table `payment_methods`
 --
 
-CREATE TABLE `payment_methods` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `customer_id` int(7) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `payment_methods` (
+  `id` int(10) unsigned NOT NULL,
+  `customer_id` int(7) unsigned NOT NULL,
   `type` varchar(20) NOT NULL,
   `cardholder` varchar(100) NOT NULL,
-  `last_digits` int(4) UNSIGNED NOT NULL,
-  `address_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `last_digits` int(4) unsigned NOT NULL,
+  `address_id` int(10) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payment_methods`
@@ -257,17 +267,17 @@ INSERT INTO `payment_methods` (`id`, `customer_id`, `type`, `cardholder`, `last_
 -- Table structure for table `products`
 --
 
-CREATE TABLE `products` (
-  `id` int(5) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(5) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `category_id` int(3) UNSIGNED NOT NULL,
-  `price` decimal(8,2) UNSIGNED NOT NULL,
-  `promotion_id` int(5) UNSIGNED DEFAULT NULL,
-  `quantity` int(5) UNSIGNED NOT NULL,
+  `category_id` int(3) unsigned NOT NULL,
+  `price` decimal(8,2) unsigned NOT NULL,
+  `promotion_id` int(5) unsigned DEFAULT NULL,
+  `quantity` int(5) unsigned NOT NULL,
   `status` varchar(20) NOT NULL,
   `featured` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
@@ -296,12 +306,12 @@ INSERT INTO `products` (`id`, `name`, `description`, `category_id`, `price`, `pr
 -- Table structure for table `promotions`
 --
 
-CREATE TABLE `promotions` (
-  `id` int(5) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `promotions` (
+  `id` int(5) unsigned NOT NULL,
   `starts_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `ends_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `discount` decimal(4,2) UNSIGNED NOT NULL DEFAULT '0.00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `discount` decimal(4,2) unsigned NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `promotions`
@@ -309,7 +319,8 @@ CREATE TABLE `promotions` (
 
 INSERT INTO `promotions` (`id`, `starts_at`, `ends_at`, `discount`) VALUES
 (2, '2016-11-24 06:11:36', '2016-11-29 22:00:00', '0.25'),
-(3, '2016-12-02 19:32:00', '2016-12-03 20:23:00', '0.23');
+(3, '2016-12-02 19:32:00', '2016-12-03 20:23:00', '0.18'),
+(4, '2016-02-12 14:09:00', '2017-02-12 14:09:00', '0.90');
 
 -- --------------------------------------------------------
 
@@ -317,14 +328,14 @@ INSERT INTO `promotions` (`id`, `starts_at`, `ends_at`, `discount`) VALUES
 -- Table structure for table `reviews`
 --
 
-CREATE TABLE `reviews` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `customer_id` int(7) UNSIGNED NOT NULL,
-  `product_id` int(5) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` int(10) unsigned NOT NULL,
+  `customer_id` int(7) unsigned NOT NULL,
+  `product_id` int(5) unsigned NOT NULL,
   `comment` text NOT NULL,
   `rating` int(1) NOT NULL,
   `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reviews`
@@ -343,13 +354,13 @@ INSERT INTO `reviews` (`id`, `customer_id`, `product_id`, `comment`, `rating`, `
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(7) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(7) unsigned NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `role` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -359,7 +370,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (1, 'Alex', 'alex@gmail.com', '$2y$10$z5ieU/vjT.Qq6SCCx2jZQex5j9H1Su0eXnmdrnoiDoiF5Qs0EoDKS', 'ADMIN'),
 (2, 'Josh', 'josh@gmail.com', '$2y$10$aCooVVV.dsH1Sw0dK3Zh0uNthD/XaQywPo0bvf1ylP5q2dQSvy8VK', 'ADMIN'),
 (3, 'Isaac', 'isaac@gmail.com', '$2y$10$7dhoAspzXx6LAeLpFIgUMuarZMB./LynzGnB5zryk9Aak678EpFrq', 'CUSTOMER'),
-(4, 'Liza', 'liza@gmail.com', '$2y$10$Oq4CI0v2FVnAnwatKsKM6ujSML1UasaQBCnidcBo3aRlXPz1LP0I2', 'CUSTOMER'),
+(4, 'Liza', 'liza@gmail.com', '$2y$10$/tL2kz1KbJgeFFuGiB69Pu1ST2aj6UnesCx6oW.gDumhVfA4TJKke', 'CUSTOMER'),
 (5, 'Aiden', 'aiden@gmail.com', '$2y$10$IsYe3Q4uGQZHhkGB/tYViO5UnqMK9nTPvM9E.GSr9d3e/sEIdnyQy', 'CUSTOMER'),
 (6, 'Dwayne', 'dwayne@gmail.com', '$2y$10$oDleLgPBBwKoArI48hmY1ejvWGdz8XR.gsM2SECsD8JXLoDeD36c6', 'CUSTOMER'),
 (7, 'Emma', 'emma@gmail.com', '$2y$10$IOS6JFfuwq1L81rDKJftH.FOOmXVrjY1kEoDapWfs0Z6J5ysUQq4u', 'CUSTOMER'),
@@ -379,16 +390,13 @@ ALTER TABLE `addresses`
 -- Indexes for table `carts`
 --
 ALTER TABLE `carts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `cart_details`
 --
 ALTER TABLE `cart_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cart_id` (`cart_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `cart_id` (`cart_id`), ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `categories`
@@ -400,48 +408,37 @@ ALTER TABLE `categories`
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_id` (`user_id`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `images`
 --
 ALTER TABLE `images`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `address_id` (`address_id`),
-  ADD KEY `method_id` (`payment_method_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `customer_id` (`customer_id`), ADD KEY `address_id` (`address_id`), ADD KEY `method_id` (`payment_method_id`);
 
 --
 -- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `order_id` (`order_id`), ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `address_id` (`address_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `customer_id` (`customer_id`), ADD KEY `address_id` (`address_id`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`),
-  ADD KEY `promotion_id` (`promotion_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `category_id` (`category_id`), ADD KEY `promotion_id` (`promotion_id`);
 
 --
 -- Indexes for table `promotions`
@@ -453,16 +450,13 @@ ALTER TABLE `promotions`
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `customer_id` (`customer_id`), ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -472,67 +466,67 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `cart_details`
 --
 ALTER TABLE `cart_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(7) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(7) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(12) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(12) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(7) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(7) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- Constraints for dumped tables
 --
@@ -541,62 +535,62 @@ ALTER TABLE `users`
 -- Constraints for table `carts`
 --
 ALTER TABLE `carts`
-  ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`);
+ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`);
 
 --
 -- Constraints for table `cart_details`
 --
 ALTER TABLE `cart_details`
-  ADD CONSTRAINT `cart_details_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
-  ADD CONSTRAINT `cart_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+ADD CONSTRAINT `cart_details_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
+ADD CONSTRAINT `cart_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Constraints for table `customers`
 --
 ALTER TABLE `customers`
-  ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `images`
 --
 ALTER TABLE `images`
-  ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`);
+ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
+ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
+ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`);
 
 --
 -- Constraints for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Constraints for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  ADD CONSTRAINT `payment_methods_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
-  ADD CONSTRAINT `payment_methods_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`);
+ADD CONSTRAINT `payment_methods_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
+ADD CONSTRAINT `payment_methods_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`);
 
 --
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
+ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
 
 --
 -- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
+ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
