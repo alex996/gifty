@@ -37,7 +37,7 @@
 								<td class="text-center"><?= $index + 1 ?></td>
 								<td>
 									<?php $featured = $detail->product->featured_img(); ?>
-									<img class="product-thumb pull-left" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="">
+									<img class="product-thumb pull-left" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="Image">
 									<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
 								</td>
 								<td class="product-desc"><?= $detail->product->description ?></td>

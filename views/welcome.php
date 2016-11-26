@@ -109,11 +109,18 @@
                         <?php $featured = $product->featured_img(); ?>
                         <div class="img-card">
                             <a href="/products/<?= $product->id ?>">
-                                <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="...">
+                                <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="Image">
                             </a>
                         </div>
                         <div class="caption">
-                            <p class="pull-right text-success lead product-price"><b>$<?= $product->price ?></b></p>
+                            <?php if ($product->promotion_id): ?>
+                            <p class="pull-right">
+                                <span class="text-danger lead product-price" style="text-decoration: line-through;"><b>$<?= number_format($product->price,2) ?></b></span>
+                                <br><span class="pull-right text-success lead product-price"><b>$<?= number_format($product->price_with_promotion(),2) ?></b></span>
+                            </p>
+                            <?php else: ?>
+                                <p class="pull-right text-success lead product-price"><b>$<?= $product->price ?></b></p>
+                            <?php endif; ?>
                             <h4 class="product-name"><?= $product->name ?></h4>
                             <p class="product-desc"><?= $product->description ?></p>
                             <div class="row">

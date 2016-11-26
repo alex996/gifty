@@ -20,6 +20,8 @@ require_once(MODEL_PATH . 'PaymentMethod.php');
 
 require_once(MODEL_PATH . 'Promotion.php');
 
+require_once(MODEL_PATH . 'Image.php');
+
 class CheckoutController {
 
 	public function show_shipping() {

@@ -3,7 +3,7 @@
 <?php $this->block('styles') ?>
 <style>
 	.total {margin-top:0;}
-	.product-image {margin-right: 10px}
+	.product-thumb {margin-right: 10px; width:70px;}
 	.table tbody>tr>td { vertical-align: middle; }
 </style>
 <?php $this->endblock() ?>
@@ -61,7 +61,7 @@
 								<th class="text-center">Product</th>
 								<th class="text-center">Quantity</th>
 								<th class="text-center">Unit Price</th>
-								<th class="text-center">Price with Discount</th>
+								<th class="text-center">Discount</th>
 								<th class="text-center">Total</th>
 							</tr>
 						</thead>
@@ -70,7 +70,8 @@
 								<tr>
 									<td class="text-center"><?= $index + 1 ?></td>
 									<td>
-										<img class="product-image pull-left" src="http://placehold.it/50x50" alt="">
+										<?php $featured = $detail->product->featured_img(); ?>
+										<img class="product-thumb pull-left" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="Image">
 										<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
 									</td>
 									<td class="text-center"><?= $detail->quantity ?></td>
@@ -78,17 +79,17 @@
 									<?php $promo = $detail->product->promotion(); ?>
 									<?php if (!empty($promo)): ?>
 										<td class="text-center text-success"><b><?= $promo->discount * 100 ?>%</b></td>
-										<td class="text-center">$<?= round($detail->quantity * ($detail->product->price - ($detail->product->price * $promo->discount)), 2) ?></td>
+										<td class="text-center">$<?= number_format($detail->quantity * ($detail->product->price - ($detail->product->price * $promo->discount)), 2) ?></td>
 									<?php else: ?>
 										<td class="text-center">0%</td>
-										<td class="text-center">$<?= round($detail->quantity * $detail->product->price, 2) ?></td>
+										<td class="text-center">$<?= number_format($detail->quantity * $detail->product->price, 2) ?></td>
 									<?php endif; ?>
 								</tr>
 							<?php endforeach; ?>
 					    </tbody>
 					</table>
 					<hr>
-					<h3 class="pull-right total">Total: <b>$<?= round($total,2) ?></b></h3>
+					<h3 class="pull-right total">Total: <b>$<?= number_format($total,2) ?></b></h3>
 				</div>
 				
 			</div>

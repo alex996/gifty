@@ -18,6 +18,10 @@ require_once(MODEL_PATH . 'Product.php');
 
 require_once(MODEL_PATH . 'Category.php');
 
+require_once(MODEL_PATH . 'Image.php');
+
+require_once(MODEL_PATH . 'Promotion.php');
+
 class AccountController extends Controller {
 
 	public function index() {

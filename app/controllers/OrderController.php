@@ -20,6 +20,8 @@ require_once(MODEL_PATH . 'PaymentMethod.php');
 
 require_once(MODEL_PATH . 'Promotion.php');
 
+require_once(MODEL_PATH . 'Image.php');
+
 class OrderController {
 
 	public function index() {
@@ -186,7 +188,7 @@ class OrderController {
 				}
 			}
 		}
-		
+
 		echo json_encode(['status' => 0, 'errors' => $errors]);
 	}
 }

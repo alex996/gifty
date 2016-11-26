@@ -5,8 +5,9 @@
 	.product-cat {font-size: 12px}
 	.product-qty {width:75px !important;}
 	.quote {margin-bottom: 0; font-size: 14px}
-	.thumb {height: 150px; position: relative;}
-    .thumb img {position: absolute; top: 50%; transform: translateY(-50%); height: 100%;}
+	.thumb {height: 150px;}
+	.thumb img {max-height: 100%; }
+	.price span {margin-bottom: 0}
 </style>
 <?php $this->endblock() ?>
 
@@ -64,7 +65,14 @@
 					<h5><?= count($product->reviews) ?> reviews</h5>
 
 					<h4>
-						Price: <span class="text-success"><b>$<?= $product->price ?></b></span>
+						Price: <span class="text-success">
+							<?php if ($product->promotion_id): ?>
+	                            <span class="text-danger lead product-price" style="text-decoration: line-through;"><b>$<?= number_format($product->price,2) ?></b></span>
+	                            &thinsp;<span class="text-success lead product-price"><b>$<?= number_format($product->price_with_promotion(),2) ?></b></span>
+	                        <?php else: ?>
+	                            <span class="text-success lead product-price"><b>$<?= $product->price ?></b>
+	                        <?php endif; ?>
+                        </span>
 						<?php
 							$class = "";
 							switch($product->status) {
@@ -75,6 +83,10 @@
 						?>
 						&emsp;<span class="<?= $class ?>"><?= $product->status() ?></span>
 					</h4>
+					
+					<?php if ($product->promotion_id): ?>
+						<p>You save: <span style="font-size:18px;"><b><?= number_format($product->promotion()->discount * 100) ?></b>%</span></p>
+					<?php endif; ?>
 
 					<p><?= $product->description ?></p>
 					
@@ -122,28 +134,34 @@
 		    			<?php foreach($suggestions as $suggestion): ?>
 		                    <div class="col-sm-6 col-md-3">
 		                        <a href="/products/<?= $suggestion->id ?>">
-		                        <div class="thumbnail">
-		                            <div class="thumbnail thumb">
+		                        <div class="thumbnail-card">
+		                            <div class="thumbnail thumb text-center">
 		                            	<?php $featured = $suggestion->featured_img(); ?>
 								        <img src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="<?= !empty($featured) ? $featured->alt_text : "Image" ?>">
 								    </div>
 		                            <div class="caption">
 		                                <h5 class="product-name"><a href="/products/<?= $suggestion->id ?>"><?= $suggestion->name ?></a></h5>
-		                                <span class="text-success lead product-price"><b>$<?= $suggestion->price ?></b></span>
+		                                <p class="pull-left price">
+			                                <?php if ($suggestion->promotion_id): ?>
+			                                    <span class="text-danger lead product-price" style="text-decoration:line-through;"><b>$<?= number_format($suggestion->price,2) ?></b></span>
+			                                    &ensp;<span class="pull-right text-success lead product-price"><b>$<?= number_format($suggestion->price_with_promotion(),2) ?></b></span>
+			                                <?php else: ?>
+			                                    <span class="pull-right text-success lead product-price"><b>$<?= $suggestion->price ?></b></span>
+			                                <?php endif; ?>
+		                                </p>
 		                            </div>
 		                        </div>
 		                        </a>
 		                    </div>
 		                <?php endforeach; ?>
 					</div>
-				<hr>
 				<?php endif; ?>
 			</div>
 
 			
-			
+			<hr>
 			<div class="row">
-				<h4 class="text-center"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews</h4><br>
+				<h4 class="text-center"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews</h4>
 				<div class="col-md-<?= Auth::check() ? "6" : "10 col-md-offset-1" ?>">
 					<?php foreach($product->reviews as $review): ?>
 					<div class="col-md-12">

@@ -82,6 +82,14 @@ class Product extends Model {
 	                       ->all();
 	}
 
+	public function price_with_promotion() {
+		$promo = $this->promotion();
+		if ($promo)
+			return $this->price - ($this->price * $promo->discount);
+		else
+			return $this->price;
+	}
+
 	/*public function __construct() {
 
 		$reviews = $this->load('review');

@@ -3,7 +3,7 @@
 <?php $this->block('styles') ?>
 <style>
 	.table tbody>tr>td { vertical-align: middle; }
-	.product-image {float:left; margin-right:10px;}
+	.product-thumb {margin-right: 10px; width:70px;}
 	.product-desc {width: 350px;}
 	.product-qty {width: 60px;}
 	.total-wrapper {margin-top:0;}
@@ -29,7 +29,7 @@
 									<th>Product</th>
 									<th>Description</th>
 									<th>Quantity</th>
-									<th>Unit Price</th>
+									<th>Price</th>
 									<th>Total</th>
 									<?= $manageable ? "<th></th>" : "" ?>
 								</tr>
@@ -39,8 +39,9 @@
 									<?php foreach($order->order_details as $index => $detail): ?>
 										<tr>
 											<td><?= $index + 1 ?></td>
-											<td>
-												<img class="product-image" src="http://placehold.it/50x50" alt="">
+											<td style="min-width: 170px">
+												<?php $featured = $detail->product->featured_img(); ?>
+												<img class="product-thumb pull-left" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" alt="Image">
 												<a href="/products/<?= $detail->product->id ?>"><?= $detail->product->name ?></a>
 											</td>
 											<td class="product-desc"><?= $detail->product->description ?></td>
@@ -113,7 +114,7 @@
 							<tr>
 								<td><b>Total Paid</b></td>
 								<td>
-									<b>$<?= $order->total ?></b>
+									<b><span class="total">$<?= number_format($order->total,2) ?></span></b>
 								</td>
 							</tr>
 							<tr>
