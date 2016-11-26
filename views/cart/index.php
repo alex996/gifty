@@ -50,10 +50,10 @@
 								<td class="text-center unit-price">$<?= number_format($detail->product->price, 2) ?></td>
 								<?php $promo = $detail->product->promotion(); ?>
 								<?php if (!empty($promo)): ?>
-									<td class="text-center text-success"><b><?= $promo->discount * 100 ?>%</b></td>
-									<td class="text-center">$<?= round($detail->quantity * ($detail->product->price - ($detail->product->price * $promo->discount)), 2) ?></td>
+									<td class="text-center text-success promo"><b><?= $promo->discount * 100 ?>%</b></td>
+									<td class="text-center unit-qty-price">$<?= number_format($detail->quantity * ($detail->product->price - ($detail->product->price * $promo->discount)), 2) ?></td>
 								<?php else: ?>
-									<td class="text-center">0%</td>
+									<td class="text-center promo">0%</td>
 									<td class="text-center unit-qty-price">$<?= number_format($detail->quantity * $detail->product->price, 2) ?></td>
 								<?php endif; ?>
 								<td class="text-center">
@@ -68,7 +68,7 @@
 				</table>
 				<hr>
 				<div class="col-md-12">
-					<h3 class="pull-right total">Total: <b>$<?= round($total,2) ?></b></h3>
+					<h3 class="pull-right">Total: <b class="total">$<?= number_format($total,2) ?></b></h3>
 				</div>
 				<hr>
 				<div class="row col-md-4 col-md-offset-4">
@@ -116,10 +116,14 @@ $(function() {
 	                if (res.status == 1) {
 	                	// Reset product count in cart
 	                    $('#in-cart').text(res.in_cart);
-	                    // Reset product total (quantity * unit price)
-	                    var unit_price = parseFloat(form.parent().siblings('.unit-price').text().substring(1));
-	                    var unit_qty_price = "$" + (unit_price * parseFloat(quantity)).toFixed(2);
+	                    // Reset product total (quantity * unit price) with respect to promotion
+	                    var unit_price = parseCurrency(form.parent().siblings('.unit-price').text());
+	                    var promo_discount = parseFloat(form.parent().siblings('.promo').text()); // safe, because '%' is at the end
+	         
+	                    var unit_qty_price = "$" + formatCurrency(((unit_price - (unit_price * promo_discount*0.01)) * parseFloat(quantity)));
 	                    form.parent().siblings('.unit-qty-price').text(unit_qty_price);
+
+	                    $('.total').text("$" + formatCurrency(parseFloat(res.total)));
 	                }
 	                else
 	                    alert(res.errors.shift());
@@ -146,6 +150,7 @@ $(function() {
                 	else {
 	                    $('#in-cart').text(res.in_cart);
 	                    row.remove();
+	                    $('.total').text("$" + formatCurrency(parseFloat(res.total)));
 	                }
                 }
                 else

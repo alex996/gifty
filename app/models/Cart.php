@@ -39,6 +39,7 @@ class Cart extends Model {
 
 	public function total() {
 		$total = 0;
+
 		foreach($this->cart_details as $detail) {
 			if ($detail->product->promotion_id) {
 				// Calculate discount
@@ -49,7 +50,7 @@ class Cart extends Model {
 			else
 				$final = $detail->product->price;
 			
-			$total += $final;
+			$total += $final * $detail->quantity;
 		}
 		return $total;
 	}

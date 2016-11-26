@@ -24,4 +24,20 @@ $(function() {
                 console.log("AJAX request to " + action + "failed.");
             });
     });
+
 });
+
+// e.g. 1000.0 -> $1,000.00
+function formatCurrency(value) {
+    return roundToTwo(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// e.g. $1,000.00 -> 1000.0
+function parseCurrency(value) {
+    return parseFloat(value.replace(/\$/g, '').replace(/,/g, ''));
+}
+
+// e.g. 1.555555 -> 1.55 BUT 9.1 -> 9.1 (may need toFixed(2))
+function roundToTwo(value) {    
+    return +(Math.round(value + "e+2")  + "e-2");
+}

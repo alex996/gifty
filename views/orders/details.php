@@ -6,7 +6,7 @@
 	.product-image {float:left; margin-right:10px;}
 	.product-desc {width: 350px;}
 	.product-qty {width: 60px;}
-	.total {margin-top:0;}
+	.total-wrapper {margin-top:0;}
 </style>
 <?php $this->endblock() ?>
 
@@ -46,7 +46,7 @@
 											<td class="product-desc"><?= $detail->product->description ?></td>
 											<td class="text-center">
 												<?php if ($manageable): ?>
-													<form method="POST" action="/account/orders/<?= $order->id ?>/order-details/<?= $detail->id ?>">
+													<form method="POST" action="/account/orders/<?= $order->id ?>/order-details/<?= $detail->id ?>" class="form-edit-qty">
 														<input type="hidden" name="_method" value="PATCH">
 														<input class="form-control product-qty" type="number" name="quantity" value="<?= $detail->quantity ?>" min="0" max="99">
 													</form>
@@ -54,11 +54,11 @@
 													<?= $detail->quantity ?>
 												<?php endif; ?>
 											</td>
-											<td>$<?= $detail->price ?></td>
-											<td>$<?= $detail->quantity * $detail->price ?></td>
+											<td class="unit-price">$<?= number_format($detail->price,2) ?></td>
+											<td class="unit-qty-price">$<?= number_format($detail->quantity * $detail->price,2) ?></td>
 											<?php if ($manageable): ?>
 												<td>
-													<form method="POST" action="/account/orders/<?= $order->id ?>/order-details/<?= $detail->id ?>">
+													<form method="POST" action="/account/orders/<?= $order->id ?>/order-details/<?= $detail->id ?>" class="form-del-prod">
 														<input type="hidden" name="_method" value="DELETE">
 														<button class="btn btn-danger btn-del-prod"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 													</form>
@@ -73,7 +73,7 @@
 						</table>
 						<hr>
 						<div class="col-md-12">
-							<h3 class="pull-right total">Total: <b>$<?= $order->total ?></b></h3>
+							<h3 class="pull-right total-wrapper">Total: <b class="total">$<?= $order->total ?></b></h3>
 						</div>
 					</div>
 				</div>
@@ -141,22 +141,44 @@
 <?php $this->block('scripts') ?>
 <script>
 $(function() {
-	$('.product-qty').change(function(e) {
 
-		e.preventDefault();
+	$('.product-qty').keypress(function(e){
+		if (e.keyCode === 10 || e.keyCode === 13) e.preventDefault();
+	});
+
+	$('.product-qty').change(function() {
+
 		var input = $(this);
     	var quantity = input.val();
 
-		if (quantity < 1)
+    	if (quantity < 1)
     		input.val(1);
     	else if (quantity > 99)
     		input.val(99);
     	else {
     		var res = confirm("Change product quantity?");
-			if (res)
-			    $(this).closest('form').submit();
-			else
-				location.reload();
+			if (res) {
+				var form = input.closest('.form-edit-qty');
+	    		var action = form.attr('action');
+
+	    		$.post(action, form.serialize())
+		            .done(function(res) {
+		                res = JSON.parse(res);
+		                if (res.status == 1) {		        
+		                    // Reset product total (quantity * unit price) with respect to promotion
+		                    var unit_price = parseCurrency(form.parent().siblings('.unit-price').text());
+		         
+		                    var unit_qty_price = "$" + formatCurrency(unit_price * parseFloat(quantity));
+		                    form.parent().siblings('.unit-qty-price').text(unit_qty_price);
+
+		                    $('.total').text("$" + formatCurrency(parseFloat(res.total)));
+		                }
+		                else
+		                    alert(res.errors.shift());
+		            }).fail(function() {
+		                console.log("AJAX request to " + action + "failed.");
+		            });
+			}
     	}
 	});
 
@@ -164,7 +186,26 @@ $(function() {
 		e.preventDefault();
 		var res = confirm("Delete product from this order?");
 		if (res) {
-		    $(this).closest('form').submit();
+		    var form = $(this).closest('.form-del-prod');
+	    	var row = form.closest('tr');
+	    	var action = form.attr('action');
+
+	    	$.post(action, form.serialize())
+	    		.done(function(res) {
+	                res = JSON.parse(res);
+	                if (res.status == 1) {
+	                	if (res.total == 0)
+	                		location.reload();
+	                	else {
+		                    row.remove();
+		                    $('.total').text("$" + formatCurrency(parseFloat(res.total)));
+		                }
+	                }
+	                else
+	                    alert(res.errors.shift());
+	            }).fail(function() {
+	                console.log("AJAX request to " + action + "failed.");
+	            });
 		}
 	});
 });
