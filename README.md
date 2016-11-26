@@ -5,7 +5,7 @@ Online Gift Store
 ## Installation
 
 1. Copy the contents of the zip into XAMPP htdocs root folder (e.g. `C:\xampp\htdocs`)
-2. Create a database and its user at localhost/phpmyadmin
+2. Create a database and its user at `localhost/phpmyadmin`
    * Database: `gifty`
    * User:     `gifty`
    * Host:     `local`
