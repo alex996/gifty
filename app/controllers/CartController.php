@@ -52,6 +52,8 @@ class CartController {
 
 			if (empty($product))
 				$errors[] = "Product with id of {$_POST['product_id']} not found.";
+			else if ($product->status != Product::IN_STOCK)
+				$errors[] = "Product width status of {$product->status} cannot be added to cart.";
 			else if ($_POST['quantity'] > $product->quantity)
 				$errors[] = "Product quantity ({$_POST['quantity']}) exceeds quantity in stock.";
 			else {
@@ -105,6 +107,8 @@ class CartController {
 				$errors[] = "Product with id of {$cart_detail->product_id} not found.";
 			else if ($_POST['quantity'] > $product->quantity)
 				$errors[] = "Product quantity ({$_POST['quantity']}) exceeds quantity in stock.";
+			else if ($product->status != Product::IN_STOCK)
+				$errors[] = "Product width status of {$product->status} cannot be added to cart.";
 			else {
 				$cart_detail->quantity = $_POST['quantity'];
 				$cart_detail->save();

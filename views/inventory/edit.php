@@ -74,6 +74,7 @@
 								<label for="promotion">Promotion</label>
 								<select class="form-control" name="promotion" id="promotion" <?= ($product->status != Product::END_OF_LIFE) ? "" : "disabled" ?>>
 						     		<option selected disabled value hidden>Select...</option>
+						     		<option value="">None</option>
 						     		<?php foreach($promotions as $promotion): ?>
 		                            	<option value="<?= $promotion->id ?>" <?= ($product->promotion_id == $promotion->id) ? "selected" : "" ?>><?= $promotion->discount * 100 ?>% off from <?= $promotion->starts_at ?> until <?= $promotion->ends_at ?></option>
 		                            <?php endforeach; ?>

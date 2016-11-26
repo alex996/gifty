@@ -96,8 +96,12 @@
 							<div class="col-sm-2 col-md-3 col-lg-2">
 								<input class="form-control input-lg product-qty" type="number" name="quantity" value="1" min="1" max="99">
 							</div>
-							<div class="col-sm-5 col-md-5 -col-lg-6">
-								<a class="btn btn-lg btn-primary btn-block btn-add-cart"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</a>
+							<div class="col-sm-5 col-md-5 col-lg-6">
+								<?php if ($product->status == Product::IN_STOCK): ?>
+									<a class="btn btn-lg btn-primary btn-block btn-add-cart"><i class="fa fa-cart-plus fa-fw" aria-hidden="true"></i> Add</a>
+								<?php else: ?>
+									<p style="padding-top:10px"><i>Product is currently unavailable.</i></p>
+								<?php endif; ?>
 							</div>
 						</form>
 					</div>

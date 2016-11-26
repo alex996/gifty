@@ -22,16 +22,18 @@ class ProductController extends Controller {
 
 		if (!empty($_GET['search']) && !empty($_GET['filter']) && !empty($_GET['direction']))
 			$products = Product::where('name', 'LIKE', "%{$_GET['search']}%")
+									->andWHere('status', Product::IN_STOCK)
 									->orWhere('description', 'LIKE', "%{$_GET['search']}%")
 									->orderBy($_GET['filter'], $_GET['direction'])
 									->get();
 		else if (!empty($_GET['filter']) && !empty($_GET['direction']))
-			$products = Product::orderBy($_GET['filter'], $_GET['direction'])->get();
+			$products = Product::where('status', Product::IN_STOCK)->orderBy($_GET['filter'], $_GET['direction'])->get();
 		else if (!empty($_GET['search']))
 			$products = Product::where('name', 'LIKE', "%{$_GET['search']}%")
+									->andWHere('status', Product::IN_STOCK)
 									->orWhere('description', 'LIKE', "%{$_GET['search']}%")->get();
 		else
-			$products = Product::all();
+			$products = Product::where('status', Product::IN_STOCK)->all();
 
 		if (!is_array($products) && $products) $products = [$products];
 
@@ -49,21 +51,25 @@ class ProductController extends Controller {
 
 			if (!empty($_GET['search']) && !empty($_GET['filter']) && !empty($_GET['direction']))
 				$products = Product::where('category_id', $category_id)
+										->andWHere('status', Product::IN_STOCK)
 										->andWhere('name', 'LIKE', "%{$_GET['search']}%")
 										->orWhere('description', 'LIKE', "%{$_GET['search']}%")
 										->orderBy($_GET['filter'], $_GET['direction'])
 										->get();
 			else if (!empty($_GET['filter']) && !empty($_GET['direction']))
 				$products = Product::where('category_id', $category_id)
+										->andWHere('status', Product::IN_STOCK)
 										->orderBy($_GET['filter'], $_GET['direction'])
 										->get();
 			else if (!empty($_GET['search']))
 				$products = Product::where('category_id', $category_id)
+										->andWHere('status', Product::IN_STOCK)
 										->andWhere('name', 'LIKE', "%{$_GET['search']}%")
 										->orWhere('description', 'LIKE', "%{$_GET['search']}%")
 										->get();
 			else
-				$products = Product::where('category_id', $category_id)->get();
+				$products = Product::where('category_id', $category_id)
+										->andWHere('status', Product::IN_STOCK)->get();
 
 			if (!is_array($products) && $products) $products = [$products];
 

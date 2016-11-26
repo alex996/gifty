@@ -12,16 +12,19 @@
 		</div>
 	
 		<div class="col-md-9">
+			
+			<?php 
+				include_once VIEWS_PATH."components/success.php";
+				include_once VIEWS_PATH."components/errors.php";
+		  	?>
+
 			<div class="panel panel-default">
 				<div class="panel-heading text-center">
 					<h4>Update Promotion</h4>
 				</div>
 				<div class="panel-body">
 					<div class="col-md-10 col-md-offset-1">
-						<?php 
-							include_once VIEWS_PATH."components/success.php";
-							include_once VIEWS_PATH."components/errors.php";
-					  	?>
+						
 						<form class="form-horizontal" action="/admin/promotions/<?= $promotion->id ?>" method="POST">
 
 							<input type="hidden" name="_method" value="PATCH">

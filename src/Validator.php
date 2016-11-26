@@ -36,7 +36,6 @@ class Validator {
     	foreach($rules as $key => $rules) {
     		$checks = explode("|", $rules);
     		foreach($checks as $check) {
-    			//echo $check;die();
 
                 $components = explode(":", $check, 2); // 2 elements max
     			$method = $components[0];
@@ -192,7 +191,13 @@ class Validator {
             //case 'tomorrow': $other = ... // continue if needed
             default: $other = date('Y-m-d G:i:s', strtotime($other)); break;
         }
+        // Rare case, date's year > 2038; date will
+        // default to 1970 (see Year 2038 problem)
+        if (substr($value, 0, 4) > date('Y'))
+            $value = date('Y-m-d G:i:s', strtotime('2038-01-19 00:00:00'));
+
         $value = date('Y-m-d G:i:s', strtotime($value)); // GMT
+
         return $value > $other;
     }
 

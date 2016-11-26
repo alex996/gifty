@@ -60,8 +60,8 @@ class PromotionController extends Controller {
 
 		$errors = Validator::validate($_POST, [
 			'discount' => 'required|minval:0|maxval:0.99',
-				'starts_at' =>'required|date',
-				'ends_at' =>'required|date|after:now|after:'.$_POST['starts_at'],
+			'starts_at' =>'required|date',
+			'ends_at' =>'required|date|after:now|after:'.$_POST['starts_at'],
 		]);
 
 		if (!empty($errors))
@@ -146,7 +146,7 @@ class PromotionController extends Controller {
 			View::render('promotions/index.php', [
 				'promotions' => Promotion::orderBy('ends_at', 'DESC')->all(),
 				'categories' => Category::all(),
-				'success' => ['Promotion deleted.']
+				'success' => 'Promotion deleted.'
 			]);
 
 		} else
