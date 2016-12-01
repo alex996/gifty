@@ -2,6 +2,16 @@
 
 Online Gift Store
 
+## Features
+
+1. Fully custom-built MVC framework
+2. SEO-friendly URL routing
+3. Flexible ORM and Query Builder
+4. Basic template inheritance
+5. Simple validation rules
+6. App configuration
+7. Responsive design
+
 ## Installation
 
 1. Copy the contents of the zip into XAMPP htdocs root folder (e.g. `C:\xampp\htdocs`)
@@ -13,16 +23,6 @@ Online Gift Store
    * Note: you can view / edit database config at `/config/app.php`
 3. Import the sql dump (`gifty.sql` in htdocs root folder)
 4. Run the application at `http://localhost/`
-
-## Features
-
-1. Fully custom-built MVC framework
-2. SEO-friendly URL routing
-3. Flexible ORM and Query Builder
-4. Basic template inheritance
-5. Simple validation rules
-6. App configuration
-7. Responsive design
 
 ## Inpired By
 
