@@ -40,14 +40,10 @@ class AccountController extends Controller {
 					'categories' => Category::all(),
 				]);
 			else {
-				/*$user->customer->load('payment_method');
 
-				$pm = $user->customer->payment_method;
-				$payment_methods = is_array($pm) ? $pm : [$pm];
-				foreach ($payment_methods as $method)
-					$method->load('address');*/
-
-				$order = Order::with(['address', 'order_details.product'])->where('customer_id', $user->customer->id)->orderBy('created_at', 'DESC')->first();
+				$order = Order::with(['address', 'order_details.product'])
+									->where('customer_id', $user->customer->id)
+									->orderBy('created_at', 'DESC')->first();
 			
 				View::render('accounts/home.php', [
 					'user' => $user,

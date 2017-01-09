@@ -63,7 +63,7 @@
 							<div class="form-group col-sm-8">
 								<label class="col-sm-4" for="phone" style="margin-top:5px">Phone:</label>
 								<div class="col-sm-8">
-									<input class="form-control" id="phone" name="phone" placeholder="ex: 201-789-5642" required>
+									<input class="form-control" id="phone" name="phone" placeholder="ex: 201-789-5642" value="<?= isset($_POST['phone']) ? $_POST['phone'] : '' ?>" required>
 								</div>
 							</div>
 							<div class="form-group col-sm-4">

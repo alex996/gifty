@@ -27,14 +27,14 @@
 						<tbody>
 							<?php if(!empty($orders)): ?>				
 								<?php foreach($orders as $index => $order): ?>
-									<?php include_once(VIEWS_PATH . 'orders/components/status.php') ?>
+									<?php include(VIEWS_PATH . 'orders/components/status.php') ?>
 									<tr>
 										<td><?= $index + 1 ?></td>
 										<td><span class="label label-<?= $status_label_class ?> status-label"><?= $order->status ?></span></td>
 										<td><?= $order->created_at ?></td>
 										<?php $addr = $order->address ?>
 										<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
-										<td>$<?= $order->total ?></td>
+										<td>$<?= number_format($order->total, 2) ?></td>
 										<td>
 											<a href="/account/orders/<?= $order->id ?>" class="btn btn-primary"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Details</a>
 										</td>

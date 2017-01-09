@@ -45,39 +45,41 @@
 
 <?php $this->block('content') ?>
 	
-	<!-- Header Carousel -->
-    <header id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
+    <?php if (!empty($on_sale)): ?>
+    	<!-- Header Carousel -->
+        <header id="carousel" class="carousel slide">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel" data-slide-to="1"></li>
+                <li data-target="#carousel" data-slide-to="2"></li>
+            </ol>
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <?php foreach($on_sale as $i => $sale): ?>
-                <div class="item <?= $i == 1 ? "active" : ""?>">
-                    <?php $featured = $sale->featured_img(); ?>
-                    <div class="fill" style="background-image:url('<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>');"></div>
-                    <div class="carousel-caption">
-                        <a class="promo" href="/products/<?= $sale->id ?>">
-                            <h1><?= $sale->name ?></h1>
-                            <h2><?= $sale->promotion->discount * 100 ?>% off! Offer ends <?= date('F d, Y', strtotime($sale->promotion->ends_at)) ?></h2>
-                        </a>
+            <!-- Wrapper for slides -->        
+            <div class="carousel-inner">
+                <?php foreach($on_sale as $i => $sale): ?>
+                    <div class="item <?= $i == 0 ? "active" : ""?>">
+                        <?php $featured = $sale->featured_img(); ?>
+                        <div class="fill" style="background-image:url('<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>');"></div>
+                        <div class="carousel-caption">
+                            <a class="promo" href="/products/<?= $sale->id ?>">
+                                <h1><?= $sale->name ?></h1>
+                                <h2><?= $sale->promotion->discount * 100 ?>% off! Offer ends <?= date('F d, Y', strtotime($sale->promotion->ends_at)) ?></h2>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>            
 
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-    </header>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel" data-slide="prev">
+                <span class="icon-prev"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel" data-slide="next">
+                <span class="icon-next"></span>
+            </a>
+        </header>
+    <?php endif; ?>
 
 	<div class="container">
 

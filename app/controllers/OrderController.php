@@ -28,8 +28,8 @@ class OrderController {
 
 		if (!Auth::check())
 			Router::redirect('login');
-
-		//$customer = Customer::with('orders.address')->where('user_id', Auth::id())->get();
+		else if (! Auth::user()->customer())
+			Router::redirect('account');
 
 		$customer_id = Customer::where('user_id', Auth::id())->get()->id;
 		$orders = Order::with('address')->where('customer_id', $customer_id)->orderBy('created_at', 'DESC')->get();
@@ -42,24 +42,6 @@ class OrderController {
 			'in_cart' => Cart::count(),
 			'categories' => Category::all(),
 		]);
-
-		/*$user = Auth::user();
-
-		if ($user->isCustomer()) {
-			$user->load('customer');
-
-			if (!$user->customer)
-				View::render('accounts/register.php');
-			else {
-				
-				$user->customer->load('orders');
-
-				View::render('accounts/orders.php', ['customer' => $user->customer]);
-			}
-		}
-		else if ($user->isAdmin()) {
-			echo "admin view orders ....";
-		}*/
 	}
 
 	public function show($id) {

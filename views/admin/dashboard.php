@@ -1,6 +1,11 @@
 <?php $this->block('title', 'Dashboard') ?>
 
 <?php $this->block('styles') ?>
+<style>
+	.nav-card a {color: #949191;}
+	.nav-card a:hover {color: #565656;}
+	.nav-card h4 {margin-top:20px;}
+</style>
 <?php $this->endblock() ?>
 
 <?php $this->block('content') ?>
@@ -16,10 +21,27 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-8 col-md-offset-2">
-							<p>This is your back-end dashboard. You will have full control of the system here.
-							Plus, you will find marketing and sales statistics. However, right now there is 
-							nothing to show. These features are currently part of the future development process...</p>
+						<div class="col-md-12">
+							<div class="row text-center">
+								<div class="col-md-4 nav-card">
+									<a href="/admin/inventory">
+										<h2><i class="fa fa-database fa-4x" aria-hidden="true"></i></h2>
+										<h4>Inventory</h4>
+									</a>
+								</div>
+								<div class="col-md-4 nav-card">
+									<a href="/admin/sales">
+										<h2><i class="fa fa-area-chart fa-4x" aria-hidden="true"></i></h2>
+										<h4>Sales</h4>
+									</a>
+								</div>
+								<div class="col-md-4 nav-card">
+									<a href="/admin/promotions">
+										<h2><i class="fa fa-percent fa-4x" aria-hidden="true"></i></h2>
+										<h4>Promotions</h4>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -32,10 +32,10 @@
 						<div class="pull-right">
 							<form method="POST" action="/admin/inventory/<?= $product->id ?>" style="display: inline">
 								<input type="hidden" name="_method" value="DELETE">
-								<a class="btn btn-cta btn-danger btn-del"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+								<button type="button" class="btn btn-cta btn-danger btn-del" <?= $product->status == Product::END_OF_LIFE ? 'disabled' : '' ?>><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 							</form>
 						</div>
-						<p><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i> Edit <i><?= $product->name ?></i></p>
+						<p><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i> Edit Product &ndash; <?= $product->name ?></p>
 					</h4>
 				</div>
 				<div class="panel-body">
@@ -52,7 +52,7 @@
 						    </div>
 						    <div class="form-group col-xs-12 col-sm-6 col-md-4">
 						    	<label for="category">Category</label>
-						     	<select class="form-control" name="category" id="category" required>
+						     	<select class="form-control" name="category_id" id="category" required>
 						     		<option selected disabled value hidden>Select...</option>
 						     		<?php foreach($categories as $category): ?>
 		                            	<option value="<?= $category->id ?>" <?= ($product->category_id == $category->id) ? "selected" : "" ?>><?= $category->name ?></option>
@@ -72,7 +72,7 @@
 						    </div>
 							<div class="form-group col-xs-12 col-sm-12 col-md-8">
 								<label for="promotion">Promotion</label>
-								<select class="form-control" name="promotion" id="promotion" <?= ($product->status != Product::END_OF_LIFE) ? "" : "disabled" ?>>
+								<select class="form-control" name="promotion_id" id="promotion" <?= ($product->status != Product::END_OF_LIFE) ? "" : "disabled" ?>>
 						     		<option selected disabled value hidden>Select...</option>
 						     		<option value="">None</option>
 						     		<?php foreach($promotions as $promotion): ?>
@@ -85,7 +85,7 @@
 							    	<label>Promo Price</label>
 							     	<div class="input-group">
 							     		<span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
-				                        <input class="form-control" value="<?= round($product->price - ($product->price * $product->promotion->discount),2) ?>" disabled>
+				                        <input class="form-control" value="<?= round($product->price - ($product->price * $product->promotion->discount), 2) ?>" disabled>
 				                    </div>
 							    </div>
 							<?php endif; ?>

@@ -27,56 +27,52 @@
 				<div class="panel-heading text-center">
 					<h4>
 						<div class="pull-right">
-							<a href="/admin/inventory/<?= $product->id ?>/edit" class="btn btn-cta btn-primary btn-edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+							<a href="/admin/inventory/<?= $product->id ?>/edit" class="btn btn-cta btn-primary btn-edit"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
 						</div>
-						<p>View Product &ndash; <i><?= $product->name ?></i></p>
+						<p>View Product &ndash; <?= $product->name ?></p>
 					</h4>
 				</div>
 				<div class="panel-body">
 					<div class="col-md-10 col-md-offset-1">
 						<table class="table table-hover">
 						    <thead>
-						    	<th>Id</th>
 						    	<th>Field</th>
 						    	<th>Description</th>
 						    </thead>
 						    <tbody>
 						    	<tr>
+						    		<td><b>ID #</b></td>
 						    		<td><?= $product->id ?></td>
+						    	</tr>
+						    	<tr>
 						    		<td><b>Name</b></td>
 						    		<td><?= $product->name ?></td>
 						    	</tr>
 						    	<tr>
-						    		<td></td>
 						    		<td><b>Description</b></td>
 						    		<td><?= $product->description ?></td>
 						    	</tr>
 						    	<tr>
-						    		<td></td>
 						    		<td><b>Featured Image</b></td>
 						    		<td>
 						    			<img class="featured-img" src="<?= !empty($featured) ? $featured->path : "/img/blank.png" ?>" />
 						    		</td>
 						    	</tr>
-						    	<tr>
-						    		<td><?= $product->category_id ?></td>
+						    	<tr>						    		
 						    		<td><b>Category</b></td>
 						    		<td><?= $product->category()->name ?></td>
 						    	</tr>
 						    	<tr>
-						    		<td></td>
 						    		<td><b>Stock Price</b></td>
 						    		<td>$<?= $product->price ?></td>
 						    	</tr>
 						    	<?php if ($product->promotion_id): ?>
 						    		<tr>
-							    		<td></td>
 							    		<td><b>Promo Price</b></td>
 							    		<td>$<?= round($product->price - ($product->price * $product->promotion->discount),2) ?></td>
 							    	</tr>
 						    	<?php endif; ?>
 						    	<tr>
-						    		<td><?= $product->promotion_id?></td>
 						    		<td><b>Promotion</b></td>
 						    		<td>
 						    			<?php if ($product->promotion_id): ?>
@@ -87,12 +83,10 @@
 						    		</td>
 						    	</tr>
 						    	<tr>
-						    		<td></td>
 						    		<td><b>Quantity</b></td>
 						    		<td><?= $product->quantity ?></td>
 						    	</tr>
 						    	<tr>
-						    		<td></td>
 						    		<td><b>Status</b></td>
 						    		<?php
 											$class = "";
@@ -105,7 +99,6 @@
 						    		<td><span class="label label-<?= $class ?> status-label"><?=  str_replace('_', ' ', $product->status) ?></span></td>
 						    	</tr>
 						    	<tr>
-						    		<td></td>
 						    		<td><b>Featured</b></td>
 						    		<td><?php 
 											if($product->featured)

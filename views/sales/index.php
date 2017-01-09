@@ -24,53 +24,54 @@
 				</div>
 				<div class="panel-body">
 					<?php if(!empty($sales)): ?>
-						<table class="table">
-				    <thead>
-						<tr>
-							<th>ID</th>
-							<th>Customer</th>
-							<th>Shipping</th>
-							<th>Payment</th>
-							<th>Status</th>
-							<th></th>
-							<th>Total</th>
-							<th>Created at</th>
-							<th></th>
-						</tr>
-					</thead>
-				    <tbody>
-				     	<?php foreach($sales as $sale): 
-				     	?>
-							<tr>
-								<td><?= $sale->id ?></td>
-								<td><?= $sale->customer()->first." ".$sale->customer()->last ?></td>
-								<td><?= $sale->address()->city.", ".$sale->address()->country ?></td>
-								<td><?= $sale->payment_method()->type ?></td>
-								<form action="/admin/sales/<?= $sale->id ?>" method="POST">
-									<td>
-										<input type="hidden" name="_method" value="PATCH" />
-										<select class="form-control input-sm" name="status" style="width: 120px">
-											<option value="PENDING" <?php if($sale->status == "PENDING") echo "selected=\"selected\""; ?>">PENDING</option>
-											<option value="APPROVED" <?php if($sale->status == "APPROVED") echo "selected=\"selected\""; ?>">APPROVED</option>
-											<option value="DELIVERED" <?php if($sale->status == "DELIVERED") echo "selected=\"selected\""; ?>">DELIVERED</option>
-											<option value="CANCELLED" <?php if($sale->status == "CANCELLED") echo "selected=\"selected\""; ?>">CANCELLED</option>
-											<option value="ERROR" <?php if($sale->status == "ERROR") echo "selected=\"selected\""; ?>">ERROR</option>
-										</select>
-									</td>
-										
-									<td>
-										<input type="submit" name="Update status" class="btn btn-success btn-sm" />	
-									</td>
-								</form>
-								<td>$<?= $sale->total ?></td>
-								<td><?= $sale->created_at ?></td>
-								<td><a href="/admin/sales/<?= $sale->id ?>" class="btn btn-primary btn-sm">View</a></td>
-					
-							</tr>
-						<?php 
-						endforeach; ?>
-				    </tbody>
-				</table>
+						<div class="table-responsive">
+							<table class="table">
+							    <thead>
+									<tr>
+										<th>ID</th>
+										<th>Customer</th>
+										<th>Shipping</th>
+										<th>Payment</th>
+										<th>Status</th>
+										<th></th>
+										<th>Total</th>
+										<th>Created at</th>
+										<th></th>
+									</tr>
+								</thead>
+							    <tbody>
+							     	<?php foreach($sales as $sale): 
+							     	?>
+										<tr>
+											<td><?= $sale->id ?></td>
+											<td><?= $sale->customer()->first." ".$sale->customer()->last ?></td>
+											<td><?= $sale->address()->city.", ".$sale->address()->country ?></td>
+											<td><?= $sale->payment_method()->type ?></td>
+											<form action="/admin/sales/<?= $sale->id ?>" method="POST">
+												<td>
+													<input type="hidden" name="_method" value="PATCH" />
+													<select class="form-control input-sm" name="status" style="width: 120px">
+														<option value="PENDING" <?php if($sale->status == "PENDING") echo "selected=\"selected\""; ?>">PENDING</option>
+														<option value="APPROVED" <?php if($sale->status == "APPROVED") echo "selected=\"selected\""; ?>">APPROVED</option>
+														<option value="DELIVERED" <?php if($sale->status == "DELIVERED") echo "selected=\"selected\""; ?>">DELIVERED</option>
+														<option value="CANCELLED" <?php if($sale->status == "CANCELLED") echo "selected=\"selected\""; ?>">CANCELLED</option>
+														<option value="ERROR" <?php if($sale->status == "ERROR") echo "selected=\"selected\""; ?>">ERROR</option>
+													</select>
+												</td>
+												<td>
+													<button type="submit" class="btn btn-default"><i class="fa fa fa-save" aria-hidden="true"></i></button>
+												</td>
+											</form>
+											<td>$<?= $sale->total ?></td>
+											<td><?= date('d-m-Y', strtotime($sale->created_at)) ?></td>
+											<td><a href="/admin/sales/<?= $sale->id ?>" class="btn btn-primary btn-sm"><i class="fa fa-ellipsis-h"></i></a></td>
+								
+										</tr>
+									<?php 
+									endforeach; ?>
+							    </tbody>
+							</table>
+						</div>
 						<hr>
 					<?php else: ?>
 						<div class="empty-cart">

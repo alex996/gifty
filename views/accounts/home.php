@@ -23,6 +23,7 @@
 				</div>
 				<div class="panel-body">
 					<?php if (!empty($order)): ?>
+						<h4><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i> Order Summary</h4>
 						<table class="table">
 							<thead>
 								<tr>
@@ -42,12 +43,13 @@
 									<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
 									<td class="text-success"><b>$<?= $order->total ?></b></td>
 									<td>
-										<a href="/account/orders/<?= $order->id ?>" class="btn btn-primary"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Details</a>
+										<a href="/account/orders/<?= $order->id ?>" class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> More</a>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<?php if (!empty($order->order_details)): ?>
+							<h4><i class="fa fa-question-circle fa-fw" aria-hidden="true"></i> Order Details</h4>
 							<table class="table table-hover">
 							    <thead>
 									<tr>
@@ -86,6 +88,19 @@
 							    </tbody>
 							</table>
 						<?php endif; ?>
+					<?php else: ?>
+						<div class="text-center">
+							<h3>You don't have any orders yet!</h3>
+							<p>Why not shop start shopping now?</p>
+							<h1>
+								<a href="/products" style="text-decoration: none; color:inherit">
+									<i class="fa fa-cart-arrow-down fa-5x" aria-hidden="true"></i>
+								</a>
+							</h1>
+							<div class="col-md-4 col-md-offset-4" style="margin-bottom:20px">
+								<a href="/products" class="btn btn-primary btn-block btn-cta">Check Out Products</a>
+							</div>
+						</div>						
 					<?php endif; ?>
 				</div>
 			</div>

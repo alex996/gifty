@@ -147,7 +147,6 @@ class Model {
     	}
     }*/
 
-   
     /****************** RELATIONSHIPS ******************/
 
     public function load($relationship) {

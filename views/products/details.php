@@ -165,7 +165,9 @@
 			
 			<hr>
 			<div class="row">
-				<h4 class="text-center"><i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews</h4>
+				<h4 class="text-center" style="margin-bottom:20px">
+					<i class="fa fa-comments-o fa-fw" aria-hidden="true"></i> Product Reviews
+				</h4>
 				<div class="col-md-<?= Auth::check() ? "6" : "10 col-md-offset-1" ?>">
 					<?php foreach($product->reviews as $review): ?>
 					<div class="col-md-12">

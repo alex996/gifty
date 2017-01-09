@@ -8,6 +8,11 @@
     .filter {margin-top:0;}
     .img-card {height: 250px; position: relative;}
     .img-card img {position: absolute; top: 50%; transform: translateY(-50%);}
+
+    @media(min-width:992px) {
+        .product-view {padding-right: 5px}
+        .product-add {padding-left: 5px}
+    }
 </style>
 <?php $this->endblock() ?>
 
@@ -46,8 +51,7 @@
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </span>
-                        </div>
-                        
+                        </div>                        
                     </form>
                 </div>
             </div><br>

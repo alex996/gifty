@@ -26,17 +26,21 @@
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>							
-							<?php foreach($customer->payment_methods as $method): ?>
-								<tr>
-									<td><?= $method->type ?></td>
-									<td><?= $method->cardholder ?></td>
-									<td><?= $method->last_digits ?></td>
-									<?php $addr = $method->address ?>
-									<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
-									<td><a href="" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></td>
-								</tr>
-							<?php endforeach; ?>
+						<tbody>
+							<?php if(!empty($customer->payment_methods)): ?>					
+								<?php foreach($customer->payment_methods as $method): ?>
+									<tr>
+										<td><?= $method->type ?></td>
+										<td><?= $method->cardholder ?></td>
+										<td><?= $method->last_digits ?></td>
+										<?php $addr = $method->address ?>
+										<td><?= "{$addr->street},<br>{$addr->city}, {$addr->state}, {$addr->country}, {$addr->zip}" ?></td>
+										<td><a href="" class="btn btn-primary disabled"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></td>
+									</tr>
+								<?php endforeach; ?>
+							<?php else: ?>
+								<tr><td colspan="6" class="text-center"><i>There is nothing here.</i></td></tr>
+							<?php endif; ?>
 						</tbody>
 					</table>
 				</div>

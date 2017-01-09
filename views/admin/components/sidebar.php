@@ -34,7 +34,7 @@
 	    </div>
 	    <div id="collapseThree" class="panel-collapse collapse <?= strpos($url, 'sales') !== false ? "in" : "" ?>" role="tabpanel" aria-labelledby="headingThree">
 	      <ul class="list-group">
-		    <a class="list-group-item" href="/admin/sales">&emsp;<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i> Orders</a>
+		    <a class="list-group-item" href="/admin/sales">&emsp;<i class="fa fa-chevron-right fa-fw" aria-hidden="true"></i> View All Sales</a>
 		  </ul>
 	    </div>
 	  </div>

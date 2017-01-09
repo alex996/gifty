@@ -165,7 +165,7 @@ class InventoryController {
 	public function update($id) {
 		$this->check_auth();
 
-		$product = Product::with(['category', 'images'])->find($id);
+		$product = Product::with(['category', 'images', 'promotion'])->find($id);
 
 		if (!$product)
 			View::render('errors/404.php', [
@@ -207,15 +207,18 @@ class InventoryController {
 						$product->category_id = $_POST['category_id'];
 					if (!empty($_POST['price']))
 						$product->price = $_POST['price'];
-					if (!empty($_POST['promotion_id']))
-						$product->promotion_id = $_POST['promotion_id'];
+					if (!empty($_POST['promotion_id']) || $_POST['promotion_id'] == '')
+						$product->promotion_id = empty($_POST['promotion_id']) ? null : $_POST['promotion_id'];
 					if (!empty($_POST['quantity']))
 						$product->quantity = $_POST['quantity'];
 					if (!empty($_POST['status']))
 						$product->status = $_POST['status'];
-					if (!empty($_POST['featured']))
+					if ($_POST['featured'] == 1 || $_POST['featured'] == 0)
 						$product->featured = $_POST['featured'];
 					$product->save();
+
+					// Refetch the product. This will update category, image, and promotion relationships
+					$product = Product::with(['category', 'images', 'promotion'])->find($product->id);
 
 					View::render('inventory/edit.php', [
 						'product' => $product,
@@ -250,6 +253,7 @@ class InventoryController {
 		else {
 
 			$product->status = "END_OF_LIFE";
+			$product->featured = 0; // won't show on the homepage
 			$product->save();
 
 			View::render('inventory/index.php', [

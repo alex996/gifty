@@ -20,6 +20,8 @@ class PaymentMethodController {
 
 		if (!Auth::check())
 			Router::redirect('login');
+		else if (! Auth::user()->customer())
+			Router::redirect('account');
 
 		$customer = Customer::with('payment_methods.address')->where('user_id', Auth::id())->get();
 

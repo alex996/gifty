@@ -8,7 +8,7 @@
 	<div class="row">
 
 		<div class="page-header text-center">
-			<h2>Promotions</h2>
+			<h2><i class="fa fa-percent fa-fw" aria-hidden="true"></i> Promotions</h2>
 		</div>
 	
 		<div class="col-md-9">

@@ -14,16 +14,6 @@ require_once(MODEL_PATH . 'Category.php');
 
 class CustomerController extends Controller {
 
-	/* RESTful routes:
-		
-		/customers
-
-	 */
-
-	public function index() {
-		echo "here";
-	}
-
 	public function store() {
 		if (!Auth::check())
 			Router::redirect('login');
@@ -57,6 +47,8 @@ class CustomerController extends Controller {
 	public function show() {
 		if (!Auth::check())
 			Router::redirect('login');
+		else if (! Auth::user()->customer())
+			Router::redirect('account');
 
 		View::render('accounts/profile.php', [
 			'user' => User::with('customer')->find(Auth::id()),

@@ -2,6 +2,10 @@
 
 require_once(MODEL_PATH . 'User.php');
 
+/**
+ * Authentication class to check if users
+ * are logged in and to authenticate users.
+ */
 class Auth {
 
 	public static $user = null;

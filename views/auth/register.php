@@ -25,7 +25,7 @@
 				</div>
 				<div class="form-group">
 					<label for="password">Password:</label>
-					<input class="form-control" type="password" name="password" id="password" placeholder="*************" required>
+					<input class="form-control" type="password" name="password" id="password" placeholder="*************" minlength="6" required>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-cta btn-block">Register</button>

@@ -131,7 +131,7 @@ class CheckoutController {
 				'cardholder' => 'required|max:100',
 				'card_number' => 'required|alphanum_dash|max:25',
 				'type' => 'required|in:VISA,MASTERCARD,INTERAC',
-				'cvv' => 'required|digits|size:3',
+				'cvv' => 'required|digits|size:4',
 				'expiry_month' => 'required|digits',
 				'expiry_year' => 'required|digits|size:4',
 				'street' => 'required|max:255',
@@ -227,6 +227,9 @@ class CheckoutController {
 			]);
 			// Decrement quantity in stock
 			$cart_detail->product->quantity -= $cart_detail->quantity;
+			// Change product status if necessary
+			if ($cart_detail->product->quantity == 0)
+				$cart_detail->product->status = Product::OUT_OF_STOCK;
 			$cart_detail->product->save();
 			// Delete the cart detail
 			$cart_detail->delete();

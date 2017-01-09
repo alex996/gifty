@@ -25,7 +25,7 @@
 					<div id="new-address" class="tab-pane fade in active"><br>
 						<div class="panel panel-default">
 							<div class="panel-heading text-center">
-								<h4>New Shipping Address</h4>
+								<h4><i class="fa fa-map-marker" aria-hidden="true"></i> New Shipping Address</h4>
 							</div>
 							<div class="panel-body">
 								<div class="col-md-12">
@@ -33,19 +33,19 @@
 										<div class="form-group">
 										    <label class="control-label col-sm-3">Street:</label>
 											<div class="col-sm-9">
-										    	<input class="form-control" name="street" placeholder="1234 Main Street" required>
+										    	<input class="form-control" name="street" placeholder="1234 Main Street" value="<?= isset($_POST['street']) ? $_POST['street'] : '' ?>" required>
 										    </div>
 										</div>
 										<div class="form-group">
 										   <label class="control-label col-sm-3">City:</label>
 											<div class="col-sm-9">
-										    	<input class="form-control" name="city" placeholder="New York City" required>
+										    	<input class="form-control" name="city" placeholder="New York City" value="<?= isset($_POST['city']) ? $_POST['city'] : '' ?>" required>
 										    </div>
 										</div>
 										<div class="form-group">
 										   <label class="control-label col-sm-3">State:</label>
 											<div class="col-sm-9">
-										    	<input class="form-control" name="state" placeholder="New York" required>
+										    	<input class="form-control" name="state" placeholder="New York" value="<?= isset($_POST['state']) ? $_POST['state'] : '' ?>" required>
 										    </div>
 										</div>
 										<div class="form-group">
@@ -53,15 +53,15 @@
 											<div class="col-sm-9">
 										    	<select class="form-control" name="country" required>
 										    		<option selected disabled value hidden>Select...</option>
-										    		<option value="US">United States</option>  
-										    		<option value="CA">Canada</option>  
+										    		<option <?= isset($_POST['country']) && $_POST['country'] == 'US' ? 'selected' : '' ?> value="US">United States</option>  
+										    		<option <?= isset($_POST['country']) && $_POST['country'] == 'CA' ? 'selected' : '' ?> value="CA">Canada</option>  
 										    	</select>
 										    </div>
 										</div>
 										<div class="form-group">
 										   <label class="control-label col-sm-3">Zip Code:</label>
 											<div class="col-sm-9">
-										    	<input class="form-control" name="zip" placeholder="12345" minlength="5" maxlength="10" required>
+										    	<input class="form-control" name="zip" placeholder="12345" minlength="5" maxlength="10" value="<?= isset($_POST['zip']) ? $_POST['zip'] : '' ?>" required>
 										    </div>
 										</div>
 										

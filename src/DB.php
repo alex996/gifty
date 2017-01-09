@@ -197,7 +197,9 @@ class DB {
 
     public function all() {
         $all = $this->select();
-        if (!is_array($all) && $all) $all = [$all];
+        if (!is_array($all))
+            $all = $all ? [$all] : [];
+
         return $all;
     }
 }

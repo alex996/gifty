@@ -12,6 +12,8 @@ require_once(MODEL_PATH . 'Product.php');
 
 require_once(MODEL_PATH . 'Category.php');
 
+require_once(MODEL_PATH . 'Customer.php');
+
 class UserController extends Controller {
 
 	public function index() {
@@ -22,6 +24,8 @@ class UserController extends Controller {
 
 		if (!Auth::check())
 			Router::redirect('login');
+		else if (! Auth::user()->customer())
+			Router::redirect('account');
 
 		View::render('accounts/security.php', [
 			'in_cart' => Cart::count(),

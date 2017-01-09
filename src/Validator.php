@@ -1,35 +1,11 @@
 <?php
-//https://github.com/illuminate/validation/blob/master/Validator.php
+
+/**
+ * Validator class. Provides simple and concise
+ * data checking with validation rules. Heavily
+ * inspired by Laravel, but implemented by ourselves.
+ */
 class Validator {
-
-	/*public $errors;
-
-	public static function make($data, $rules) {
-		$validator = new self();
-
-		foreach($rules as $key => $rules) {
-    		$checks = explode("|", $rules);
-    		foreach($checks as $check) {
-    			
-    			$components = explode(":", $check);
-    			$method = $components[0];
-    			$arg = isset($components[1]) ? $components[1] : null;
-
-    			if (!isset($data[$key]) || !self::$method($data[$key], $arg))
-    				$validator->errors[$key] = self::message($method, $key, $arg);
-    		}
-    	}
-
-		return $validator;
-	}
-
-	public function succeeded() {
-		return empty($this->errors);
-	}
-
-	public function failed() {
-		return !empty($this->errors);
-	}*/
 
     public static function validate($data, $rules) {
     	$errors = [];

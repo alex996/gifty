@@ -8,7 +8,7 @@
 	<div class="row">
 
 		<div class="page-header text-center">
-			<h2>Promotions</h2>
+			<h2><i class="fa fa-percent fa-fw" aria-hidden="true"></i> Promotions</h2>
 		</div>
 	
 		<div class="col-md-9">
@@ -26,7 +26,7 @@
 							<div class="form-group">
 							    <label class="control-label col-sm-4">Discount:</label>
 								<div class="col-sm-6">
-							    	<input type="number" step="0.01" min="0" max="0.99" step="0.01" class="form-control" name="discount" required="true"
+							    	<input type="number" min="0.01" max="0.99" step="0.01" class="form-control" name="discount" required="true"
 							    		<?= isset($_POST['starts_at']) ? "value=\"".$_POST['discount']."\"" : "" ?> placeholder="0.00">
 							    </div>
 							</div>
@@ -36,6 +36,7 @@
 								<div class="col-sm-6">
 							    	<input type="datetime-local" class="form-control" name="starts_at" required="true"
 							    		<?= isset($_POST['starts_at']) ? "value=\"".$_POST['starts_at']."\"" : "" ?>>
+							    	<span class="help-block" style="margin-bottom:0">YYYY-MM-DD HH:MM AM/PM</span>
 							    </div>
 							</div>
 
@@ -44,9 +45,9 @@
 								<div class="col-sm-6">
 							    	<input type="datetime-local" class="form-control" name="ends_at" required="true"
 							    		<?= isset($_POST['starts_at']) ? "value=\"".$_POST['ends_at']."\"" : "" ?>>
+							    	<span class="help-block">YYYY-MM-DD HH:MM AM/PM</span>
 							    </div>
 							</div>
-							<br>
 							<div class="col-md-12">
 								<div class="col-md-6 col-md-offset-3">
 									<button type="submit" class="btn btn-success btn-block btn-cta">Launch</button>

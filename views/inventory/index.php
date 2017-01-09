@@ -29,7 +29,7 @@
 				<div class="panel-heading text-center">
 					<h4>
 						<div class="pull-left">
-							<a href="/admin/inventory/create" class="btn btn-cta btn-success btn-block btn-add"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Add</a>
+							<a href="/admin/inventory/create" class="btn btn-cta btn-success btn-block btn-add"><i class="fa fa-plus-square fa-fw fa-lg" aria-hidden="true"></i> Add</a>
 						</div>
 						<p>Manage Products in the Inventory</p>
 					</h4>
@@ -82,7 +82,7 @@
 										<td>
 											<form method="POST" action="/admin/inventory/<?= $product->id ?>">
 												<input type="hidden" name="_method" value="DELETE">
-												<button type="button" class="btn btn-danger btn-del"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+												<button type="button" class="btn btn-danger btn-del" <?= $product->status == Product::END_OF_LIFE ? 'disabled' : '' ?>><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 											</form>
 										</td>
 									</tr>

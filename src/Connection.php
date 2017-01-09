@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * DB Connection class. Establishes for a single datababase
+ * connection for a given HTTP request.
+ */
 class Connection {
 	
 	private static $instance = null;

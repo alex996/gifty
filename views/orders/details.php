@@ -21,6 +21,11 @@
 				<?php $manageable = $order->status == Order::PENDING; ?>
 				<div class="panel-heading text-center"><h4>View <?= $manageable ? "or Manage" : "" ?> Your Order</h4></div>
 				<div class="panel-body">
+					<?php if ($manageable): ?>
+						<div class="alert alert-info">
+							<i class="fa fa-question-circle-o fa-fw fa-lg" aria-hidden="true"></i> <strong>Note:</strong> You can modify your order as long as it has the status of <i><?= Order::PENDING ?></i>.
+						</div>
+					<?php endif; ?>
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<thead>
@@ -74,7 +79,7 @@
 						</table>
 						<hr>
 						<div class="col-md-12">
-							<h3 class="pull-right total-wrapper">Total: <b class="total">$<?= $order->total ?></b></h3>
+							<h3 class="pull-right total-wrapper">Total: <b class="total">$<?= number_format($order->total,2) ?></b></h3>
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Routing class. Allows for centralized control
+ * of application routers (i.e. end points).
+ * Provides for 'RESTful' and SEO-friendly URLS.
+ */ 
 class Router {
 	
 	private static $routes = array();

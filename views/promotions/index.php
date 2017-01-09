@@ -16,7 +16,7 @@
 	<div class="row">
 
 		<div class="page-header text-center">
-			<h2>Promotions</h2>
+			<h2><i class="fa fa-percent fa-fw" aria-hidden="true"></i> Promotions</h2>
 		</div>
 
 		<div style="clear:both; margin-top: 10px;">
@@ -31,13 +31,14 @@
 				<div class="panel-heading text-center">
 					<h4>
 						<div class="pull-left">
-							<a href="/admin/promotions/create" class="btn btn-cta btn-success btn-block btn-launch"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i> Launch</a>
+							<a href="/admin/promotions/create" class="btn btn-cta btn-success btn-block btn-launch"><i class="fa fa-plus-square fa-fw fa-lg" aria-hidden="true"></i> Launch</a>
 						</div>
 						<p>View and Manage Promotions</p>
 					</h4>
 				</div>
 				<div class="panel-body">
 					<?php if(!empty($promotions)) : ?>
+						<div class="col-lg-10 col-lg-offset-1">
 						<table class="table table-hover">
 						    <thead>
 								<tr>
@@ -72,8 +73,7 @@
 								endforeach; ?>
 						    </tbody>
 						</table>
-						
-
+						</div>
 					<?php else: ?>
 						<hr><div class="no-promo">
 							<h3>There are currently no active promotions.</h3>

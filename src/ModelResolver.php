@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Model Name Resolver. Used by the DB class
+ * to resolve table names to proper model
+ * class names.
+ */ 
 class ModelResolver {
 
 	public static $class_table = [];

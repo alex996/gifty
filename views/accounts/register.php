@@ -19,19 +19,19 @@
 				<form method="POST" action="/account">
 				    <div class="form-group col-xs-12 col-sm-6">
 				    	<label for="first">First Name</label>
-				     	<input class="form-control" id="first" name="first" placeholder="ex: John" required>
+				     	<input class="form-control" id="first" name="first" placeholder="ex: John" value="<?= isset($_POST['first']) ? $_POST['first'] : '' ?>" required>
 				    </div>
 				    <div class="form-group col-xs-12 col-sm-6">
 				    	<label for="last">Last Name</label>
-				     	<input class="form-control" id="last" name="last" placeholder="ex: Smith" required>
+				     	<input class="form-control" id="last" name="last" placeholder="ex: Smith" value="<?= isset($_POST['last']) ? $_POST['last'] : '' ?>" required>
 				    </div>
 				    <div class="form-group col-xs-12 col-sm-6">
 				    	<label for="dob">Date Of Birth</label>
-				     	<input class="form-control" id="dob" name="dob" placeholder="Date Of Birth" required>
+				     	<input class="form-control" id="dob" name="dob" placeholder="Date Of Birth" value="<?= isset($_POST['dob']) ? $_POST['dob'] : '' ?>" required>
 				    </div>
 				    <div class="form-group col-xs-12 col-sm-6">
 				    	<label for="phone">Phone</label>
-				     	<input class="form-control" id="phone" name="phone" placeholder="ex: 201-789-5642" required>
+				     	<input class="form-control" id="phone" name="phone" placeholder="ex: 201-789-5642" value="<?= isset($_POST['phone']) ? $_POST['phone'] : '' ?>" required>
 				    </div>
 				    <div class="clearfix"></div>
 				    <hr>
@@ -54,7 +54,14 @@
 	    	changeMonth: true,
       		changeYear: true,
       		dateFormat: 'yy-mm-dd',
-      		yearRange: '-70:',
+      		yearRange: "-100:",
+      		maxDate: '-18Y',
+	    });
+	    $('#dob').focus(function(){
+	        $(this).attr('readonly', true);
+	    });
+	    $('#dob').blur(function(){
+	        $(this).attr('readonly', false);
 	    });
 	});
 </script>
