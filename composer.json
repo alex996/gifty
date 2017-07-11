@@ -1,0 +1,16 @@
+{
+    "name": "alex996/gifty",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Alex",
+            "email": "alexnezhynsky@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "src/Framework/"
+        }
+    }
+}

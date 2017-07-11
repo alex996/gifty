@@ -4,7 +4,7 @@ Online Gift Store
 
 ## Foreword
 
-After reading Paul M. Jones' ["Modernizing Legacy Applications In PHP"](https://leanpub.com/mlaphp), I decided to modernize this old project as an exercise. However, considering its size, it is more sensible to perform a complete rewrite, as opposed to iteractive refactoring. We'll use the lessons of the book as a starting point though.
+After reading Paul M. Jones' ["Modernizing Legacy Applications In PHP"](https://leanpub.com/mlaphp), I decided to modernize this old project as an exercise. However, considering its size, it is more sensible to perform a complete rewrite, as opposed to iteractive refactoring. We'll use the lessons from the book as a starting point though.
 
 [Pitfalls of the legacy Gifty app](https://github.com/alex996/gifty/releases/tag/v0.1.0)
 
