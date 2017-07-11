@@ -4,7 +4,7 @@ Online Gift Store
 
 ## Foreword
 
-After reading Paul M. Jones' ["Modernizing Legacy Applications In PHP"](https://leanpub.com/mlaphp), I decided to modernize this old project as an exercise. However, considering its size, it is more sensible to perform a complete rewrite, as opposed to iteractive refactoring. We'll use the lessons from the book as a starting point though.
+After reading Paul M. Jones' ["Modernizing Legacy Applications In PHP"](https://leanpub.com/mlaphp), I decided to modernize this old project as an exercise. However, considering its size, it is more sensible to perform a complete rewrite, as opposed to iterative refactoring. We'll use the lessons from the book as a starting point though.
 
 [Pitfalls of the legacy Gifty app](https://github.com/alex996/gifty/releases/tag/v0.1.0)
 
@@ -38,7 +38,7 @@ Below is a tentative roadmap for the future version of Gifty:
 22. Follow design patterns (SOLID)
 22. Set up better exception handling / error reporting for diff env. / logging
 
-Otionally, we'd like to:
+Optionally, we'd like to:
 
 1. Migrate to Bootstrap 4
 2. Add internationalization and multilanguage support
@@ -46,3 +46,10 @@ Otionally, we'd like to:
 4. Implement geography-based taxation
 5. Set up invoice generation
 6. Integrate with Vue.js (non-SPA), axios, etc.
+
+## References
+
+Out of my own ignorance purely:
+
+* [Semantic Versioning](http://semver.org)
+* [README.md markdown](https://guides.github.com/features/mastering-markdown)
