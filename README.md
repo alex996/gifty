@@ -21,11 +21,11 @@ Below is a tentative roadmap for the future version of Gifty:
 - [ ] Use modern PHP 7.1 and 7.0 features (e.g. type hints, return type)
 - [ ] **Set up a test suite with PHPUnit**, perhaps even browser test automation
 - [ ] Set up a proper router & Request/Response architecture
-- [ ] Set up a proper ORM alleviating N+1 issues
+- [ ] Set up a proper ORM alleviating N+1 issues (Doctrine or Propel)
 - [ ] Set up a D.I. container & use D.I. across the codebase
 - [ ] Set up a middleware layer
 - [ ] Set up a proper Http/session authentication
-- [ ] Set up templating with caching & escaping
+- [ ] Set up templating with caching & escaping (Twig or Plates)
 - [ ] Make sure to sanitize all foreign inputs (request, cookies, sessions, files)
 - [ ] Set up a configuration (.env?) file
 - [ ] Point the web root to `/public`
@@ -54,4 +54,4 @@ Out of my own ignorance purely:
 * [Semantic Versioning](http://semver.org)
 * [README.md markdown](https://guides.github.com/features/mastering-markdown)
 * [Namespaces & PSR-4 by M. Stauffer](https://mattstauffer.co/blog/a-brief-introduction-to-php-namespacing)
-* [Create Framework with Symfony](http://symfony.com/doc/current/index.html)
+* [Create Framework with Symfony](http://symfony.com/doc/current/create_framework/index.html)

@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
-use Framework\App;
+$input = $_GET['name'] ?? 'World';
 
-new App;
+header('Content-Type: text/html; charset=utf-8');
+
+printf('Hello %s', htmlspecialchars($input, ENT_QUOTES, 'UTF-8'));
