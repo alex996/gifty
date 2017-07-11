@@ -17,6 +17,5 @@ $response->prepare($request);
 $response->send();
 
 // todos:
-// 1. write a test ;)
 // 2. review this http://symfony.com/doc/current/introduction/from_flat_php_to_symfony2.html
 // 3. continue here http://symfony.com/doc/current/create_framework/http_foundation.html

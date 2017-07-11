@@ -6,6 +6,11 @@ class App
 {
     public function __construct()
     {
-        echo 'Working';
+
+    }
+
+    public function getMessage()
+    {
+        return 'Working';
     }
 }
