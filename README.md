@@ -53,4 +53,5 @@ Out of my own ignorance purely:
 
 * [Semantic Versioning](http://semver.org)
 * [README.md markdown](https://guides.github.com/features/mastering-markdown)
+* [Namespaces & PSR-4 by M. Stauffer](https://mattstauffer.co/blog/a-brief-introduction-to-php-namespacing)
 * [Create Framework with Symfony](http://symfony.com/doc/current/index.html)
