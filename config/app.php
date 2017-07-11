@@ -19,10 +19,10 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'gifty');
 
 // DB user:
-define('DB_USER', 'gifty');
+define('DB_USER', 'root');
 
 // DB password:
-define('DB_PASS', '3vDbfJ4stGaqJFxE');
+define('DB_PASS', '');
 
 // DB port:
 define('DB_PORT', '');
