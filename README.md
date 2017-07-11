@@ -12,7 +12,7 @@ After reading Paul M. Jones' ["Modernizing Legacy Applications In PHP"](https://
 
 Below is a tentative roadmap for the future version of Gifty:
 
-1. Set up Composer & PSR-4 autoloading
+1. Set up Composer & PSR-4 autoloading ✓ [v1.0.0](https://github.com/alex996/gifty/releases/tag/v1.0.0)
 2. Revisit folder structure (ref. [Symfony](http://symfony.com/doc/current/quick_tour/the_architecture.html) and [Laravel](https://laravel.com/docs/master/structure))
 3. Use namespaces instead of include's
 4. Follow PSR-2 styling and PHPDoc comments
