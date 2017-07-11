@@ -72,6 +72,9 @@ class Product extends Model {
 
 	public static function on_sale($lim = 3) {
 		$promotions = Promotion::where('ends_at', '>', date('Y-m-d H:i:s'))->all();
+		if (empty($promotions))
+			return [];
+		
 		$ids = [];
 		foreach($promotions as $promo)
 			$ids[] = $promo->id;
