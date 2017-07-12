@@ -9,19 +9,19 @@ $request = Request::createFromGlobals();
 $response = new Response();
 
 $map = [
-    '/hello' => __DIR__.'/../views/hello.php',
-    '/bye' => __DIR__.'/../views/bye/php'
+    '/hello' => 'hello',
+    '/bye' => 'bye'
 ];
 
 $path = $request->getPathInfo();
 if (isset($map[$path])) {
     ob_start();
-    require $map[$path];
-    $response->setContent(ob_get_clean());
+    extract($request->query->all(), EXTR_SKIP);
+    include_once sprintf(__DIR__.'/../views/%s.php', $map[$path]);
+    $response = new Response(ob_get_clean());
 }
 else {
-    $response->setStatusCode(404);
-    $response->setContent('Not Found');
+    $response = new Response('Not Found', 400);
 }
 
 $response->prepare($request);
