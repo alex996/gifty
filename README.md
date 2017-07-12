@@ -14,7 +14,7 @@ Below is a tentative roadmap for the future version of Gifty:
 
 - [x] Set up Composer & PSR-4 autoloading ([v1.0.0](https://github.com/alex996/gifty/releases/tag/v1.0.0))
 - [ ] Revisit folder structure (ref. [Symfony](http://symfony.com/doc/current/quick_tour/the_architecture.html) and [Laravel](https://laravel.com/docs/master/structure))
-- [ ] Use namespaces instead of include's
+- [x] Use namespaces instead of include's
 - [ ] Follow PSR-2 styling and PHPDoc comments
 - [ ] Use open source components: [Symfony](https://symfony.com/components) & [ThePHPLeague](http://thephpleague.com)
 - [ ] Use advanced OOP (interfaces, abstract, meta) + SPL library
