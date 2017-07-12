@@ -14,12 +14,13 @@ Below is a tentative roadmap for the future version of Gifty:
 
 - [x] Set up Composer & PSR-4 autoloading ([v1.0.0](https://github.com/alex996/gifty/releases/tag/v1.0.0))
 - [ ] Revisit folder structure (ref. [Symfony](http://symfony.com/doc/current/quick_tour/the_architecture.html) and [Laravel](https://laravel.com/docs/master/structure))
-- [x] Use namespaces instead of include's
+- [x] Use namespaces instead of include's ([v1.0.1](https://github.com/alex996/gifty/releases/tag/v1.0.1))
 - [ ] Follow PSR-2 styling and PHPDoc comments
 - [ ] Use open source components: [Symfony](https://symfony.com/components) & [ThePHPLeague](http://thephpleague.com)
 - [ ] Use advanced OOP (interfaces, abstract, meta) + SPL library
 - [ ] Use modern PHP 7.1 and 7.0 features (e.g. type hints, return type)
-- [ ] **Set up a test suite with PHPUnit**, perhaps even browser test automation
+- [x] **Set up an automated test suite with PHPUnit** ([v1.0.1](https://github.com/alex996/gifty/releases/tag/v1.0.1))
+- [ ] Write unit/functional/**acceptance** tests (e.g. Codeception)
 - [ ] Set up a proper router & Request/Response architecture
 - [ ] Set up a proper ORM alleviating N+1 issues (Doctrine or Propel)
 - [ ] Set up a D.I. container & use D.I. across the codebase
@@ -28,7 +29,7 @@ Below is a tentative roadmap for the future version of Gifty:
 - [ ] Set up templating with caching & escaping (Twig or Plates)
 - [ ] Make sure to sanitize all foreign inputs (request, cookies, sessions, files)
 - [ ] Set up a configuration (.env?) file
-- [ ] Point the web root to `/public`
+- [ ] Configure web server URL rewrite; ignore asset folders ([v1.0.1](https://github.com/alex996/gifty/releases/tag/v1.0.1))
 - [ ] Introduce front-end asset management with [Webpack](https://laracasts.com/series/webpack-for-everyone) & Node
 - [ ] Reimplement file storage (img, pdf e.g. invoices, etc.) (w/ [Flysystem](http://flysystem.thephpleague.com)?)
 - [ ] Add a mailer service
@@ -46,6 +47,7 @@ Optionally, we'd like to:
 4. Implement geography-based taxation
 5. Set up invoice generation
 6. Integrate with Vue.js (non-SPA), axios, etc.
+7. Redesign admin dashboard (e.g. [AdminLTE](https://adminlte.io))
 
 ## References
 
