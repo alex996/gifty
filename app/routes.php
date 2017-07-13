@@ -23,6 +23,7 @@ $routes->add('welcome', new Route('/welcome/{name}', [
 ]));
 
 $routes->add('leap_year', new Route('/leap-year/{year}', [
+    'year' => null,
     '_controller' => 'App\Controllers\LeapYearController::indexAction'
 ]));
 
