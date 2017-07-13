@@ -13,6 +13,11 @@ abstract class AppTestCase extends TestCase
 {
     protected $app;
 
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
     public function setUp()
     {
         if (! $this->app) {
@@ -22,6 +27,11 @@ abstract class AppTestCase extends TestCase
         parent::setUp();
     }
 
+    /**
+     * Create an application based on the routes file.
+     *
+     * @return void
+     */
     protected function createApplication()
     {
         $routes = require_once __DIR__.'/../app/routes.php';
