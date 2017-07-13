@@ -56,5 +56,6 @@ Out of my own ignorance purely:
 * [Semantic Versioning](http://semver.org)
 * [README.md markdown](https://guides.github.com/features/mastering-markdown)
 * [Namespaces & PSR-4 by M. Stauffer](https://mattstauffer.co/blog/a-brief-introduction-to-php-namespacing)
-* [Create Framework with Symfony](http://symfony.com/doc/current/create_framework/index.html)
+* [Create your own Framework with Symfony](http://symfony.com/doc/current/create_framework/index.html)
 * [Configuring a web server](http://symfony.com/doc/current/setup/web_server_configuration.html)
+* [PSR-2 Coding Style Guide](http://www.php-fig.org/psr/psr-2)
