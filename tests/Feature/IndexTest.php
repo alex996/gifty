@@ -2,12 +2,16 @@
 
 namespace Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
+use Tests\AppTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
-class IndexTest extends TestCase
+class IndexTest extends AppTestCase
 {
     public function test()
     {
-        $this->assertTrue(true);
+        $response = $this->app->handle(Request::create('/welcome/alex'));
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertContains('Hello alex', $response->getContent());
     }
 }
