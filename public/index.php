@@ -12,7 +12,6 @@ use Symfony\Component\HttpKernel\EventListener\{
 use Symfony\Component\HttpFoundation\{Request, RequestStack};
 use Symfony\Component\HttpKernel\Controller\{ArgumentResolver, ControllerResolver};
 
-
 $request = Request::createFromGlobals();
 $requestStack = new RequestStack;
 $routes = require_once __DIR__.'/../app/routes.php';
