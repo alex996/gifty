@@ -2,22 +2,20 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Gifty\Framework\App;
-use Gifty\Framework\Listeners\GoogleListener;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Gifty\Framework\Listeners\ContentLengthListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\HttpKernel\EventListener\{
+    ExceptionListener, ResponseListener, RouterListener
+};
+use Symfony\Component\HttpFoundation\{Request, RequestStack};
+use Symfony\Component\HttpKernel\Controller\{ArgumentResolver, ControllerResolver};
+
 
 $request = Request::createFromGlobals();
+$requestStack = new RequestStack;
 $routes = require_once __DIR__.'/../app/routes.php';
-
-$dispatcher = new EventDispatcher;
-//$dispatcher->addSubscriber(new ContentLengthListener);
-//$dispatcher->addSubscriber(new GoogleListener);
 
 $context = new RequestContext;
 $matcher = new UrlMatcher($routes, $context);
@@ -25,8 +23,15 @@ $matcher = new UrlMatcher($routes, $context);
 $controllerResolver = new ControllerResolver;
 $argumentResolver = new ArgumentResolver;
 
-$app = new App($dispatcher, $matcher, $controllerResolver, $argumentResolver);
-$response = $app->handle($request);
+$dispatcher = new EventDispatcher;
+$dispatcher->addSubscriber(new RouterListener($matcher, $requestStack));
+$dispatcher->addSubscriber(new ResponseListener('UTF-8'));
+$dispatcher->addSubscriber(new ExceptionListener(
+    'App\Controllers\ErrorController::exceptionAction'
+));
+//$dispatcher->addSubscriber(new ContentLengthListener);
+//$dispatcher->addSubscriber(new GoogleListener);
 
-$response->prepare($request);
+$kernel = new HttpKernel($dispatcher, $controllerResolver, $requestStack, $argumentResolver);
+$response = $kernel->handle($request);
 $response->send();
