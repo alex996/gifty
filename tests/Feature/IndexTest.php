@@ -2,21 +2,15 @@
 
 namespace Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpKernel\Client;
-//use Tests\AppTestCase;
-//use Symfony\Component\HttpFoundation\Request;
+use Tests\WebTestCase;
 
-class IndexTest extends TestCase
+class IndexTest extends WebTestCase
 {
     public function test()
     {
-        $client = new Client();
-        $response = $client->request('GET', '/welcome/alex');
-        die($response);
-        // $response = $this->app->handle(Request::create('/welcome/alex'));
-        //
-        // $this->assertEquals(200, $response->getStatusCode());
-        // $this->assertContains('Hello alex', $response->getContent());
+        $client = static::createClient();
+        $client->request('GET', '/welcome/alex');
+
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 }

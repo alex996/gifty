@@ -11,7 +11,8 @@
         "symfony/http-foundation": "^3.3",
         "symfony/routing": "^3.3",
         "symfony/http-kernel": "^3.3",
-        "symfony/event-dispatcher": "^3.3"
+        "symfony/event-dispatcher": "^3.3",
+        "symfony/dependency-injection": "^3.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.2",
@@ -19,8 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Gifty\\": "src/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
