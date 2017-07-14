@@ -1,45 +1,45 @@
 <?php
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Controller\{ArgumentResolver, ControllerResolver};
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\EventListener\{
     ExceptionListener, ResponseListener, RouterListener
 };
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Controller\{ArgumentResolver, ControllerResolver};
 
-$sc = new ContainerBuilder;
+$container = new ContainerBuilder;
 
-$sc->register('context', RequestContext::class);
-$sc->register('matcher', UrlMatcher::class)
+$container->register('context', RequestContext::class);
+$container->register('matcher', UrlMatcher::class)
     ->setArguments([
         '%routes%', new Reference('context')
     ]);
-$sc->register('request_stack', RequestStack::class);
-$sc->register('controller_resolver', ControllerResolver::class);
-$sc->register('argument_resolver', ArgumentResolver::class);
+$container->register('request_stack', RequestStack::class);
+$container->register('controller_resolver', ControllerResolver::class);
+$container->register('argument_resolver', ArgumentResolver::class);
 
-$sc->register('listener.router', RouterListener::class)
+$container->register('listener.router', RouterListener::class)
     ->setArguments([
         new Reference('matcher'), new Reference('request_stack')
     ]);
-$sc->register('listener.response', ResponseListener::class)
+$container->register('listener.response', ResponseListener::class)
     ->setArguments(['UTF-8']);
-$sc->register('listener.exception', ExceptionListener::class)
+$container->register('listener.exception', ExceptionListener::class)
     ->setArguments([
         'App\Controllers\ErrorController::exceptionAction'
     ]);
 
-$sc->register('dispatcher', EventDispatcher::class)
+$container->register('dispatcher', EventDispatcher::class)
     ->addMethodCall('addSubscriber', [new Reference('listener.router')])
     ->addMethodCall('addSubscriber', [new Reference('listener.response')])
     ->addMethodCall('addSubscriber', [new Reference('listener.exception')]);
 
-$sc->register('kernel', HttpKernel::class)
+$container->register('kernel', HttpKernel::class)
     ->setArguments([
         new Reference('dispatcher'),
         new Reference('controller_resolver'),
@@ -47,4 +47,4 @@ $sc->register('kernel', HttpKernel::class)
         new Reference('argument_resolver')
     ]);
 
-return $sc;
+return $container;
