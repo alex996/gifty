@@ -18,7 +18,11 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Gifty\\": "src/",
+            "Gifty\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Tests\\": "tests/"
         }
     }
