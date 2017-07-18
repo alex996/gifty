@@ -16,14 +16,14 @@ Below is a tentative roadmap for the future version of Gifty:
 - [ ] Revisit folder structure (ref. [Symfony](http://symfony.com/doc/current/quick_tour/the_architecture.html) and [Laravel](https://laravel.com/docs/master/structure))
 - [x] Use namespaces instead of include's ([v1.0.1](https://github.com/alex996/gifty/releases/tag/v1.0.1))
 - [ ] Follow PSR-2 styling and PHPDoc comments
-- [ ] Use open source components: [Symfony](https://symfony.com/components) & [ThePHPLeague](http://thephpleague.com)
+- [ ] Use open source components: [Symfony](https://symfony.com/components) & [ThePHPLeague](http://thephpleague.com) ([v1.0.2](https://github.com/alex996/gifty/releases/tag/v1.0.2))
 - [ ] Use advanced OOP (interfaces, abstract, meta) + SPL library
 - [ ] Use modern PHP 7.1 and 7.0 features (e.g. type hints, return type)
 - [x] **Set up an automated test suite with PHPUnit** ([v1.0.1](https://github.com/alex996/gifty/releases/tag/v1.0.1))
 - [ ] Write unit/functional/**acceptance** tests (e.g. Codeception)
-- [ ] Set up a proper router & Request/Response architecture
+- [x] Set up a proper router & Request/Response architecture ([v1.0.2](https://github.com/alex996/gifty/releases/tag/v1.0.2))
 - [ ] Set up a proper ORM alleviating N+1 issues (Doctrine or Propel)
-- [ ] Set up a D.I. container & use D.I. across the codebase
+- [ ] Set up a D.I. container & use D.I. across the codebase ([v1.0.2](https://github.com/alex996/gifty/releases/tag/v1.0.2))
 - [ ] Set up a middleware layer
 - [ ] Set up a proper Http/session authentication
 - [ ] Set up templating with caching & escaping (Twig or Plates)
